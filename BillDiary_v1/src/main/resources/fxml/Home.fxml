@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.shape.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<StackPane fx:id="homepage" maxHeight="695.0" maxWidth="1366.0" minHeight="695.0" minWidth="1366.0" prefHeight="695.0" prefWidth="1366.0" stylesheets="@../css/HomePage.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.billdiary.ui.HomeController">
+   <children>
+      <BorderPane id="borderpane" fx:id="borderpane" prefHeight="600.0" prefWidth="800.0">
+         <bottom>
+            <fx:include source="Footer.fxml" />
+         </bottom>
+         <top>
+            <fx:include source="MenuBar.fxml" />
+         </top>
+         <center>
+            <SplitPane dividerPositions="0.10850439882697947" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <items>
+                <AnchorPane maxHeight="664.0" maxWidth="145.0" minHeight="649.0" minWidth="145.0" prefHeight="664.0" prefWidth="145.0">
+                     <children>
+                        <VBox maxHeight="649.0" maxWidth="145.0" minHeight="649.0" minWidth="145.0" prefHeight="649.0" prefWidth="145.0" spacing="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#showDashBoard" prefHeight="52.0" prefWidth="145.0" text="DashBoard">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#showProduct" prefHeight="52.0" prefWidth="145.0" text="Product">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#showCustomer" prefHeight="52.0" prefWidth="145.0" text="Customer">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#showInvoice" prefHeight="52.0" prefWidth="145.0" text="Invoice">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane fx:id="centerBorderPane" prefHeight="200.0" prefWidth="200.0">
+                           <top>
+                              <HBox prefHeight="48.0" prefWidth="1213.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text fx:id="mainViewTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="DashBoard" translateX="460.0" translateY="8.0">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font></Text>
+                                 </children>
+                              </HBox>
+                           </top>
+                           <right>
+                              <VBox prefHeight="601.0" prefWidth="212.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <TitledPane animated="false" text="Notifications">
+                                      <content>
+                                          <ScrollPane prefViewportHeight="180.0" prefViewportWidth="206.0">
+                                             <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TextFlow fx:id="notificationTextFlow" prefHeight="200.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Circle fill="DODGERBLUE" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
+                                                            <Text id="lowstk" fx:id="lowstk" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                                                            <Text fx:id="trylanguage" strokeType="OUTSIDE" strokeWidth="0.0" text="%Home.Notifications" />
+                                                         </children>
+                                                      </TextFlow>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </ScrollPane>
+                                      </content>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" />
+                                       </padding>
+                                    </TitledPane>
+                                    <TitledPane animated="false" text="Low Stocks">
+                                       <content>
+                                          <AnchorPane id="lowStocks" fx:id="lowStocks" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                       </content>
+                                       <padding>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </padding>
+                                    </TitledPane>
+                                 </children>
+                              </VBox>
+                           </right>
+                           <center>
+                              <fx:include source="DashBoard.fxml" />
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </StackPane>
+              </items>
+            </SplitPane>
+         </center>
+      </BorderPane>
+   </children>
+   <stylesheets>
+    	<URL value="@/css/HomePage.css" />
+    </stylesheets>
+</StackPane>

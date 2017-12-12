@@ -1,0 +1,6 @@
+
+
+.choice-box .choice-box-popup .list-view{
+	-fx-min-height: 100;
+    -fx-max-height: 100;
+	}

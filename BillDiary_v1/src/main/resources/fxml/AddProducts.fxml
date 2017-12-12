@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.billdiary.ui.QuickPayController">
+   <children>
+      <GridPane layoutX="7.0" layoutY="22.0" prefHeight="112.0" prefWidth="558.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.0" minWidth="10.0" prefWidth="80.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="119.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="0.0" prefWidth="63.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="0.0" prefWidth="55.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="103.0" minWidth="10.0" prefWidth="75.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="67.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="128.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name Of Product" wrappingWidth="60.4609375">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Per Quantity" wrappingWidth="89.078125" GridPane.columnIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Text>
+            <TextField fx:id="NameofProduct" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="Quantity" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="amount" prefHeight="25.0" prefWidth="88.0" GridPane.columnIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#HidePage" text="Add" GridPane.columnIndex="6">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

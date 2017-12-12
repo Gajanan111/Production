@@ -1,0 +1,16 @@
+<?xml version='1.0'?><employees><companyname></companyname>
+<Logo>null</Logo>
+<NameOfClient></NameOfClient>
+<date>2017-11-04</date>
+<Address></Address>
+<phone></phone>
+<employee><id>101</id>
+<name>Mobile</name>
+<Quantity>1</Quantity>
+<amtperquantity>25849</amtperquantity>
+<total>25849</total>
+</employee>
+<total>25849.0</total>
+<discount>0</discount>
+<Totalafterdiscount>25849.0</Totalafterdiscount>
+</employees>
