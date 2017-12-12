@@ -58,6 +58,8 @@ public class ManageInvoiceController implements Initializable {
 	public Calculate calculate;
 
 	@FXML
+	TextField paidAmount;
+	@FXML
 	TextField totalAmount;
 	@FXML
 	TextField bigFinalAmount;
@@ -171,45 +173,31 @@ public class ManageInvoiceController implements Initializable {
 			}
 		});
 
-		discount.focusedProperty().addListener((ov, oldV, newV) -> {
-			if (!newV){
-					double total=Double.parseDouble(totalAmount.getText());
-					double disc=Double.parseDouble(discount.getText());
-					total=total-(total*(disc/100));
-					finalAmount.setText(String.valueOf(total));
-				}
+		discount.textProperty().addListener((ov, oldV, newV) -> {
+			calculatefinalAmount();	
 		});
 		
-		totalAmount.focusedProperty().addListener((ov, oldV, newV) -> {
-			if (!newV){
-				System.out.println("hi");
-					double total=Double.parseDouble(totalAmount.getText());
-					double disc;
-					if(discount.getText().isEmpty()) {
-						discount.setText("0");
-						disc=0.0;
-					}else {
-					disc=Double.parseDouble(discount.getText());
-					}
-					total=total-(total*(disc/100));
-					finalAmount.setText(String.valueOf(total));
-				}
+		totalAmount.textProperty().addListener((ov, oldV, newV) -> {
+			calculatefinalAmount();
+			
 		});
-		
-		
+		paidAmount.textProperty().addListener((ov,oldV,newV)->{
+			calculateAmountDue();
+		});
+	
 		finalAmount.textProperty().bindBidirectional(bigFinalAmount.textProperty());
+		finalAmount.textProperty().addListener((ov,oldV,newV)->{
+			paidAmount.setText("0");
+			amountDue.setText(finalAmount.getText());
+		});
 	}
 
 	private void refreshInvoiceTable() {
-		// TODO Auto-generated method stub
-		data.clear();
-		
+		data.clear();	
 	}
 
 	private int calculateInvoiceNO() {
-		// TODO Auto-generated method stub0
 		int invoiceNO = 1;
-
 		return invoiceNO;
 	}
 
@@ -233,6 +221,43 @@ public class ManageInvoiceController implements Initializable {
 		TextFields.bindAutoCompletion(invCustName, customerNameList).setVisibleRowCount(5);
 	}
 
+	
+	public void calculatefinalAmount() {
+		double total;
+		double disc;
+		if(totalAmount.getText().isEmpty()) {
+			total=0;
+		}else {
+			total=Double.parseDouble(totalAmount.getText());
+		}
+		
+		if(discount.getText().isEmpty()) {
+			/*discount.setText("0");*/
+			disc=0.0;
+		}else {
+		disc=Double.parseDouble(discount.getText());
+		}
+		total=total-(total*(disc/100));
+		finalAmount.setText(String.valueOf(total));
+	}
+	
+	public void calculateAmountDue()
+	{
+		double paidAmt;
+		double total;
+		if(finalAmount.getText().isEmpty() ) {
+			total=0.0;
+		}else {
+			total=Double.parseDouble(finalAmount.getText());
+		}
+		if(paidAmount.getText().isEmpty()) {
+			paidAmt=0.0;
+			
+		}else {
+			paidAmt=Double.parseDouble(paidAmount.getText());
+		}
+		amountDue.setText(String.valueOf(total-paidAmt));
+	}
 	private void refreshProductList() {
 		// TODO Auto-generated method stub
 		if (null != prodList) {
@@ -247,7 +272,6 @@ public class ManageInvoiceController implements Initializable {
 		for (Product prod : prodList) {
 			productNameList.add(prod.getProductId() + ": " + prod.getName());
 		}
-
 		TextFields.bindAutoCompletion(invProductName, productNameList).setVisibleRowCount(5);
 	}
 
@@ -268,17 +292,13 @@ public class ManageInvoiceController implements Initializable {
 
 	@FXML
 	public void handleKeyAction(KeyEvent event) {
-
-		System.out.println("+++++++");
-
-		if ((KeyCode) event.getCode() == KeyCode.ADD) {
+		if ((KeyCode) event.getCode() == KeyCode.ENTER) {
 			try {
 				addProduct();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
 		}
-
 	}
 
 	private void addProduct() {
@@ -306,42 +326,27 @@ public class ManageInvoiceController implements Initializable {
 	
 	
 	private void calculateTotalAmount() {
-		// TODO Auto-generated method stub
-		//totalAmount
-		
-		//double d=((TableColumn<Product, Integer>) productTable).getTableView().getItems().get(event.getTablePosition().getRow());
 		double total=0;
 		for (Product row : productTable.getItems()) {
-		      /*for (TableColumn column : columns) {
-		        values.add(
-		          (String) column.
-		          getCellObservableValue(row).
-		          getValue());
-		      }*/
 			total=total+row.getTotalPrice();
-			
 		    }
 		totalAmount.setText(String.valueOf(total));
 	}
 
 	private void deleteButtonClickedThroughHyperlink(int index) {
-		// TODO Auto-generated method stub
-		
 		data.remove(index);
 	}
-
+	
 	@FXML
 	public void addNewCustomer() {
-
 		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
 		StackPane addCustomer = (StackPane) loader.load(URLS.ADD_CUSTOMER);
-
 		BorderPane root = new BorderPane();
 		root.setCenter(addCustomer);
 		layoutController.loadWindow(root, "Add New Customer", Constants.SEARCH_CUSTOMER_WIDTH,
 				Constants.SEARCH_CUSTOMER_HEIGHT);
-
 	}
+	
 	@FXML
 	public void addProdcutToTable() {
 		addProduct();

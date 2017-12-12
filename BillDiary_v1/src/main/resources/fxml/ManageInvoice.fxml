@@ -103,9 +103,9 @@
                   <Text layoutX="503.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Price" />
                   <TextField fx:id="totalAmount" layoutX="843.0" layoutY="459.0" prefHeight="25.0" prefWidth="135.0" />
                   <Text layoutX="758.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount" />
-                  <TextField fx:id="discount" layoutX="643.0" layoutY="459.0" prefHeight="25.0" prefWidth="79.0" />
+                  <TextField fx:id="discount" layoutX="611.0" layoutY="459.0" prefHeight="25.0" prefWidth="79.0" />
                   <TextField fx:id="finalAmount" layoutX="842.0" layoutY="493.0" prefHeight="25.0" prefWidth="135.0" />
-                  <Text layoutX="553.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount(%)" />
+                  <Text layoutX="534.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount(%)" />
                   <Text layoutX="759.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Final Amount" />
                   <Text layoutX="503.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invoice number" />
                   <Text fx:id="invNO" layoutX="615.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" />
@@ -119,9 +119,9 @@
                     </items>
                   </MenuButton>
                   <Text layoutX="682.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press CTL+P for save and Print" />
-                  <Text layoutX="759.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due" />
-                  <TextField fx:id="amountDue" layoutX="842.0" layoutY="523.0" prefHeight="25.0" prefWidth="135.0" />
-                  <TextField fx:id="bigFinalAmount" layoutX="836.0" layoutY="17.0" prefHeight="61.0" prefWidth="142.0">
+                  <Text layoutX="534.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due" />
+                  <TextField fx:id="amountDue" layoutX="611.0" layoutY="523.0" prefHeight="25.0" prefWidth="135.0" />
+                  <TextField fx:id="bigFinalAmount" alignment="CENTER" layoutX="836.0" layoutY="17.0" prefHeight="61.0" prefWidth="142.0">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font></TextField>
@@ -130,6 +130,8 @@
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </Text>
+                  <Text layoutX="762.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paid Amount" />
+                  <TextField fx:id="paidAmount" layoutX="840.0" layoutY="523.0" prefHeight="25.0" prefWidth="135.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
