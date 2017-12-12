@@ -15,7 +15,7 @@
          <content>
             <Pane maxHeight="600.0" maxWidth="995.0" minHeight="600.0" minWidth="990.0" prefHeight="600.0" prefWidth="995.0">
                <children>
-                  <TextField fx:id="invCustName" layoutX="140.0" layoutY="29.0" prefHeight="25.0" prefWidth="141.0" promptText="Type Customer Name" />
+                  <TextField fx:id="invCustName" layoutX="140.0" layoutY="29.0" onKeyPressed="#handleKeyActionEnter" prefHeight="25.0" prefWidth="141.0" promptText="Type Customer Name" />
                   <TextArea fx:id="invAddress" layoutX="139.0" layoutY="66.0" prefHeight="40.0" prefWidth="141.0" />
                   <TextField fx:id="invMobileNo" layoutX="140.0" layoutY="115.0" prefHeight="25.0" prefWidth="141.0" promptText="XXXXXXXXXX" />
                   <DatePicker fx:id="invDueDate" layoutX="594.0" layoutY="115.0" prefHeight="25.0" prefWidth="148.0" />

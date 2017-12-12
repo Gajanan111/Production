@@ -10,16 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import com.billdiary.config.SpringFxmlLoader;
-import com.billdiary.model.Customer;
+
 import com.billdiary.model.Product;
 import com.billdiary.service.ProductService;
-//import com.billdiary.service.ProductService;
+
 import com.billdiary.utility.Constants;
 import com.billdiary.utility.URLS;
-
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -276,19 +274,8 @@ private void populate(final List < Product > products)
 		Integer stock=(Integer)event.getNewValue();
 		event.getTableView().getItems().get(event.getTablePosition().getRow()).setStock(new SimpleIntegerProperty(stock));
 		Stock.setCellFactory(TextFieldTableCell.<Product,Integer>forTableColumn(new IntegerStringConverter()));	
-	}
-	/*
-	if("joiningDate".equals(event.getTableColumn().getId())) {
-		String joiningDate=event.getNewValue().toString();
-		event.getTableView().getItems().get(event.getTablePosition().getRow()).setJoiningDate(new SimpleStringProperty(joiningDate));
-	}
-	*/
-	
+	}	
 }
-
-
-
-
 
 @FXML public void saveProduct()
 {
@@ -339,16 +326,11 @@ public void addProduct(ActionEvent event){
 		prod.setRetailPrice(new SimpleDoubleProperty(retailPrice));
 		prod.setWholesalePrice(new SimpleDoubleProperty(wholesalePrice));
 		prod.setDiscount(new SimpleDoubleProperty(discount));
-		prod.setStock(new SimpleIntegerProperty(stock));
-	    
+		prod.setStock(new SimpleIntegerProperty(stock));  
 		productService.addProduct(prod);
-		
 		getRefreshedTable();
 		((Node)(event.getSource())).getScene().getWindow().hide();
-	}
-	
-	
-	
+	}	
 	
 }
 public void getRefreshedTable()

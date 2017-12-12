@@ -38,36 +38,7 @@ public class Customer {
 	
 	@Autowired
 	GeneralUitilies generalUtilities;
-	
-//	private Image image;
-
-	//Label iconLabel = GlyphsDude.createIcon( FontAwesomeIcons.BARS,&quot;40px&quot; );
-	/*
-	Region r=GlyphsStack.create().add(
-			GlyphsBuilder.create(FontAwesome.class).icon(FontAwesomeIcon.SAVE).sizse("10em").build()
-			);
-	*/
-	
-	/*
-	public Image getImage() {
-		if(null==image)
-		{
-			try {
-				GeneralUitilies generalUtilities=new GeneralUitilies();
-			image=new Image(generalUtilities.getFile("/images/deleteIcon.jpg").toURI().toString(),15,20,false,false);
-			}
-			catch(Exception e)
-			{
-				System.out.println("image "+ e.getMessage());
-			}
-		}
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
-	}*/
-	
+	IconGallery iconGallery=new IconGallery();
 	/**
 	 * These fields are only for tableview purpose
 	 * 
@@ -84,16 +55,7 @@ public class Customer {
 	private SimpleStringProperty country;
 	private SimpleStringProperty zipCode;
 	private SimpleStringProperty addAdditionalInfo;
-	
-	
-	
-	
-	
-	IconGallery iconGallery=new IconGallery();
-	
-	//@Autowired
-	//IconGallery iconGallery;
-	
+
 	private HBox actionbox;
 	
 	

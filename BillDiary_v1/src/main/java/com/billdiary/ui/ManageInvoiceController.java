@@ -24,15 +24,11 @@ import com.billdiary.utility.URLS;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.DatePicker;
-
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -141,19 +137,7 @@ public class ManageInvoiceController implements Initializable {
 
 		invCustName.focusedProperty().addListener((ov, oldV, newV) -> {
 			if (!newV) {
-				String customer = invCustName.getText();
-				if (null != customer) {
-					Customer cust = custList.stream()
-							.filter(x -> (x.getCustomerName() + " " + x.getMobile_no()).equals(customer)).findAny()
-							.orElse(null);
-					if (null != cust)
-						selectedCustomer = cust;
-
-					if (null != selectedCustomer) {
-						invAddress.setText(selectedCustomer.getAddress());
-						invMobileNo.setText(selectedCustomer.getMobile_no());
-					}
-				}
+				selectCustomerAddMob();
 			}
 		});
 
@@ -301,6 +285,32 @@ public class ManageInvoiceController implements Initializable {
 		}
 	}
 
+	@FXML
+	public void handleKeyActionEnter(KeyEvent event) {
+		if ((KeyCode) event.getCode() == KeyCode.ENTER) {
+			try {
+				selectCustomerAddMob();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+	
+	public void selectCustomerAddMob() {
+		String customer = invCustName.getText();
+		if (null != customer) {
+			Customer cust = custList.stream()
+					.filter(x -> (x.getCustomerName() + " " + x.getMobile_no()).equals(customer)).findAny()
+					.orElse(null);
+			if (null != cust)
+				selectedCustomer = cust;
+
+			if (null != selectedCustomer) {
+				invAddress.setText(selectedCustomer.getAddress());
+				invMobileNo.setText(selectedCustomer.getMobile_no());
+			}
+		}
+	}
 	private void addProduct() {
 		if (null != selectedProduct) {
 			Product pr=selectedProduct;

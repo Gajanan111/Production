@@ -13,7 +13,7 @@ import javafx.scene.control.Tooltip;
 @Scope("prototype")
 public class IconGallery {
 	
-	public  FontAwesomeIconView fontAwesomeSaveIconView= new FontAwesomeIconView(FontAwesomeIcon.SAVE);
+	public  FontAwesomeIconView fontAwesomeSaveIconView= new FontAwesomeIconView(FontAwesomeIcon.EDIT);
 	public  FontAwesomeIconView fontAwesomeTrashIconView= new FontAwesomeIconView(FontAwesomeIcon.TRASH);
 	public Tooltip saveToolTip;
 	public Tooltip deleteToolTip;
