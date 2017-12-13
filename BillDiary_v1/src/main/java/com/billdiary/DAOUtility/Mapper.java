@@ -53,6 +53,7 @@ public class Mapper {
 			prod.setRetailPrice(new SimpleDoubleProperty(productEntity.getRetail_price()));
 			prod.setWholesalePrice(new SimpleDoubleProperty(productEntity.getWholesale_price()));
 			prod.setStock(new SimpleIntegerProperty(productEntity.getStock()));
+			prod.setProductCategory(new SimpleStringProperty(productEntity.getProductCategory()));
 			//prod.setDelete(new Hyperlink("Delete"));
 			productList.add(prod);
 			
@@ -171,7 +172,8 @@ public class Mapper {
 			productEntity.setName(prod.getName());;
 			productEntity.setRetail_price(prod.getRetailPrice());;
 			productEntity.setWholesale_price(prod.getWholesalePrice());;
-			productEntity.setStock(prod.getStock());;
+			productEntity.setStock(prod.getStock());
+			productEntity.setProductCategory(prod.getProductCategory());
 			productEntityList.add(productEntity);
 		}
 		return productEntityList;
@@ -187,7 +189,7 @@ public class Mapper {
 		productEntity.setWholesale_price(prod.getWholesalePrice());;
 		productEntity.setDiscount(prod.getDiscount());;
 		productEntity.setStock(prod.getStock());;
-		
+		productEntity.setProductCategory(prod.getProductCategory());
 		return productEntity;
 	}
 

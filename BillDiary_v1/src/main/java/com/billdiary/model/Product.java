@@ -28,6 +28,9 @@ public class Product {
 	
 	private  SimpleStringProperty name;
 	
+	private SimpleStringProperty productCategory;
+	
+	
 	private SimpleDoubleProperty wholesalePrice;
 	
 	private SimpleDoubleProperty retailPrice;
@@ -58,6 +61,7 @@ public class Product {
 		
 		this.productId = new SimpleIntegerProperty(prodId);
 		this.name = new SimpleStringProperty(nameOfProduct);
+		
 		this.wholesalePrice =new SimpleDoubleProperty( wholesale_Price);
 		this.retailPrice = new SimpleDoubleProperty(retail_Price);
 		this.description = new SimpleStringProperty(descriptionOfProduct);
@@ -174,5 +178,11 @@ public class Product {
 	}
 	public void setTotalPrice(SimpleDoubleProperty totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	public String getProductCategory() {
+		return productCategory.get();
+	}
+	public void setProductCategory(SimpleStringProperty productCategory) {
+		this.productCategory = productCategory;
 	}
 }

@@ -29,6 +29,10 @@ public class ProductEntity implements Serializable {
 	@Column(name = "product_name")
 	String name; 
 	
+	@Column(name="product_category")
+	String productCategory;
+	
+	
 	@Column(name = "description")
 	String description;
 	
@@ -87,5 +91,11 @@ public class ProductEntity implements Serializable {
 	public void setStock(int stock) {
 		this.stock = stock;
 	} 
+	public String getProductCategory() {
+		return productCategory;
+	}
+	public void setProductCategory(String productCategory) {
+		this.productCategory = productCategory;
+	}
 
 }

@@ -34,6 +34,14 @@
 							<TextFieldTableCell fx:factory="forTableColumn" />
 							</cellFactory>
 							</TableColumn>
+                        <TableColumn id="Category" onEditCommit="#setEditedValue" prefWidth="75.0" text="Category">
+                           <cellFactory>
+                              <TextFieldTableCell fx:factory="forTableColumn" />
+                           </cellFactory>
+                           <cellValueFactory>
+                              <PropertyValueFactory property="productCategory" />
+                           </cellValueFactory>
+                        </TableColumn>
                         <TableColumn id="ProductDesc" onEditCommit="#setEditedValue" prefWidth="75.0" text="Product Description">
                         <cellValueFactory>
 							<PropertyValueFactory property="description" />
