@@ -70,7 +70,7 @@ public class HomeController {
 	
 	@FXML public void showCustomer()
 	{
-		LOGGER.debug("Entering Class HomeController : method :showProduct");
+		LOGGER.debug("Entering Class HomeController : method :showCustomer");
 		try{
 		centerBorderPane.setCenter(null);
 		SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
@@ -84,9 +84,26 @@ public class HomeController {
 		}
 		
 	}
+	
+	
+	@FXML public void showSupplier()
+	{
+		LOGGER.debug("Entering Class HomeController : method :showSupplier");
+		try{
+		centerBorderPane.setCenter(null);
+		SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
+		StackPane manageSupplier=(StackPane)loader.load(URLS.MANAGE_SUPPLIER);
+		mainViewTitle.setText("Supplier");
+		centerBorderPane.setCenter(manageSupplier);
+		}
+		catch(Exception e)
+		{
+			LOGGER.debug("Entering Class HomeController : method :showSupplier "+e.getMessage());
+		}
+	}
 	@FXML public void showInvoice()
 	{
-		LOGGER.debug("Entering Class HomeController : method :showProduct");
+		LOGGER.debug("Entering Class HomeController : method :showInvoice");
 		try{
 		centerBorderPane.setCenter(null);
 		SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
@@ -96,7 +113,7 @@ public class HomeController {
 		}
 		catch(Exception e)
 		{
-			LOGGER.debug("Entering Class HomeController : method :manageInvoice "+e.getMessage());
+			LOGGER.debug("Entering Class HomeController : method :showInvoice "+e.getMessage());
 		}
 		
 	}
