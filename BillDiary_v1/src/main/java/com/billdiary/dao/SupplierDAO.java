@@ -1,5 +1,8 @@
 package com.billdiary.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +21,12 @@ public class SupplierDAO extends AbstractJpaDAO< SupplierEntity > {
 		create(supEntity);
 		supAdded=true;
 		return supAdded;
+	}
+	public List<SupplierEntity> fetchSuppliers() {
+		// TODO Auto-generated method stub
+		List<SupplierEntity> supplierEntityList=new ArrayList<>();
+		supplierEntityList=findAll();
+		return supplierEntityList;
 	}
 	
 }

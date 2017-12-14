@@ -20,7 +20,7 @@
                   <Text layoutX="43.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Supplier ID" />
                   <TextField fx:id="supplierID" layoutX="140.0" layoutY="81.0" />
                   <Separator layoutX="8.0" layoutY="133.0" prefHeight="3.0" prefWidth="964.0" />
-                  <TableView fx:id="supplierTable" editable="true" layoutX="10.0" layoutY="146.0" prefHeight="245.0" prefWidth="960.0">
+                  <TableView fx:id="supplierTable" editable="false" layoutX="10.0" layoutY="146.0" prefHeight="245.0" prefWidth="960.0">
                     <columns>
                       <TableColumn id="supplierID" editable="false" prefWidth="75.0" text="ID">
                             <cellValueFactory>
@@ -73,7 +73,7 @@
 							<TextFieldTableCell fx:factory="forTableColumn" />
 							</cellFactory>
 						</TableColumn>
-                        <TableColumn id="supplierUnpaidBalance" prefWidth="75.0" text="Unpaid Bal.">
+                        <TableColumn id="supplierUnpaidBalance" fx:id="supplierUnpaidBalance" prefWidth="75.0" text="Unpaid Bal.">
                         	<cellValueFactory>
 							<PropertyValueFactory property="supplierUnpaidBalance" />
 							</cellValueFactory>
@@ -89,7 +89,7 @@
                               <PropertyValueFactory property="supplierAsOfDate" />
                            </cellValueFactory>
                         </TableColumn>
-                        <TableColumn id="supplierBillingRate" prefWidth="75.0" text="Billing Rate">
+                        <TableColumn id="supplierBillingRate" fx:id="supplierBillingRate" prefWidth="75.0" text="Billing Rate">
                         	<cellValueFactory>
 							<PropertyValueFactory property="supplierBillingRate" />
 							</cellValueFactory>

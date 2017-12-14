@@ -11,7 +11,9 @@ import com.billdiary.service.SupplierService;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -66,7 +68,7 @@ public class AddSupplierController {
 	DatePicker asOfDate;
 	
 	@FXML
-	public void addSupplier() {
+	public void addSupplier(ActionEvent event) {
 		
 		//String  supplID=
 		String supplName=supplierName.getText();
@@ -84,7 +86,14 @@ public class AddSupplierController {
 	    }else {
 	    	supplUnpaidBalance=0.0;
 	    }
-		LocalDate supplAsOfDate=asOfDate.getValue();
+		LocalDate supplAsOfDate;
+		if(asOfDate.getValue()==null) {
+			supplAsOfDate=LocalDate.now();
+		}else {
+			supplAsOfDate=asOfDate.getValue();
+		}
+		
+		
 		String supplAccountNo=supplierAccountNO.getText();
 		String supplTaxRegNo=supplierTaxRegNO.getText();
 		String  supplBillingRate;
@@ -117,7 +126,7 @@ public class AddSupplierController {
 		sup.setSupplierCompany(new SimpleStringProperty(supplCompany));
 		sup.setSupplierAddress(new SimpleStringProperty(supplAddress));
 		sup.setSupplierAccountNo(new SimpleStringProperty(supplAccountNo));
-		sup.setSupplierAsOfDate(asOfDate);
+		sup.setSupplierAsOfDate(supplAsOfDate);
 		
 		sup.setSupplierBillingRate(new SimpleDoubleProperty(Double.parseDouble(supplBillingRate)));
 		sup.setSupplierEmailID(new SimpleStringProperty(supplEmailID));
@@ -131,6 +140,9 @@ public class AddSupplierController {
 		sup.setSupplierPhoneNo(new SimpleStringProperty(supplPhoneNo));
 		
 		supplierService.addNewSupplier(sup);
+		
+		((Node)(event.getSource())).getScene().getWindow().hide();
+		
 		
 	}
 }

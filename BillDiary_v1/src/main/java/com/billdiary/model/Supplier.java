@@ -3,10 +3,13 @@ package com.billdiary.model;
 import java.time.LocalDate;
 import java.util.Date;
 
+import com.billdiary.utility.IconGallery;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.HBox;
 
 public class Supplier {
@@ -28,10 +31,49 @@ public class Supplier {
 	private SimpleDoubleProperty  supplierBillingRate;
 	private SimpleStringProperty supplierOther;
 	private  HBox actionbox;
+	private Hyperlink deleteHyperlink;
+	private Hyperlink saveHyperlink;
+	IconGallery iconGallery=new IconGallery();
 	
 	
 	
+	public Hyperlink getDeleteHyperlink() {
+		if(deleteHyperlink==null)
+		{
+			deleteHyperlink=new Hyperlink();
+			deleteHyperlink.setGraphic(iconGallery.getDeleteIcon());
+			deleteHyperlink.setTooltip(iconGallery.getDeleteToolTip());
+		}
+		return deleteHyperlink;
+	}
+	public void setDeleteHyperlink(Hyperlink deleteHyperlink) {
+		this.deleteHyperlink = deleteHyperlink;
+	}
+	public Hyperlink getSaveHyperlink() {
+		if(saveHyperlink==null)
+		{
+			saveHyperlink=new Hyperlink();
+			try {
+			saveHyperlink.setGraphic(iconGallery.getSaveIcon());
+			saveHyperlink.setTooltip(iconGallery.getSaveToolTip());	
+			}
+			catch(Exception e)
+			{
+				System.out.println("in saveICon "+e.getMessage());
+			}
+		}
+		return saveHyperlink;
+		
+	}
+	public void setSaveHyperlink(Hyperlink saveHyperlink) {
+		this.saveHyperlink = saveHyperlink;
+	}
 	public HBox getActionbox() {
+		if(actionbox==null) {
+			deleteHyperlink=getDeleteHyperlink();
+			saveHyperlink=getSaveHyperlink();
+			actionbox=new HBox(deleteHyperlink,saveHyperlink);
+		}
 		return actionbox;
 	}
 	public void setActionbox(HBox actionbox) {
@@ -103,11 +145,15 @@ public class Supplier {
 	public void setSupplierUnpaidBalance(SimpleDoubleProperty supplierUnpaidBalance) {
 		this.supplierUnpaidBalance = supplierUnpaidBalance;
 	}
-	public LocalDate getSupplierAsOfDate() {
-		return supplierAsOfDate.getValue();
+	public String getSupplierAsOfDate() {
+		return supplierAsOfDate.getValue().toString();
 	}
-	public void setSupplierAsOfDate(DatePicker supplierAsOfDate) {
-		this.supplierAsOfDate = supplierAsOfDate;
+	public void setSupplierAsOfDate(LocalDate supplierAsOfDate) {
+		if(this.supplierAsOfDate==null) {
+			this.supplierAsOfDate=new DatePicker();
+		}
+		this.supplierAsOfDate.setValue(supplierAsOfDate);
+		
 	}
 	public String getSupplierAccountNo() {
 		return supplierAccountNo.get();

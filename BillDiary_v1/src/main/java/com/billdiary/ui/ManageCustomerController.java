@@ -51,13 +51,11 @@ public class ManageCustomerController implements Initializable {
 
 		// this.customerName.textProperty().bind(this.customer.getName());
 		try {
-			System.out.println(customerTable + " fdf");
+			
 			customerTable.setItems(data);
-			System.out.println("f");
 			populate(retrieveData());
-			System.out.println("ff");
 			filter = new TableFilter(customerTable);
-			System.out.println("fff");
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

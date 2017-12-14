@@ -1,5 +1,8 @@
 package com.billdiary.DAOUtility;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -16,7 +19,14 @@ public class ModelTOEntityMapper {
 		supEntity.setSupplierCompany(sup.getSupplierCompany());
 		supEntity.setSupplierAddress(sup.getSupplierAddress());
 		supEntity.setSupplierAccountNo(sup.getSupplierAccountNo());
-		supEntity.setSupplierAsOfDate(Date.from(sup.getSupplierAsOfDate().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		Date asOfDate=null;
+		try {
+			asOfDate = df.parse(sup.getSupplierAsOfDate());
+		} catch (ParseException e) {
+			System.out.println("Exception while date parsing"+e.getMessage());
+		}
+		supEntity.setSupplierAsOfDate(asOfDate);
 		supEntity.setSupplierBillingRate(sup.getSupplierBillingRate());
 		supEntity.setSupplierEmailID(sup.getSupplierEmailID());
 		supEntity.setSupplierGovID(sup.getSupplierGovID());
