@@ -61,7 +61,9 @@ public class ManageSupplierController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	
 		supplierTable.setItems(data);
+		System.out.println("f");
 		populate(retrieveData());
+		System.out.println("ff");
 		supplierUnpaidBalance.setCellFactory(TextFieldTableCell.<Supplier, Double>forTableColumn(new DoubleStringConverter()));
 		supplierBillingRate.setCellFactory(TextFieldTableCell.<Supplier, Double>forTableColumn(new DoubleStringConverter()));
 	}
@@ -74,9 +76,30 @@ public class ManageSupplierController implements Initializable {
 				int index = data.indexOf(sup);
 				//cust.getDeleteHyperlink().setOnAction(e -> deleteButtonClickedThroughHyperlink(custID));
 				//cust.getSaveHyperlink().setOnAction(e -> saveButtonClickedThroughHyperlink(custID, index));
+				sup.getDeleteHyperlink().setOnAction(e -> deleteButtonClickedThroughHyperlink(supID));
+				sup.getSaveHyperlink().setOnAction(e -> saveButtonClickedThroughHyperlink(supID, index));
 			}
 		}
 	}
+	private void saveButtonClickedThroughHyperlink(int supID, int index) {
+		Supplier sup=data.get(index);
+		ApplicationContext applicationContext=SpringFxmlLoader.getApplicationcontext();
+		AddSupplierController addSupplierController=(AddSupplierController)applicationContext.getBean("AddSupplierController");
+		addSupplierController.setSupModel(sup);
+		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
+		StackPane addSupplier = (StackPane) loader.load(URLS.ADD_SUPPLIER);
+		BorderPane root = new BorderPane();
+		root.setCenter(addSupplier);
+		layoutController.loadWindow(root, "Update Supplier Details", Constants.POPUP_WINDOW_WIDTH,
+				Constants.POPUP_WINDOW_HEIGHT);
+	
+	}
+
+	private void deleteButtonClickedThroughHyperlink(int supID) {
+		supplierService.removeSupplier(supID);
+		getRefreshedTable();
+	}
+
 	private List<Supplier> retrieveData() {
 		try {
 			if (supplierList.isEmpty()) {

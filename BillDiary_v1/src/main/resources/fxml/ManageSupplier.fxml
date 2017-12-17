@@ -86,7 +86,7 @@
                               <TextFieldTableCell fx:factory="forTableColumn" />
                            </cellFactory>
                            <cellValueFactory>
-                              <PropertyValueFactory property="supplierAsOfDate" />
+                              <PropertyValueFactory property="asOfDateStr" />
                            </cellValueFactory>
                         </TableColumn>
                         <TableColumn id="supplierBillingRate" fx:id="supplierBillingRate" prefWidth="75.0" text="Billing Rate">

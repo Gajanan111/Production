@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.billdiary.utility.IconGallery;
 
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,6 +31,8 @@ public class Supplier {
 	private SimpleStringProperty supplierTaxRegNo;
 	private SimpleDoubleProperty  supplierBillingRate;
 	private SimpleStringProperty supplierOther;
+	private ReadOnlyStringProperty asOfDateStr;
+	
 	private  HBox actionbox;
 	private Hyperlink deleteHyperlink;
 	private Hyperlink saveHyperlink;
@@ -146,6 +149,9 @@ public class Supplier {
 		this.supplierUnpaidBalance = supplierUnpaidBalance;
 	}
 	public String getSupplierAsOfDate() {
+		if(supplierAsOfDate.getValue()==null) {
+			return "";
+		}
 		return supplierAsOfDate.getValue().toString();
 	}
 	public void setSupplierAsOfDate(LocalDate supplierAsOfDate) {
@@ -180,6 +186,13 @@ public class Supplier {
 		this.supplierOther = supplierOther;
 	}
 
-	
+	public String getAsOfDateStr() {
+		if(supplierAsOfDate==null) {
+			asOfDateStr=new SimpleStringProperty("");
+		}else {
+			asOfDateStr=new SimpleStringProperty(supplierAsOfDate.getValue().toString());
+		}
+		return asOfDateStr.get();
+	}
 	
 }

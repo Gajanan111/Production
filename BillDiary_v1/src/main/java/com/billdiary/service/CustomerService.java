@@ -37,7 +37,7 @@ public class CustomerService {
 	}
 	
 	
-	public boolean deleteCustomer(long id)
+	public boolean deleteCustomer(int id)
 	{
 		boolean customerDeleted=false;
 		customerDAO.deleteCustomer(id);

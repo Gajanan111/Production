@@ -19,12 +19,16 @@ public class ModelTOEntityMapper {
 		supEntity.setSupplierCompany(sup.getSupplierCompany());
 		supEntity.setSupplierAddress(sup.getSupplierAddress());
 		supEntity.setSupplierAccountNo(sup.getSupplierAccountNo());
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date asOfDate=null;
+		
 		try {
+			if(""!=sup.getSupplierAsOfDate()) {
 			asOfDate = df.parse(sup.getSupplierAsOfDate());
+			}
 		} catch (ParseException e) {
 			System.out.println("Exception while date parsing"+e.getMessage());
+		
 		}
 		supEntity.setSupplierAsOfDate(asOfDate);
 		supEntity.setSupplierBillingRate(sup.getSupplierBillingRate());

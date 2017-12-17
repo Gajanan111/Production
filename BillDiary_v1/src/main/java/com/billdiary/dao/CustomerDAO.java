@@ -29,16 +29,14 @@ public class CustomerDAO extends AbstractJpaDAO< CustomerEntity >{
 	}
 	
 	@Transactional
-	public boolean deleteCustomer(long id)
+	public boolean deleteCustomer(int id)
 	{
 
 		boolean customerDeleted=false;
-		
 		//deleteById(id);
-		int i=(int)id;
-		CustomerEntity c=entityManager.find(CustomerEntity.class, i);
-		
-		entityManager.remove(c);
+		//int i=(int)id;
+		CustomerEntity c=findEntity(id);
+		delete(c);
 		
 		customerDeleted=true;
 		return customerDeleted;
