@@ -2,10 +2,14 @@ package com.billdiary.ui;
 
 
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 import org.apache.log4j.Logger;
 
 import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.dao.CreateSchema;
+import com.billdiary.screenResolution.ScreenController;
 import com.billdiary.utility.Constants;
 import com.billdiary.utility.DAOConstants;
 import com.billdiary.utility.URLS;
@@ -46,7 +50,10 @@ public class MainController extends Application{
 		Parent root = (Parent) loader.load(URLS.LOGIN_PAGE);
 		//Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/Login.fxml"));
 		//Stage stage = new Stage();
-		Scene scene = new Scene(root, 800, 600); 
+		
+		
+		
+		Scene scene = new Scene(root,ScreenController.getScreenWidth(), ScreenController.getScreenHeight()); 
         stage.setTitle(Constants.APPLICATION_TITLE);
         stage.setScene(scene);
         stage.show();	

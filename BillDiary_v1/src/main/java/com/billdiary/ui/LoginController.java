@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import com.billdiary.config.SpringFxmlLoader;
 
 import com.billdiary.model.User1;
+import com.billdiary.screenResolution.ScreenController;
 import com.billdiary.service.LoginService;
 import com.billdiary.utility.Constants;
 import com.billdiary.utility.URLS;
@@ -91,7 +92,7 @@ public class LoginController {
     			SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
     			MainStage= (StackPane) loader.load(URLS.HOME_PAGE);
     			
-    			layoutController.loadWindow(MainStage, Constants.APPLICATION_TITLE,Constants.WINDOW_WIDTH,Constants.WINDOW_HEIGHT);
+    			layoutController.loadWindow(MainStage, Constants.APPLICATION_TITLE,ScreenController.getScreenWidth(), ScreenController.getScreenHeight());
     		}
     		else {
     			actiontarget.setText("Login failed");
