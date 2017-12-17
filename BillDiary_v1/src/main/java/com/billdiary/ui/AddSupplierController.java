@@ -155,15 +155,17 @@ public class AddSupplierController implements Initializable{
 		
 		if(getSupModel()==null) {
 			supplierService.addNewSupplier(sup);
+			
 		}else {
 			sup.setSupplierID(new SimpleIntegerProperty(getSupModel().getSupplierID()));
 			supplierService.updateSupplier(sup);	
-			setSupModel(null);
+			
 		}
 		
 		ApplicationContext applicationContext=SpringFxmlLoader.getApplicationcontext();
 		ManageSupplierController manageSupplirController=(ManageSupplierController)applicationContext.getBean("ManageSupplierController");
 		manageSupplirController.getRefreshedTable();
+		setSupModel(null);
 		((Node)(event.getSource())).getScene().getWindow().hide();	
 	}
 	
@@ -208,5 +210,24 @@ public class AddSupplierController implements Initializable{
 			
 		}
 		
+	}
+	
+	public void cleanFields() {
+		supplierName.setText("");
+		supplierAddress.setText("");
+		supplierPhoneNO.setText(""); 
+		supplierGovID.setText(""); 
+		supplierFaxNO.setText("");
+		supplierMobileNO.setText("");
+		supplierwebsite.setText("");
+		supplierUnpaidBalance.setText("");
+	    supplierAccountNO.setText("");
+		supplierTaxRegNO.setText("");
+		supplierBillingRate.setText("");
+		supplierEmailID.setText("");
+		supplierOtherInfo.setText("");
+		//supplierZipCode.setText(supModel.getZipcode);
+		supplierCompany.setText("");
+		asOfDate.setValue(null);
 	}
 }

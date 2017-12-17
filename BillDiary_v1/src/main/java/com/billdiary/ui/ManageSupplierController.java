@@ -122,6 +122,7 @@ public class ManageSupplierController implements Initializable {
 		ApplicationContext applicationContext = SpringFxmlLoader.getApplicationcontext();
 		AddSupplierController addSupplierController = (AddSupplierController) applicationContext
 				.getBean("AddSupplierController");
+		addSupplierController.cleanFields();
 		//addCustomerController.setParentName("ManageSupplierController");
 		BorderPane root = new BorderPane();
 		root.setCenter(addSupplier);

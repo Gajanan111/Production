@@ -149,7 +149,7 @@ public class Supplier {
 		this.supplierUnpaidBalance = supplierUnpaidBalance;
 	}
 	public String getSupplierAsOfDate() {
-		if(supplierAsOfDate.getValue()==null) {
+		if(null==supplierAsOfDate ||supplierAsOfDate.getValue()==null ) {
 			return "";
 		}
 		return supplierAsOfDate.getValue().toString();
