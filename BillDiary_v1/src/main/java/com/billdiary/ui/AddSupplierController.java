@@ -37,9 +37,6 @@ public class AddSupplierController implements Initializable{
 	SupplierService supplierService;
 	
 	public Supplier supModel;
-
-
-
 	@FXML
 	TextField supplierName;
 	@FXML

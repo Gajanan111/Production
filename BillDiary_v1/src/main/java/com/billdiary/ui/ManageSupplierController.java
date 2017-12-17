@@ -18,6 +18,7 @@ import com.billdiary.utility.URLS;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -101,6 +102,16 @@ public class ManageSupplierController implements Initializable {
 	}
 
 	private List<Supplier> retrieveData() {
+		
+	/*	Task<List<Supplier>> getList=new Task<List<Supplier>>() {
+			@Override protected List<Supplier> call() throws Exception {
+				supplierList = supplierService.fetchSuppliers();
+		        return supplierList;
+		    }
+		};
+		
+		new Thread(getList).start();*/
+		
 		try {
 			if (supplierList.isEmpty()) {
 			//	supplierList = customerService.fetchCustomers();
