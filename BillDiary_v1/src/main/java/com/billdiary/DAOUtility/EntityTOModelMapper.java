@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.billdiary.entities.SupplierEntity;
+import com.billdiary.model.Address;
 import com.billdiary.model.Supplier;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -36,6 +37,13 @@ public class EntityTOModelMapper {
 			sup.setSupplierOther(new SimpleStringProperty(supEntity.getSupplierOther()));
 			sup.setSupplierMobileNo(new SimpleStringProperty(supEntity.getSupplierMobileNo()));
 			sup.setSupplierPhoneNo(new SimpleStringProperty(supEntity.getSupplierPhoneNo()));
+			Address address=new Address();
+			address.setZipcode(supEntity.getAddressEntity().getZipcode());
+			address.setCity(supEntity.getAddressEntity().getCity());
+			address.setCountry(supEntity.getAddressEntity().getCountry());
+			address.setState(supEntity.getAddressEntity().getState());
+			address.setStreet1(supEntity.getAddressEntity().getStreet1());
+			sup.setAddress(address);
 			supplierList.add(sup);
 		}
 		return supplierList;

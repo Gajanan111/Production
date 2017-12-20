@@ -3,11 +3,14 @@ package com.billdiary.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +26,7 @@ public class SupplierEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "supplier_id")
 	private int supplierID;
-	
+
 	@Column(name = "supplier_name")
 	private String supplierName;
 	
@@ -68,6 +71,9 @@ public class SupplierEntity implements Serializable{
 	
 	@Column(name = "supplier_other")
 	private String supplierOther;
+	
+	@OneToOne(cascade = CascadeType.ALL) @JoinColumn( name = "address_id" )
+    private AddressEntity addressEntity;
 
 	public int getSupplierID() {
 		return supplierID;
@@ -197,6 +203,13 @@ public class SupplierEntity implements Serializable{
 		this.supplierOther = supplierOther;
 	} 
 
+	public AddressEntity getAddressEntity() {
+		return addressEntity;
+	}
+
+	public void setAddressEntity(AddressEntity addressEntity) {
+		this.addressEntity = addressEntity;
+	}
 	
 
 }

@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
+import com.billdiary.model.Address;
 import com.billdiary.model.Supplier;
 import com.billdiary.service.SupplierService;
 
@@ -39,8 +40,7 @@ public class AddSupplierController implements Initializable{
 	public Supplier supModel;
 	@FXML
 	TextField supplierName;
-	@FXML
-	TextArea supplierAddress;
+	
 	@FXML
 	TextField supplierPhoneNO;
 	@FXML
@@ -59,24 +59,30 @@ public class AddSupplierController implements Initializable{
 	TextField supplierTaxRegNO;
 	@FXML
 	TextField supplierBillingRate;
-	
-	@FXML 
-	ChoiceBox<?> supplierCity;
-	
 	@FXML
 	TextField supplierEmailID;
-	@FXML 
-	ChoiceBox<?> supplierCountry;
-	@FXML 
-	ChoiceBox<?> supplierState;
 	@FXML
 	TextArea supplierOtherInfo;
-	@FXML
-	TextField supplierZipCode;
+	
 	@FXML
 	TextField supplierCompany;
 	@FXML
 	DatePicker asOfDate;
+	
+	/**
+	 * Address Fields
+	 */
+	@FXML
+	TextArea supplierAddress;
+	@FXML 
+	ChoiceBox<String> supplierCity;
+	@FXML 
+	ChoiceBox<String> supplierCountry;
+	@FXML 
+	ChoiceBox<String> supplierState;
+	@FXML
+	TextField supplierZipCode;
+	
 	
 	@FXML
 	public void addSupplier(ActionEvent event) {
@@ -91,6 +97,12 @@ public class AddSupplierController implements Initializable{
 		String  supplMobileNo=supplierMobileNO.getText();
 		String supplFaxNo=supplierFaxNO.getText();
 		String supplWebsite=supplierwebsite.getText();
+		String street=supplierAddress.getText();
+		String city=(String) supplierCity.getValue();
+		String country=(String) supplierCountry.getValue();
+		String state=(String)supplierState.getValue();
+		String zipcode=supplierZipCode.getText();
+		
 		double supplUnpaidBalance=0.0;
 		if(!supplierUnpaidBalance.getText().isEmpty()) {
 	           supplUnpaidBalance=Double.parseDouble(supplierUnpaidBalance.getText());
@@ -150,6 +162,15 @@ public class AddSupplierController implements Initializable{
 		sup.setSupplierMobileNo(new SimpleStringProperty(supplMobileNo));
 		sup.setSupplierPhoneNo(new SimpleStringProperty(supplPhoneNo));
 		
+		Address address=new Address();
+		address.setStreet1(supplAddress);
+		address.setCity(city);
+		address.setState(state);
+		address.setCountry(country);
+		address.setZipcode(zipcode);
+		sup.setAddress(address);
+		
+		
 		if(getSupModel()==null) {
 			supplierService.addNewSupplier(sup);
 			
@@ -192,6 +213,20 @@ public class AddSupplierController implements Initializable{
 			supplierOtherInfo.setText(supModel.getSupplierOther());
 			//supplierZipCode.setText(supModel.getZipcode);
 			supplierCompany.setText(supModel.getSupplierCompany());
+			
+			if(supModel.getAddress()!=null) {
+				supplierZipCode.setText(supModel.getAddress().getZipcode());
+				//supplierCity.setValue(supplierCity.getConverter().toString(supModel.getAddress().getCity()));
+					supplierCity.setValue(supModel.getAddress().getCity());
+					supplierCountry.setValue(supModel.getAddress().getCountry());
+					supplierState.setValue(supModel.getAddress().getState());
+					supplierAddress.setText(supModel.getAddress().getStreet1());
+				System.out.println("city selected"+supModel.getAddress().getCity());
+				//supplierCity.getSelectionModel().select(supModel.getAddress().getCity());
+				
+				
+				
+			}
 			
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Date asOfD=null;

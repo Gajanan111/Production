@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.billdiary.entities.AddressEntity;
 import com.billdiary.entities.SupplierEntity;
+import com.billdiary.model.Address;
 import com.billdiary.model.Supplier;
 
 public class ModelTOEntityMapper {
@@ -42,6 +44,13 @@ public class ModelTOEntityMapper {
 		supEntity.setSupplierMobileNo(sup.getSupplierMobileNo());
 		supEntity.setSupplierPhoneNo(sup.getSupplierPhoneNo());
 		
+		AddressEntity addressEnitity=new AddressEntity();
+		addressEnitity.setStreet1(sup.getAddress().getStreet1());
+		addressEnitity.setCity(sup.getAddress().getCity());
+		addressEnitity.setState(sup.getAddress().getState());
+		addressEnitity.setCountry(sup.getAddress().getCountry());
+		addressEnitity.setZipcode(sup.getAddress().getZipcode());
+		supEntity.setAddressEntity(addressEnitity);
 		return supEntity;
 	}
 	

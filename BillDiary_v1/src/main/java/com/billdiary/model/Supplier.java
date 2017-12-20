@@ -32,7 +32,10 @@ public class Supplier {
 	private SimpleDoubleProperty  supplierBillingRate;
 	private SimpleStringProperty supplierOther;
 	private ReadOnlyStringProperty asOfDateStr;
+	private Address address;
 	
+	
+
 	private  HBox actionbox;
 	private Hyperlink deleteHyperlink;
 	private Hyperlink saveHyperlink;
@@ -195,4 +198,11 @@ public class Supplier {
 		return asOfDateStr.get();
 	}
 	
+	
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 }
