@@ -147,7 +147,7 @@ public class AddSupplierController implements Initializable{
 		Supplier sup=new Supplier();
 		sup.setSupplierName(new SimpleStringProperty(supplName));
 		sup.setSupplierCompany(new SimpleStringProperty(supplCompany));
-		sup.setSupplierAddress(new SimpleStringProperty(supplAddress));
+
 		sup.setSupplierAccountNo(new SimpleStringProperty(supplAccountNo));
 		sup.setSupplierAsOfDate(supplAsOfDate);
 		
@@ -168,6 +168,7 @@ public class AddSupplierController implements Initializable{
 		address.setState(state);
 		address.setCountry(country);
 		address.setZipcode(zipcode);
+		
 		sup.setAddress(address);
 		
 		
@@ -176,6 +177,7 @@ public class AddSupplierController implements Initializable{
 			
 		}else {
 			sup.setSupplierID(new SimpleIntegerProperty(getSupModel().getSupplierID()));
+			sup.getAddress().setId(getSupModel().getAddress().getId());
 			supplierService.updateSupplier(sup);	
 			
 		}
@@ -199,7 +201,7 @@ public class AddSupplierController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		if(null!=supModel) {
 			supplierName.setText(supModel.getSupplierName());
-			supplierAddress.setText(supModel.getSupplierAddress());
+			
 			supplierPhoneNO.setText(supModel.getSupplierPhoneNo()); 
 			supplierGovID.setText(supModel.getSupplierGovID()); 
 			supplierFaxNO.setText(supModel.getSupplierFaxNo());

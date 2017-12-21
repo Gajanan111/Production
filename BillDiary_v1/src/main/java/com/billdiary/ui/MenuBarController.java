@@ -58,7 +58,7 @@ public class MenuBarController {
 		
 		SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
 		homeController.showProduct();
-		AnchorPane addProduct=(AnchorPane) loader.load(URLS.ADD_PRODUCT_DETAILS_PAGE);
+		AnchorPane addProduct=(AnchorPane) loader.load(URLS.ADD_PRODUCT_PAGE);
 		BorderPane root = new BorderPane();
 		root.setCenter(addProduct);
 		layoutController.loadWindow(root,"Add Product Details",Constants.POPUP_WINDOW_WIDTH,Constants.POPUP_WINDOW_HEIGHT);

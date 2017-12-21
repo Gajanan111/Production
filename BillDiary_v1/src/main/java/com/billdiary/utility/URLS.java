@@ -10,9 +10,9 @@ public interface URLS {
 	/* Home page  */
 	public static final String HOME_PAGE="/fxml/Home.fxml";
 	/* AddProductDetails page  */
-	public static final String ADD_PRODUCT_DETAILS_PAGE="/fxml/AddProductDetails.fxml";
-	/* AddProducts page  */
-	public static final String ADD_PRODUCTS_PAGE="/fxml/AddProducts.fxml";
+	public static final String ADD_PRODUCT_PAGE="/fxml/AddProduct.fxml";
+	/* AddProducts page  
+	public static final String ADD_PRODUCTS_PAGE="/fxml/AddProducts.fxml";*/
 	/* AddShopDetails page  */
 	public static final String ADD_SHOP_DETAILS_PAGE="/fxml/AddShopDetails.fxml";
 	/* Footer page  */

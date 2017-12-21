@@ -6,8 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane fx:controller="com.billdiary.ui.ManageProductController" id="CenterAnchorpane" fx:id="CenterAnchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="CenterAnchorpane" fx:id="CenterAnchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.billdiary.ui.AddProductController">
    <children>
       <BorderPane layoutX="1.0" layoutY="1.0" prefHeight="400.0" prefWidth="600.0">
          <padding>
@@ -141,6 +140,8 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </TextField>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Product Category" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField fx:id="productCategory" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

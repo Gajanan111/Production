@@ -33,9 +33,6 @@ public class SupplierEntity implements Serializable{
 	@Column(name = "supplier_company")
 	private String supplierCompany;
 	
-	@Column(name = "supplier_address")
-	private String supplierAddress;
-	
 	@Column(name = "supplier_gov_id")
 	private String supplierGovID;
 	
@@ -97,14 +94,6 @@ public class SupplierEntity implements Serializable{
 
 	public void setSupplierCompany(String supplierCompany) {
 		this.supplierCompany = supplierCompany;
-	}
-
-	public String getSupplierAddress() {
-		return supplierAddress;
-	}
-
-	public void setSupplierAddress(String supplierAddress) {
-		this.supplierAddress = supplierAddress;
 	}
 
 	public String getSupplierGovID() {

@@ -38,7 +38,6 @@ import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 @Controller("ManageProductController")
-@Service
 public class ManageProductController implements Initializable{
 	@Autowired
 	public LayoutController layoutController;
@@ -146,7 +145,7 @@ public class ManageProductController implements Initializable{
 @FXML public void addNewProduct()
 {
 	SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
-	AnchorPane addProduct=(AnchorPane) loader.load(URLS.ADD_PRODUCT_DETAILS_PAGE);
+	AnchorPane addProduct=(AnchorPane) loader.load(URLS.ADD_PRODUCT_PAGE);
 	BorderPane root = new BorderPane();
 	root.setCenter(addProduct);
 	layoutController.loadWindow(root,"Add Product Details",Constants.POPUP_WINDOW_WIDTH,Constants.POPUP_WINDOW_HEIGHT);
@@ -295,44 +294,7 @@ private void populate(final List < Product > products)
 	
 }
 
-@FXML
-TextField add_productName;
-@FXML
-TextField add_prodDesc;
-@FXML
-TextField add_retailPrice;
 
-@FXML
-TextField add_wholesalePrice;
-@FXML
-TextField add_Discount;
-@FXML
-TextField add_stock;
-
-@FXML
-public void addProduct(ActionEvent event){
-	String productName=add_productName.getText();
-	String productDesc=add_prodDesc.getText();
-	Double retailPrice=Double.parseDouble(add_retailPrice.getText());
-	Double wholesalePrice=Double.parseDouble(add_wholesalePrice.getText());
-	Double discount=Double.parseDouble(add_Discount.getText());
-	Integer stock=Integer.parseInt(add_stock.getText());
-	if(productName!=null && productDesc!=null && retailPrice!=null && wholesalePrice!=null && discount!=null && stock!=null )
-	{
-		System.out.println(productName+" "+productDesc+" "+productDesc+" "+wholesalePrice+" "+discount+" "+stock);
-		Product prod=new Product();
-		prod.setName(new SimpleStringProperty(productName));
-		prod.setDescription(new SimpleStringProperty(productDesc));
-		prod.setRetailPrice(new SimpleDoubleProperty(retailPrice));
-		prod.setWholesalePrice(new SimpleDoubleProperty(wholesalePrice));
-		prod.setDiscount(new SimpleDoubleProperty(discount));
-		prod.setStock(new SimpleIntegerProperty(stock));  
-		productService.addProduct(prod);
-		getRefreshedTable();
-		((Node)(event.getSource())).getScene().getWindow().hide();
-	}	
-	
-}
 public void getRefreshedTable()
 {
 	productList.clear();

@@ -18,7 +18,7 @@ public class Supplier {
 	private SimpleIntegerProperty supplierID;
 	private SimpleStringProperty supplierName;
 	private SimpleStringProperty supplierCompany;
-	private SimpleStringProperty supplierAddress;
+	
 	private SimpleStringProperty supplierGovID;
 	private SimpleStringProperty supplierEmailID;
 	private SimpleStringProperty  supplierPhoneNo;
@@ -103,12 +103,7 @@ public class Supplier {
 	public void setSupplierCompany(SimpleStringProperty supplierCompany) {
 		this.supplierCompany = supplierCompany;
 	}
-	public String getSupplierAddress() {
-		return supplierAddress.get();
-	}
-	public void setSupplierAddress(SimpleStringProperty supplierAddress) {
-		this.supplierAddress = supplierAddress;
-	}
+	
 	public String getSupplierGovID() {
 		return supplierGovID.get();
 	}

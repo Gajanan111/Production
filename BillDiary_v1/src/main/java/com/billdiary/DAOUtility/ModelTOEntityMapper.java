@@ -19,7 +19,6 @@ public class ModelTOEntityMapper {
 		
 		supEntity.setSupplierName(sup.getSupplierName());
 		supEntity.setSupplierCompany(sup.getSupplierCompany());
-		supEntity.setSupplierAddress(sup.getSupplierAddress());
 		supEntity.setSupplierAccountNo(sup.getSupplierAccountNo());
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date asOfDate=null;
@@ -45,6 +44,7 @@ public class ModelTOEntityMapper {
 		supEntity.setSupplierPhoneNo(sup.getSupplierPhoneNo());
 		
 		AddressEntity addressEnitity=new AddressEntity();
+		addressEnitity.setId(sup.getAddress().getId());
 		addressEnitity.setStreet1(sup.getAddress().getStreet1());
 		addressEnitity.setCity(sup.getAddress().getCity());
 		addressEnitity.setState(sup.getAddress().getState());
