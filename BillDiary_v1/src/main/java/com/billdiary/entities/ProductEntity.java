@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 
 
 @Entity
@@ -41,6 +44,18 @@ public class ProductEntity implements Serializable {
 	
 	@Column(name = "retail_price")
 	double retail_price;
+	
+	@Column(name = "wholeSale_GST")
+	String wholeSaleGST;
+	
+	@Column(name = "wholeSale_GST_percentage")
+	double wholeSaleGSTpercentage;
+	
+	@Column(name = "retail_GST")
+	String retailGST;
+	
+	@Column(name = "retail_GST_percentage")
+	double retailGSTpercentage;
 	
 	@Column(name = "discount")
 	double discount; 
@@ -96,6 +111,30 @@ public class ProductEntity implements Serializable {
 	}
 	public void setProductCategory(String productCategory) {
 		this.productCategory = productCategory;
+	}
+	public String getWholeSaleGST() {
+		return wholeSaleGST;
+	}
+	public void setWholeSaleGST(String wholeSaleGST) {
+		this.wholeSaleGST = wholeSaleGST;
+	}
+	public double getWholeSaleGSTpercentage() {
+		return wholeSaleGSTpercentage;
+	}
+	public void setWholeSaleGSTpercentage(double wholeSaleGSTpercentage) {
+		this.wholeSaleGSTpercentage = wholeSaleGSTpercentage;
+	}
+	public String getRetailGST() {
+		return retailGST;
+	}
+	public void setRetailGST(String retailGST) {
+		this.retailGST = retailGST;
+	}
+	public double getRetailGSTpercentage() {
+		return retailGSTpercentage;
+	}
+	public void setRetailGSTpercentage(double retailGSTpercentage) {
+		this.retailGSTpercentage = retailGSTpercentage;
 	}
 
 }

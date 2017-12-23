@@ -12,6 +12,10 @@ create table if not exists product
 									,description varchar(30)
 									,wholesale_price varchar(30)
 									,retail_price varchar(30)
+									,wholeSale_GST varchar(30)
+									,wholeSale_GST_percentage double
+									,retail_GST varchar(30)
+									,retail_GST_percentage double
 									,discount varchar(30)
 									,stock varchar(30)
 								);
@@ -37,30 +41,7 @@ create table if not exists product
 --						,'5'
 --						,'26500'
 --					);
-					
-					
-insert into product values(null
-						,'Display'
-						,'3'
-						,'Apple '
-						,'Mobile'
-						,'300'
-						,'5'
-						,'260');
-						
-						
-											
-insert into product values(null
-						,'Screen Gard'
-						,'2'
-						,'Moto G '
-						,'Mobile'
-						,'30'
-						,'5'
-						,'26');
-						
-						
-						
+										
 --insert into product values(105,'Mobile','Apple',30000,26500.50,0,5);
 --insert into product values(102,'Camera','Sony',35000,29000.50,5,5);
 --insert into product values(103,'Mobile','Samsung',20000,18000.50,0,5);

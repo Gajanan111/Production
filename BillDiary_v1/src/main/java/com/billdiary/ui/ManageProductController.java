@@ -34,6 +34,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -145,11 +146,11 @@ public class ManageProductController implements Initializable{
 @FXML public void addNewProduct()
 {
 	SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
-	AnchorPane addProduct=(AnchorPane) loader.load(URLS.ADD_PRODUCT_PAGE);
+	StackPane addProduct=(StackPane)  loader.load(URLS.ADD_PRODUCT_PAGE);
 	BorderPane root = new BorderPane();
 	root.setCenter(addProduct);
 	layoutController.loadWindow(root,"Add Product Details",Constants.POPUP_WINDOW_WIDTH,Constants.POPUP_WINDOW_HEIGHT);
-}
+	}
 
 public void deleteButtonClickedThroughHyperlink(int productId)
 {

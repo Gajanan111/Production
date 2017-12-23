@@ -24,6 +24,7 @@ import com.billdiary.utility.URLS;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -279,6 +280,7 @@ public class ManageInvoiceController implements Initializable {
 		if ((KeyCode) event.getCode() == KeyCode.ENTER) {
 			try {
 				addProduct();
+				invProductName.requestFocus();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -313,7 +315,13 @@ public class ManageInvoiceController implements Initializable {
 	}
 	private void addProduct() {
 		if (null != selectedProduct) {
-			Product pr=selectedProduct;
+			Product pr=new Product();
+			//pr=selectedProduct;
+			pr.setProductId(new SimpleIntegerProperty(selectedProduct.getProductId()));
+			pr.setName(new SimpleStringProperty(selectedProduct.getName()));
+			pr.setDescription(new SimpleStringProperty(selectedProduct.getDescription()));
+			pr.setRetailPrice(new SimpleDoubleProperty(selectedProduct.getRetailPrice()));
+	        pr.setDiscount(new SimpleDoubleProperty(selectedProduct.getDiscount()));
 			if(invProductQuantity.getText()!="") {
 			pr.setSerialNumber(new SimpleIntegerProperty(productTable.getItems().size() + 1));
 			pr.setQuantity(new SimpleIntegerProperty(Integer.parseInt(invProductQuantity.getText())));
@@ -360,6 +368,7 @@ public class ManageInvoiceController implements Initializable {
 	@FXML
 	public void addProdcutToTable() {
 		addProduct();
+		invProductName.requestFocus();
 	}
 
 }

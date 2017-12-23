@@ -1,159 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+<?import java.util.*?>
 
-<AnchorPane id="CenterAnchorpane" fx:id="CenterAnchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.billdiary.ui.AddProductController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.billdiary.ui.AddProductController">
    <children>
-      <BorderPane layoutX="1.0" layoutY="1.0" prefHeight="400.0" prefWidth="600.0">
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="5.0" />
-         </padding>
-         <top>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%Add.Product" BorderPane.alignment="CENTER_LEFT">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-         </top>
-         <left>
-            <GridPane prefHeight="342.0" prefWidth="560.0" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="96.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="152.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="152.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="152.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="180.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="155.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="136.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="122.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="122.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <TextField fx:id="add_productName" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Retail Price" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <TextField fx:id="add_retailPrice" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Supplier" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Product Code" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stock Status" GridPane.rowIndex="4">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Stock" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField fx:id="add_stock" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description" GridPane.columnIndex="2">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Buy/Wholesale Price" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Barcode" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low Stock" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <TextField fx:id="add_prodDesc" GridPane.columnIndex="3">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField fx:id="add_wholesalePrice" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <TextField GridPane.columnIndex="3" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Button mnemonicParsing="false" onAction="#addProduct" prefWidth="52.0" text="Save" GridPane.rowIndex="7">
-                     <GridPane.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </GridPane.margin>
-                  </Button>
-                  <TextField GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Discount" GridPane.rowIndex="6">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </Text>
-                  <TextField fx:id="add_Discount" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                     <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </GridPane.margin>
-                  </TextField>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Product Category" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextField fx:id="productCategory" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <BorderPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </BorderPane.margin>
-            </GridPane>
-         </left>
-         <center>
-            <Region prefHeight="353.0" prefWidth="104.0" BorderPane.alignment="CENTER" />
-         </center>
-      </BorderPane>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Text layoutX="63.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name" />
+            <Text layoutX="63.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Description" />
+            <Text layoutX="482.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Category" />
+            <Text layoutX="482.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Supplier" />
+            <TextField fx:id="add_productName" layoutX="205.0" layoutY="72.0" />
+            <TextField fx:id="add_prodDesc" layoutX="205.0" layoutY="120.0" />
+            <TextField fx:id="supplierName" layoutX="603.0" layoutY="72.0" />
+            <TextField fx:id="productCategory" layoutX="603.0" layoutY="120.0" />
+            <Separator layoutX="69.0" layoutY="171.0" prefHeight="0.0" prefWidth="680.0" />
+            <Text layoutX="63.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buy/Wholesale Price" />
+            <TextField fx:id="add_wholesalePrice" layoutX="205.0" layoutY="199.0" />
+            <CheckBox fx:id="wholeSaleGST" layoutX="205.0" layoutY="236.0" mnemonicParsing="false" text="GST incl." />
+            <Text layoutX="482.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retail Price" />
+            <TextField fx:id="add_retailPrice" layoutX="603.0" layoutY="199.0" />
+            <CheckBox fx:id="retailGST" layoutX="603.0" layoutY="236.0" mnemonicParsing="false" text="GST incl." />
+            <Text layoutX="63.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Stock" />
+            <TextField fx:id="initialStock" layoutX="205.0" layoutY="272.0" />
+            <Text layoutX="63.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Low Stock" />
+            <TextField fx:id="lowStock" layoutX="205.0" layoutY="315.0" />
+            <Text layoutX="482.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Stock" />
+            <TextField fx:id="add_stock" layoutX="603.0" layoutY="272.0" />
+            <Text layoutX="63.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount" />
+            <TextField fx:id="add_Discount" layoutX="205.0" layoutY="352.0" />
+            <Button layoutX="627.0" layoutY="345.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="32.0" prefWidth="93.0" text="Save " />
+            <ComboBox fx:id="wholeSaleGSTpercentage" layoutX="278.0" layoutY="232.0" prefHeight="25.0" prefWidth="76.0" >
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="0%" />
+                    <String fx:value="5%" />
+                    <String fx:value="12%" />
+                    <String fx:value="18%" />
+                    <String fx:value="28%" />
+                </FXCollections>
+            </items>
+            </ComboBox>
+            <ComboBox fx:id="retailGSTpercentage" layoutX="676.0" layoutY="232.0" prefHeight="25.0" prefWidth="76.0" value="0%">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="0%" />
+                    <String fx:value="5%" />
+                    <String fx:value="12%" />
+                    <String fx:value="18%" />
+                    <String fx:value="28%" />
+                </FXCollections>
+            </items>
+            </ComboBox>
+         </children>
+      </Pane>
    </children>
-</AnchorPane>
+</StackPane>

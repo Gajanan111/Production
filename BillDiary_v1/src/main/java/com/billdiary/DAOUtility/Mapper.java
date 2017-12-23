@@ -54,6 +54,10 @@ public class Mapper {
 			prod.setWholesalePrice(new SimpleDoubleProperty(productEntity.getWholesale_price()));
 			prod.setStock(new SimpleIntegerProperty(productEntity.getStock()));
 			prod.setProductCategory(new SimpleStringProperty(productEntity.getProductCategory()));
+			prod.setWholeSaleGST(new SimpleStringProperty(productEntity.getWholeSaleGST()));
+			prod.setWholeSaleGSTpercentage(new SimpleDoubleProperty(productEntity.getWholeSaleGSTpercentage()));
+			prod.setRetailGST(new SimpleStringProperty(productEntity.getRetailGST()));
+			prod.setRetailGSTpercentage(new SimpleDoubleProperty(productEntity.getRetailGSTpercentage()));
 			//prod.setDelete(new Hyperlink("Delete"));
 			productList.add(prod);
 			
@@ -166,12 +170,12 @@ public class Mapper {
 		for(Product prod:obproductList)
 		{
 			ProductEntity productEntity =new ProductEntity();
-			productEntity.setDescription(prod.getDescription());;
-			productEntity.setDiscount(prod.getDiscount());;
-			productEntity.setId(prod.getProductId());;
-			productEntity.setName(prod.getName());;
-			productEntity.setRetail_price(prod.getRetailPrice());;
-			productEntity.setWholesale_price(prod.getWholesalePrice());;
+			productEntity.setDescription(prod.getDescription());
+			productEntity.setDiscount(prod.getDiscount());
+			productEntity.setId(prod.getProductId());
+			productEntity.setName(prod.getName());
+			productEntity.setRetail_price(prod.getRetailPrice());
+			productEntity.setWholesale_price(prod.getWholesalePrice());
 			productEntity.setStock(prod.getStock());
 			productEntity.setProductCategory(prod.getProductCategory());
 			productEntityList.add(productEntity);
@@ -184,12 +188,16 @@ public class Mapper {
 		ProductEntity productEntity =new ProductEntity();
 		productEntity.setId(0);
 		productEntity.setDescription(prod.getDescription());
-		productEntity.setName(prod.getName());;
+		productEntity.setName(prod.getName());
 		productEntity.setRetail_price(prod.getRetailPrice());;
 		productEntity.setWholesale_price(prod.getWholesalePrice());;
-		productEntity.setDiscount(prod.getDiscount());;
-		productEntity.setStock(prod.getStock());;
+		productEntity.setDiscount(prod.getDiscount());
+		productEntity.setStock(prod.getStock());
 		productEntity.setProductCategory(prod.getProductCategory());
+		productEntity.setRetailGST(prod.getRetailGST());
+		productEntity.setWholeSaleGST(prod.getWholeSaleGST());
+		productEntity.setRetailGSTpercentage(prod.getWholesalePrice());
+		productEntity.setWholesale_price(prod.getWholeSaleGSTpercentage());
 		return productEntity;
 	}
 

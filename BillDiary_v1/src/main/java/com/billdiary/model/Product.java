@@ -1,9 +1,5 @@
 package com.billdiary.model;
 
-
-
-
-
 import org.springframework.stereotype.Component;
 
 import com.billdiary.utility.IconGallery;
@@ -23,10 +19,9 @@ public class Product {
 	
 	private SimpleDoubleProperty totalPrice;
 	
-	
 	private SimpleIntegerProperty productId;
 	
-	private  SimpleStringProperty name;
+	private SimpleStringProperty name;
 	
 	private SimpleStringProperty productCategory;
 	
@@ -42,6 +37,14 @@ public class Product {
 	private SimpleDoubleProperty discount;
 	
 	private SimpleIntegerProperty quantity;
+	
+	private SimpleStringProperty wholeSaleGST;
+	
+	private SimpleDoubleProperty wholeSaleGSTpercentage;
+	
+	private SimpleStringProperty retailGST;
+	
+	private SimpleDoubleProperty retailGSTpercentage;
 	
 	private HBox action;
 	
@@ -184,5 +187,32 @@ public class Product {
 	}
 	public void setProductCategory(SimpleStringProperty productCategory) {
 		this.productCategory = productCategory;
+	}
+	
+	
+	
+	public String getWholeSaleGST() {
+		return wholeSaleGST.get();
+	}
+	public void setWholeSaleGST(SimpleStringProperty wholeSaleGST) {
+		this.wholeSaleGST = wholeSaleGST;
+	}
+	public Double getWholeSaleGSTpercentage() {
+		return wholeSaleGSTpercentage.get();
+	}
+	public void setWholeSaleGSTpercentage(SimpleDoubleProperty wholeSaleGSTpercentage) {
+		this.wholeSaleGSTpercentage = wholeSaleGSTpercentage;
+	}
+	public String getRetailGST() {
+		return retailGST.get();
+	}
+	public void setRetailGST(SimpleStringProperty retailGST) {
+		this.retailGST = retailGST;
+	}
+	public Double getRetailGSTpercentage() {
+		return retailGSTpercentage.get();
+	}
+	public void setRetailGSTpercentage(SimpleDoubleProperty retailGSTpercentage) {
+		this.retailGSTpercentage = retailGSTpercentage;
 	}
 }
