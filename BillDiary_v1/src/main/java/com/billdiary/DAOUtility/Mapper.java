@@ -196,8 +196,8 @@ public class Mapper {
 		productEntity.setProductCategory(prod.getProductCategory());
 		productEntity.setRetailGST(prod.getRetailGST());
 		productEntity.setWholeSaleGST(prod.getWholeSaleGST());
-		productEntity.setRetailGSTpercentage(prod.getWholesalePrice());
-		productEntity.setWholesale_price(prod.getWholeSaleGSTpercentage());
+		productEntity.setRetailGSTpercentage(prod.getRetailGSTpercentage());
+		productEntity.setWholeSaleGSTpercentage(prod.getWholeSaleGSTpercentage());
 		return productEntity;
 	}
 

@@ -20,7 +20,7 @@
                   <TextField fx:id="invMobileNo" layoutX="140.0" layoutY="115.0" prefHeight="25.0" prefWidth="141.0" promptText="XXXXXXXXXX" />
                   <DatePicker fx:id="invDueDate" layoutX="594.0" layoutY="115.0" prefHeight="25.0" prefWidth="148.0" />
                   <TextField fx:id="invProductName" layoutX="139.0" layoutY="163.0" prefHeight="25.0" prefWidth="141.0" promptText="Product Name/Code" />
-                  <TextField fx:id="invProductQuantity" layoutX="357.0" layoutY="163.0" prefHeight="25.0" prefWidth="141.0" promptText="0" />
+                  <TextField fx:id="invProductQuantity" layoutX="352.0" layoutY="163.0" prefHeight="25.0" prefWidth="141.0" promptText="0" />
                   <TextField fx:id="invProductPrice" layoutX="594.0" layoutY="163.0" prefHeight="25.0" prefWidth="148.0" promptText="0.0" />
                   <Button layoutX="794.0" layoutY="162.0" mnemonicParsing="false" onAction="#addProdcutToTable" prefHeight="25.0" prefWidth="116.0" text="ADD TO BILL" />
                   <TableView fx:id="productTable" editable="true" layoutX="18.0" layoutY="212.0" prefHeight="245.0" prefWidth="960.0">
@@ -99,12 +99,12 @@
                   <Text layoutX="37.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mobile no." />
                   <Text layoutX="503.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Due Date" />
                   <Text layoutX="37.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name" />
-                  <Text layoutX="301.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" />
+                  <Text layoutX="291.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" />
                   <Text layoutX="503.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit Price" />
                   <TextField fx:id="totalAmount" layoutX="843.0" layoutY="459.0" prefHeight="25.0" prefWidth="135.0" />
                   <Text layoutX="758.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount" />
                   <TextField fx:id="discount" layoutX="611.0" layoutY="459.0" prefHeight="25.0" prefWidth="79.0" />
-                  <TextField fx:id="finalAmount" layoutX="842.0" layoutY="493.0" prefHeight="25.0" prefWidth="135.0" />
+                  <TextField fx:id="finalAmount" layoutX="843.0" layoutY="493.0" prefHeight="25.0" prefWidth="134.0" />
                   <Text layoutX="534.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount(%)" />
                   <Text layoutX="759.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Final Amount" />
                   <Text layoutX="503.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invoice number" />
@@ -131,7 +131,7 @@
                      </font>
                   </Text>
                   <Text layoutX="762.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paid Amount" />
-                  <TextField fx:id="paidAmount" layoutX="840.0" layoutY="523.0" prefHeight="25.0" prefWidth="135.0" />
+                  <TextField fx:id="paidAmount" layoutX="843.0" layoutY="523.0" prefHeight="25.0" prefWidth="135.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

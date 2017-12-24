@@ -11,8 +11,6 @@ public interface URLS {
 	public static final String HOME_PAGE="/fxml/Home.fxml";
 	/* AddProductDetails page  */
 	public static final String ADD_PRODUCT_PAGE="/fxml/AddProduct.fxml";
-	/* AddProducts page  
-	public static final String ADD_PRODUCTS_PAGE="/fxml/AddProducts.fxml";*/
 	/* AddShopDetails page  */
 	public static final String ADD_SHOP_DETAILS_PAGE="/fxml/AddShopDetails.fxml";
 	/* Footer page  */
@@ -33,8 +31,6 @@ public interface URLS {
 	public static final String MANAGE_SUPPLIER="/fxml/ManageSupplier.fxml";
 	/* ManageInvoice page  */
 	public static final String MANAGE_INVOICE="/fxml/ManageInvoice.fxml";
-	
-	
 	
 	/* template.xsl : file is used for PDF Generation (i.e Invoice Generation) */
 	public static final String PDF_TEMPLATE="C://bill//template.xsl";
