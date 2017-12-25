@@ -27,9 +27,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -53,6 +56,8 @@ public class ManageInvoiceController implements Initializable {
 	
 	@Autowired
 	public Calculate calculate;
+	@FXML
+	SplitMenuButton saveButton;
 
 	@FXML
 	TextField paidAmount;
@@ -370,5 +375,17 @@ public class ManageInvoiceController implements Initializable {
 		addProduct();
 		invProductName.requestFocus();
 	}
+	
+	
+	@FXML
+	public void generateInvoiceSave(ActionEvent event) {
+		System.out.println("generateInvoiceSave");
+		
+		
+	}
 
+	@FXML
+	public void generateInvoiceSaveAndPrint() {
+		System.out.println("generateInvoiceSaveAndPrint");
+	}
 }

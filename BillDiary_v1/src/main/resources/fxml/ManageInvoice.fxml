@@ -112,12 +112,6 @@
                   <Text layoutX="503.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
                   <Text fx:id="invDate" layoutX="594.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2001-01-01" />
                   <Button layoutX="291.0" layoutY="29.0" mnemonicParsing="false" onAction="#showAddNewCustomerPage" prefHeight="25.0" prefWidth="122.0" text="Add New Customer" />
-                  <MenuButton layoutX="851.0" layoutY="554.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="117.0" text="Save and Print">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Save" />
-                      <MenuItem mnemonicParsing="false" text="Save And Print" />
-                    </items>
-                  </MenuButton>
                   <Text layoutX="682.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press CTL+P for save and Print" />
                   <Text layoutX="534.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due" />
                   <TextField fx:id="amountDue" layoutX="611.0" layoutY="523.0" prefHeight="25.0" prefWidth="135.0" />
@@ -132,6 +126,12 @@
                   </Text>
                   <Text layoutX="762.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paid Amount" />
                   <TextField fx:id="paidAmount" layoutX="843.0" layoutY="523.0" prefHeight="25.0" prefWidth="135.0" />
+                  <SplitMenuButton fx:id="saveButton" layoutX="861.0" layoutY="556.0" mnemonicParsing="false" onAction="#generateInvoiceSaveAndPrint" text="Save and Print">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#generateInvoiceSave" text="Save" />
+                      <MenuItem mnemonicParsing="false" onAction="#generateInvoiceSaveAndPrint" text="Save and Print" />
+                    </items>
+                  </SplitMenuButton>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

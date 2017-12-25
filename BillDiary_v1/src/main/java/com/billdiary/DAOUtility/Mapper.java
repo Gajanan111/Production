@@ -92,6 +92,8 @@ public class Mapper {
 			customerEntity.setState(cust.getState());
 			customerEntity.setCustomerGroup(cust.getCustomerGroup());
 			customerEntity.setZipCode(cust.getZipCode());
+			customerEntity.setAnniversary_Date(cust.getAnniversary_date());
+			customerEntity.setBirth_Date(cust.getBirth_date());
 			customerEntityList.add(customerEntity);
 		}
 		return customerEntityList;
@@ -120,6 +122,8 @@ public class Mapper {
 			cust.setState(new SimpleStringProperty(customerEntity.getState()));
 			cust.setCustomerGroup(new SimpleStringProperty(customerEntity.getCustomerGroup()));
 			cust.setZipCode(new SimpleStringProperty(customerEntity.getZipCode()));
+			cust.setAnniversary_date(customerEntity.getAnniversary_Date());
+			cust.setBirth_date(customerEntity.getBirth_Date());
 			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			if(null!=customerEntity.getRegDate()) {
 		    String strDate = dateFormat.format(customerEntity.getRegDate());
@@ -153,6 +157,8 @@ public class Mapper {
 		customerEntity.setState(cust.getState());
 		customerEntity.setCustomerGroup(cust.getCustomerGroup());
 		customerEntity.setZipCode(cust.getZipCode());
+		customerEntity.setAnniversary_Date(cust.getAnniversary_date());
+		customerEntity.setBirth_Date(cust.getBirth_date());
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		Date regDate=null;
 		try {
@@ -219,6 +225,8 @@ public class Mapper {
 		cust.setState(new SimpleStringProperty(customerEntity.getState()));
 		cust.setCustomerGroup(new SimpleStringProperty(customerEntity.getCustomerGroup()));
 		cust.setZipCode(new SimpleStringProperty(customerEntity.getZipCode()));
+		cust.setAnniversary_date(customerEntity.getAnniversary_Date());
+		cust.setBirth_date(customerEntity.getBirth_Date());
 		
 		}catch(Exception e)
 		{

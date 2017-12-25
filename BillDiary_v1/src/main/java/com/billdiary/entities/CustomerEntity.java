@@ -1,6 +1,7 @@
 package com.billdiary.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -64,7 +65,24 @@ public class CustomerEntity implements Serializable {
 	@Column(name = "regDate")
 	private Date regDate;
 	
+	@Column(name="anniversary_Date")
+	private LocalDate anniversary_date;
 	
+	@Column(name="birth_Date")
+	private LocalDate birth_date;
+	
+	public LocalDate getAnniversary_Date() {
+		return anniversary_date;
+	}
+	public void setAnniversary_Date(LocalDate anniversary_date) {
+		this.anniversary_date = anniversary_date;
+	}
+	public LocalDate getBirth_Date() {
+		return birth_date;
+	}
+	public void setBirth_Date(LocalDate birth_date) {
+		this.birth_date = birth_date;
+	}
 	/*@OneToOne(cascade = CascadeType.ALL) @JoinColumn( name = "address_id" )
     private AddressEntity addressEntity;*/
 	

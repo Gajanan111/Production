@@ -13,6 +13,8 @@ import com.billdiary.model.Customer;
 import com.billdiary.service.CustomerService;
 import com.billdiary.utility.Constants;
 import com.billdiary.utility.URLS;
+
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -91,10 +93,29 @@ public class ManageCustomerController implements Initializable {
 				int custID = cust.getCustomerID();
 				int index = data.indexOf(cust);
 				cust.getDeleteHyperlink().setOnAction(e -> deleteButtonClickedThroughHyperlink(custID));
-				cust.getSaveHyperlink().setOnAction(e -> saveButtonClickedThroughHyperlink(custID, index));
+				cust.getSaveHyperlink().setOnAction(e -> editButtonClickedThroughHyperlink(custID, index));
 			}
 		}
 
+	}
+	
+	
+	public void editButtonClickedThroughHyperlink(int customerId, int index) {
+		Customer cust=data.get(index);
+		cust.setCustomerID(new SimpleIntegerProperty(customerId));
+
+		ApplicationContext applicationContext=SpringFxmlLoader.getApplicationcontext();
+        AddCustomerController addCustomerController=(AddCustomerController)applicationContext.getBean("AddCustomerController");
+        addCustomerController.setCustModel(cust);
+        addCustomerController.setParentName("CustomerController");
+		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
+		StackPane addShop = (StackPane) loader.load(URLS.ADD_CUSTOMER);
+		BorderPane root = new BorderPane();
+		root.setCenter(addShop);
+		layoutController.loadWindow(root, "Edit Customer Details", Constants.POPUP_WINDOW_WIDTH,
+				Constants.POPUP_WINDOW_HEIGHT);
+		
+       // addCustomerController.setFieldsToNull();
 	}
 
 	public void deleteButtonClickedThroughHyperlink(int customerId) {
@@ -201,6 +222,7 @@ public class ManageCustomerController implements Initializable {
 		AddCustomerController addCustomerController = (AddCustomerController) applicationContext
 				.getBean("AddCustomerController");
 		addCustomerController.setParentName("CustomerController");
+		addCustomerController.clearFields();
 		BorderPane root = new BorderPane();
 		root.setCenter(addShop);
 		layoutController.loadWindow(root, "Add Customer Details", Constants.POPUP_WINDOW_WIDTH,

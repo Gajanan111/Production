@@ -66,6 +66,10 @@
             </ChoiceBox>
             <Text layoutX="427.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zip Code" />
             <TextField fx:id="addZipCode" layoutX="556.0" layoutY="277.0" prefHeight="25.0" prefWidth="189.0" />
+            <Text layoutX="56.0" layoutY="355" strokeType="OUTSIDE" strokeWidth="0.0" text="Anniversary Date" />
+           <DatePicker fx:id="Anniversary_Date" layoutX="179" layoutY="350" />
+          <Text layoutX="56.0" layoutY="405" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" />
+           <DatePicker fx:id="Birth_Date" layoutX="179" layoutY="400" />
          </children>
       </Pane>
    </children>

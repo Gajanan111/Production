@@ -2,6 +2,7 @@ package com.billdiary.model;
 
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,24 @@ public class Customer {
 	private SimpleStringProperty country;
 	private SimpleStringProperty zipCode;
 	private SimpleStringProperty addAdditionalInfo;
+	private LocalDate anniversary_date;
+    private LocalDate birth_date;
+    
+    public LocalDate getAnniversary_date() {
+		return anniversary_date;
+	}
+
+	public void setAnniversary_date(LocalDate anniversary_date) {
+		this.anniversary_date = anniversary_date;
+	}
+
+	public LocalDate getBirth_date() {
+		return birth_date;
+	}
+
+	public void setBirth_date(LocalDate birth_date) {
+		this.birth_date = birth_date;
+	}
 
 	private HBox actionbox;
 	
