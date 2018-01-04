@@ -6,7 +6,7 @@ public class Invoice {
 
 	
 	public Long invoiceID;
-	private int customerID;
+	private Customer customer;
 	private int product_sale_qty;
 	private double finalAmount;
 	private double paidAmount;
@@ -15,17 +15,19 @@ public class Invoice {
 	private LocalDate invoiceDueDate;
 	private LocalDate lastAmountPaidDate;
 	
+	
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	public Long getInvoiceID() {
 		return invoiceID;
 	}
 	public void setInvoiceID(Long invoiceID) {
 		this.invoiceID = invoiceID;
-	}
-	public int getCustomerID() {
-		return customerID;
-	}
-	public void setCustomerID(int customerID) {
-		this.customerID = customerID;
 	}
 	public int getProduct_sale_qty() {
 		return product_sale_qty;

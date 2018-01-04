@@ -15,8 +15,10 @@ import org.springframework.stereotype.Controller;
 import com.billdiary.config.SpringFxmlLoader;
 
 import com.billdiary.model.Customer;
+import com.billdiary.model.Invoice;
 import com.billdiary.model.Product;
 import com.billdiary.service.CustomerService;
+import com.billdiary.service.InvoiceService;
 import com.billdiary.service.ProductService;
 import com.billdiary.utility.Calculate;
 import com.billdiary.utility.Constants;
@@ -53,6 +55,10 @@ public class ManageInvoiceController implements Initializable {
 
 	@Autowired
 	public LayoutController layoutController;
+	
+	
+	@Autowired
+	public InvoiceService invoiceService;
 	
 	@Autowired
 	public Calculate calculate;
@@ -206,7 +212,7 @@ public class ManageInvoiceController implements Initializable {
 		 * Creating a customer list with Name + Mobile no
 		 */
 		for (Customer cust : custList) {
-			customerNameList.add(cust.getCustomerName() + " " + cust.getMobile_no());
+			customerNameList.add(cust.getCustomerID()+" "+cust.getCustomerName() + " " + cust.getMobile_no());
 		}
 		TextFields.bindAutoCompletion(invCustName, customerNameList).setVisibleRowCount(5);
 	}
@@ -376,12 +382,59 @@ public class ManageInvoiceController implements Initializable {
 		invProductName.requestFocus();
 	}
 	
+	public String trimCustomerID(String displayName) {
+		String custID="0";
+		if(null!=displayName) {
+			int i=displayName.indexOf(' ');
+			custID=displayName.substring(0, i);
+			//System.out.println(custID);
+		}
+		return custID;
+	}
+	
+	public Customer getCustomer(String custID) {
+		
+		Customer cust=	custList.stream()
+		.filter(x -> (String.valueOf(x.getCustomerID())).equals(custID)).findAny()
+		.orElse(null);
+		return cust;
+	}
+	
 	
 	@FXML
 	public void generateInvoiceSave(ActionEvent event) {
 		System.out.println("generateInvoiceSave");
+		System.out.println("Customer Name: "+invCustName.getText());
+		System.out.println("Customer ID : "+trimCustomerID(invCustName.getText()));
+		Customer c=getCustomer(trimCustomerID(invCustName.getText()));
+		
+		System.out.println(c.getCustomerName());
+		
+		if(null==invDueDate.getValue()) {
+			
+			invDueDate.setValue(LocalDate.now());
+		}
+		System.out.println("Invoice Due Date : "+invDueDate.getValue());
+		System.out.println(invNO.getText());
+		System.out.println("Final Amount : "+finalAmount.getText());
+		System.out.println("paid amount :"+paidAmount.getText());
+		System.out.println("amountDue : "+amountDue.getText());
+		System.out.println("invoiceDate : "+invDate.getText());
+		System.out.println("lastAmountPaidDate : XX/XX/XXXX");
+		Invoice inv=new Invoice();
+		
+		inv.setCustomer(c);
+		inv.setAmountDue(0.00);
+		inv.setFinalAmount(23.56);
+		inv.setLastAmountPaidDate(LocalDate.now());
+		inv.setInvoiceDate(LocalDate.now());
+		inv.setInvoiceID(1L);
+		inv.setInvoiceDueDate(LocalDate.now());
+		inv.setPaidAmount(56.23);
+		inv.setProduct_sale_qty(5);
 		
 		
+		invoiceService.save(inv);
 	}
 
 	@FXML

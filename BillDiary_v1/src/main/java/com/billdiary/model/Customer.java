@@ -59,6 +59,11 @@ public class Customer {
 	private LocalDate anniversary_date;
     private LocalDate birth_date;
     
+
+	private Hyperlink deleteHyperlink;
+	private Hyperlink saveHyperlink;
+	private List<Hyperlink> hyperlinks =new ArrayList<>();
+    
     public LocalDate getAnniversary_date() {
 		return anniversary_date;
 	}
@@ -93,9 +98,6 @@ public class Customer {
 	}
 
 
-	private Hyperlink deleteHyperlink;
-	private Hyperlink saveHyperlink;
-	private List<Hyperlink> hyperlinks =new ArrayList<>();
 
 	public List<Hyperlink> getHyperlinks() {
 		

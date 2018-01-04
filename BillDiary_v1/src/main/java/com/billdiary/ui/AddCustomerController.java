@@ -7,6 +7,10 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationResult;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -22,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -30,6 +35,32 @@ import javafx.scene.control.TextField;
 @Controller("AddCustomerController")
 public class AddCustomerController implements Initializable{
 
+	
+	 ValidationSupport support = new ValidationSupport();
+
+	 Validator<String> validator = new Validator<String>()
+	    {
+	      @Override
+	      public ValidationResult apply( Control control, String value )
+	      {
+	        boolean condition =
+	            value != null
+	                ? !value
+	                    .matches(
+	                        "[\\x00-\\x20]*[+-]?(((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*" )
+	                : value == null;
+
+	        System.out.println( condition );
+
+	        return ValidationResult.fromMessageIf( control, "not a number", Severity.ERROR, condition );
+	      }
+	    };
+	    
+	  
+	    //support.registerValidator(addCustomerName, validator);
+	    
+	 
+	 
 	
 	public Customer custModel;
 	public Customer getCustModel() {
@@ -77,7 +108,7 @@ public class AddCustomerController implements Initializable{
 		// TODO Auto-generated method stub
 		System.out.println(this.getClass());
 		System.out.println(this.getClass().getSuperclass());
-		
+		support.registerValidator( addCustomerName, true, validator );
 		if(custModel!=null)
 		{	
 		addCustomerName.setText(custModel.getCustomerName());
