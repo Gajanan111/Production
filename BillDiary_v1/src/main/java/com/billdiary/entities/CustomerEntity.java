@@ -3,6 +3,7 @@ package com.billdiary.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -86,6 +89,8 @@ public class CustomerEntity implements Serializable {
 	/*@OneToOne(cascade = CascadeType.ALL) @JoinColumn( name = "address_id" )
     private AddressEntity addressEntity;*/
 	
+	@OneToMany(mappedBy = "customerEntity", cascade=CascadeType.ALL, orphanRemoval=true)
+	private Set<InvoiceEntity> invoiceEntities;
 	
 	public Date getRegDate() {
 		return regDate;

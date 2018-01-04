@@ -7,8 +7,10 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import com.billdiary.entities.AddressEntity;
+import com.billdiary.entities.InvoiceEntity;
 import com.billdiary.entities.SupplierEntity;
 import com.billdiary.model.Address;
+import com.billdiary.model.Invoice;
 import com.billdiary.model.Supplier;
 
 public class ModelTOEntityMapper {
@@ -52,6 +54,23 @@ public class ModelTOEntityMapper {
 		addressEnitity.setZipcode(sup.getAddress().getZipcode());
 		supEntity.setAddressEntity(addressEnitity);
 		return supEntity;
+	}
+
+	public InvoiceEntity getInvoiceEntity(Invoice inv) {
+		InvoiceEntity invoiceEntity=new InvoiceEntity();
+	//	invoiceEntity.setCustomerEntity(inv.getCustomer());
+		Mapper map=new Mapper();
+		invoiceEntity.setCustomerEntity(map.getCustomerEntity(inv.getCustomer()));
+		/** Set Customer ID**/
+		invoiceEntity.getCustomerEntity().setCustomerID(inv.getCustomer().getCustomerID());
+		invoiceEntity.setAmountDue(inv.getAmountDue());
+		invoiceEntity.setFinalAmount(inv.getFinalAmount());
+		invoiceEntity.setInvoiceDate(inv.getInvoiceDate());
+		invoiceEntity.setInvoiceDueDate(inv.getInvoiceDueDate());
+		invoiceEntity.setLastAmountPaidDate(inv.getLastAmountPaidDate());
+		invoiceEntity.setPaidAmount(inv.getPaidAmount());
+		invoiceEntity.setProduct_sale_qty(inv.getProduct_sale_qty());
+		return invoiceEntity;
 	}
 	
 	

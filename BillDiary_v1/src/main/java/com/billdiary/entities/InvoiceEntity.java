@@ -3,7 +3,7 @@ package com.billdiary.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,10 +25,10 @@ public class InvoiceEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "supplier_id")
+    @Column(name = "invoice_id")
 	private Long invoiceID;
 	
-	@ManyToOne @JoinColumn( name = "customer_id" )
+	@ManyToOne(cascade = {CascadeType.DETACH}) @JoinColumn( name = "customer_id" )
     private CustomerEntity customerEntity;
 	
 	@Column(name = "product_sale_qty")

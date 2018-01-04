@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
-
+import com.billdiary.javafxUtility.Popup;
 import com.billdiary.model.Customer;
 import com.billdiary.model.Invoice;
 import com.billdiary.model.Product;
@@ -32,6 +32,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
@@ -137,7 +139,9 @@ public class ManageInvoiceController implements Initializable {
 		LocalDate localDate = LocalDate.now();
 		invDate.setText(localDate.toString() + " (YYYY-DD-MM)");
 		int invoiceNO = calculateInvoiceNO();
-		invNO.setText(Integer.toString(invoiceNO));
+		invNO.setText(invoiceService.generateInvoiceNO());
+		
+		
 
 		productQuantity
 				.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
@@ -313,7 +317,7 @@ public class ManageInvoiceController implements Initializable {
 		String customer = invCustName.getText();
 		if (null != customer) {
 			Customer cust = custList.stream()
-					.filter(x -> (x.getCustomerName() + " " + x.getMobile_no()).equals(customer)).findAny()
+					.filter(x -> (x.getCustomerID()+" "+x.getCustomerName() + " " + x.getMobile_no()).equals(customer)).findAny()
 					.orElse(null);
 			if (null != cust)
 				selectedCustomer = cust;
@@ -404,37 +408,58 @@ public class ManageInvoiceController implements Initializable {
 	@FXML
 	public void generateInvoiceSave(ActionEvent event) {
 		System.out.println("generateInvoiceSave");
-		System.out.println("Customer Name: "+invCustName.getText());
-		System.out.println("Customer ID : "+trimCustomerID(invCustName.getText()));
-		Customer c=getCustomer(trimCustomerID(invCustName.getText()));
-		
-		System.out.println(c.getCustomerName());
-		
+		Customer cust=getCustomer(trimCustomerID(invCustName.getText()));
 		if(null==invDueDate.getValue()) {
 			
 			invDueDate.setValue(LocalDate.now());
 		}
-		System.out.println("Invoice Due Date : "+invDueDate.getValue());
-		System.out.println(invNO.getText());
-		System.out.println("Final Amount : "+finalAmount.getText());
-		System.out.println("paid amount :"+paidAmount.getText());
-		System.out.println("amountDue : "+amountDue.getText());
-		System.out.println("invoiceDate : "+invDate.getText());
-		System.out.println("lastAmountPaidDate : XX/XX/XXXX");
 		Invoice inv=new Invoice();
-		
-		inv.setCustomer(c);
-		inv.setAmountDue(0.00);
-		inv.setFinalAmount(23.56);
+		inv.setInvoiceID(Long.parseLong(invNO.getText()));
+		inv.setCustomer(cust);
+		if(null==amountDue.getText()) {
+			inv.setAmountDue(0.00);
+		}else {
+			inv.setAmountDue(Double.parseDouble(amountDue.getText()));
+		}
+		if(null==finalAmount.getText()) {
+			inv.setFinalAmount(0.00);
+		}else {
+			inv.setFinalAmount(Double.parseDouble(finalAmount.getText()));
+		}
+		if(null==paidAmount.getText()) {
+			inv.setPaidAmount(0.00);
+		}else {
+			inv.setPaidAmount(Double.parseDouble(paidAmount.getText()));
+		}
+		inv.setProduct_sale_qty(data.size());
 		inv.setLastAmountPaidDate(LocalDate.now());
 		inv.setInvoiceDate(LocalDate.now());
-		inv.setInvoiceID(1L);
 		inv.setInvoiceDueDate(LocalDate.now());
-		inv.setPaidAmount(56.23);
-		inv.setProduct_sale_qty(5);
-		
-		
-		invoiceService.save(inv);
+		boolean invoiceSaved=invoiceService.save(inv);
+		if(invoiceSaved) {
+			System.out.println("invoice saved");
+			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_SUCCESSFULL_STATUS,AlertType.INFORMATION);
+			clearAllFields();			
+		}else {
+			System.out.println("invoice not saved");
+			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_UNSUCCESSFULL_STATUS,AlertType.INFORMATION);
+		}
+	}
+
+	private void clearAllFields() {
+		paidAmount.clear();
+		totalAmount.clear();
+		bigFinalAmount.clear();
+		amountDue.clear();
+		discount.clear();
+		finalAmount.clear();
+		invAddress.clear();
+		invMobileNo.clear();
+		invCustName.clear();
+		invProductName.clear();
+		invProductQuantity.clear();
+		invProductPrice.clear();
+		data.clear();
 	}
 
 	@FXML

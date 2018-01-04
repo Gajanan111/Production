@@ -15,7 +15,12 @@ public class Constants {
 	public static final int SEARCH_CUSTOMER_HEIGHT=600;
 	
 	
-	
+	/**
+	 * Constants for alert, Dialogs, Popup messages
+	 */
+	public static final String INVOICE_TITLE="Invoice status";
+	public static final String INVOICE_SUCCESSFULL_STATUS="Invoice SuccessFull!";
+	public static final String INVOICE_UNSUCCESSFULL_STATUS="Invoice Unsucessfull!";
 	
 	
 }

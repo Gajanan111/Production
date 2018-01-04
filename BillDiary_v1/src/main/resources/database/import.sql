@@ -134,6 +134,7 @@ create table if not exists invoice
 						,invoice_Date date
 						,invoice_Due_Date date
 						,last_Amount_Paid_Date date
+						,foreign key(customer_id) references customer(customer_id)
 					);
 					
 
