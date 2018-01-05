@@ -39,6 +39,11 @@ public interface URLS {
 	public static final String SAVE_IMAGE="/images/save.jpg";
 	
 	
+	/* */
+	public static final String Invoice_Template_A4_XML_PATH="C://bill";
+	public static final String PDF_GENERATION_PATH="C://bill";
+	public static final String INVOICE_LOGO="/images/invoiceLogo.jpg";
+	public static final String INVOICE_XML="C:\\bill\\Invoice.xml";
 	
 
 }

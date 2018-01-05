@@ -21,6 +21,6 @@ public class Constants {
 	public static final String INVOICE_TITLE="Invoice status";
 	public static final String INVOICE_SUCCESSFULL_STATUS="Invoice SuccessFull!";
 	public static final String INVOICE_UNSUCCESSFULL_STATUS="Invoice Unsucessfull!";
-	
+	public static final String INVOICE_SUCCESSFULL_PDF_STATUS="Invoice SuccessFull and PDF generated at c:/bill/Bill.pdf";
 	
 }

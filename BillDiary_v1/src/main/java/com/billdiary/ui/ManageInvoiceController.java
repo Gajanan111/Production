@@ -16,12 +16,14 @@ import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.javafxUtility.Popup;
 import com.billdiary.model.Customer;
 import com.billdiary.model.Invoice;
+import com.billdiary.model.InvoiceTemplateA4;
 import com.billdiary.model.Product;
 import com.billdiary.service.CustomerService;
 import com.billdiary.service.InvoiceService;
 import com.billdiary.service.ProductService;
 import com.billdiary.utility.Calculate;
 import com.billdiary.utility.Constants;
+import com.billdiary.utility.GeneratePDF;
 import com.billdiary.utility.URLS;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -43,6 +45,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -58,6 +62,9 @@ public class ManageInvoiceController implements Initializable {
 	@Autowired
 	public LayoutController layoutController;
 	
+	
+	@Autowired
+	GeneratePDF generatePDF;
 	
 	@Autowired
 	public InvoiceService invoiceService;
@@ -404,10 +411,8 @@ public class ManageInvoiceController implements Initializable {
 		return cust;
 	}
 	
-	
-	@FXML
-	public void generateInvoiceSave(ActionEvent event) {
-		System.out.println("generateInvoiceSave");
+	public boolean saveInvoice() {
+		boolean invoiceSaved=false;
 		Customer cust=getCustomer(trimCustomerID(invCustName.getText()));
 		if(null==invDueDate.getValue()) {
 			
@@ -435,8 +440,15 @@ public class ManageInvoiceController implements Initializable {
 		inv.setLastAmountPaidDate(LocalDate.now());
 		inv.setInvoiceDate(LocalDate.now());
 		inv.setInvoiceDueDate(LocalDate.now());
-		boolean invoiceSaved=invoiceService.save(inv);
-		if(invoiceSaved) {
+		invoiceSaved=invoiceService.save(inv);
+		return invoiceSaved;
+	}
+	
+	
+	@FXML
+	public void generateInvoiceSave(ActionEvent event) {
+		System.out.println("generateInvoiceSave");
+		if(saveInvoice()) {
 			System.out.println("invoice saved");
 			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_SUCCESSFULL_STATUS,AlertType.INFORMATION);
 			clearAllFields();			
@@ -445,7 +457,51 @@ public class ManageInvoiceController implements Initializable {
 			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_UNSUCCESSFULL_STATUS,AlertType.INFORMATION);
 		}
 	}
+	@FXML
+	public void generateInvoiceSaveAndPrint(ActionEvent event) {
+		System.out.println("generateInvoiceSaveAndPrint");
+		
+		if(saveInvoice()) {
+			System.out.println("invoice saved");
+						
+		}else {
+			System.out.println("invoice not saved");
+			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_UNSUCCESSFULL_STATUS,AlertType.INFORMATION);
+		}
+		InvoiceTemplateA4 invoiceTemplate=generateInvoiceTemplateA4();
+		generatePDF.generateXML(invoiceTemplate);
+		generatePDF.transformXSLToPDF();
+		System.out.println("Invice PDF generated");
+		Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_SUCCESSFULL_PDF_STATUS,AlertType.INFORMATION);
+		clearAllFields();
+	}
 
+	private InvoiceTemplateA4 generateInvoiceTemplateA4() {
+		InvoiceTemplateA4 invoiceTemplate=new InvoiceTemplateA4();
+		invoiceTemplate.setInvoiceNO(invNO.getText());
+		
+		invoiceTemplate.setCompanyName("BillDiary.com");
+		/*ImageView imageView=new ImageView();
+		Image image=new Image(getClass().getResource(URLS.INVOICE_LOGO).getFile());
+		imageView.setImage(image);
+		invoiceTemplate.setLogo(imageView);*/
+		invoiceTemplate.setCustomerName(invCustName.getText());
+		invoiceTemplate.setCustomerAddress(invAddress.getText());
+		invoiceTemplate.setAmountDue(amountDue.getText());
+		invoiceTemplate.setFinalAmount(finalAmount.getText());
+		List<Product> products=new ArrayList<>();
+		data.forEach(product->{
+			products.add(product);
+		});
+		invoiceTemplate.setProducts(products);
+		invoiceTemplate.setDiscount(discount.getText());
+		invoiceTemplate.setMobileNo(invMobileNo.getText());
+		LocalDate today=LocalDate.now();
+		invoiceTemplate.setToday(today);
+		invoiceTemplate.setPaidAmount(paidAmount.getText());
+		invoiceTemplate.setTotalAmount(totalAmount.getText());
+		return invoiceTemplate;	
+	}
 	private void clearAllFields() {
 		paidAmount.clear();
 		totalAmount.clear();
@@ -460,10 +516,5 @@ public class ManageInvoiceController implements Initializable {
 		invProductQuantity.clear();
 		invProductPrice.clear();
 		data.clear();
-	}
-
-	@FXML
-	public void generateInvoiceSaveAndPrint() {
-		System.out.println("generateInvoiceSaveAndPrint");
 	}
 }

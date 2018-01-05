@@ -8,9 +8,9 @@ public class Popup {
 
 	public static void showAlert(String title,String contentText,AlertType alertType) {
 		Alert alert = new Alert(alertType);
-		alert.setTitle("Invoice Status");
+		alert.setTitle(title);
 		alert.setHeaderText(null);
-		alert.setContentText("Invoice Successfull!");
+		alert.setContentText(contentText);
 		alert.showAndWait();
 	}
 }
