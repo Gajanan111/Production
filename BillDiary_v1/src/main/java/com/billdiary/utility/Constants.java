@@ -23,4 +23,10 @@ public class Constants {
 	public static final String INVOICE_UNSUCCESSFULL_STATUS="Invoice Unsucessfull!";
 	public static final String INVOICE_SUCCESSFULL_PDF_STATUS="Invoice SuccessFull and PDF generated at c:/bill/Bill.pdf";
 	
+	
+	/**
+	 * Validation Messages
+	 */
+	public static final String ERROR_TITLE="Error";
+	public static final String ERROR_CUSTOMER_VALIDATION="Please insert necessary fields(*)";
 }

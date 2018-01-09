@@ -7,17 +7,18 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import org.controlsfx.validation.Severity;
-import org.controlsfx.validation.ValidationResult;
+
 import org.controlsfx.validation.ValidationSupport;
-import org.controlsfx.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
+import com.billdiary.javafxUtility.ControlFXValidation;
+import com.billdiary.javafxUtility.Popup;
 import com.billdiary.model.Customer;
 import com.billdiary.service.CustomerService;
+import com.billdiary.utility.Constants;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,37 +31,17 @@ import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 
 @Controller("AddCustomerController")
 public class AddCustomerController implements Initializable{
 
 	
-	 ValidationSupport support = new ValidationSupport();
-
-	 Validator<String> validator = new Validator<String>()
-	    {
-	      @Override
-	      public ValidationResult apply( Control control, String value )
-	      {
-	        boolean condition =
-	            value != null
-	                ? !value
-	                    .matches(
-	                        "[\\x00-\\x20]*[+-]?(((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*" )
-	                : value == null;
-
-	        System.out.println( condition );
-
-	        return ValidationResult.fromMessageIf( control, "not a number", Severity.ERROR, condition );
-	      }
-	    };
-	    
-	  
-	    //support.registerValidator(addCustomerName, validator);
-	    
-	 
-	 
+	ValidationSupport support=new ValidationSupport();
+	
+	@Autowired 
+	ControlFXValidation controlFXValidation;
 	
 	public Customer custModel;
 	public Customer getCustModel() {
@@ -108,7 +89,7 @@ public class AddCustomerController implements Initializable{
 		// TODO Auto-generated method stub
 		System.out.println(this.getClass());
 		System.out.println(this.getClass().getSuperclass());
-		support.registerValidator( addCustomerName, true, validator );
+		support.registerValidator( addCustomerName, true, controlFXValidation.getStringValidator() );
 		if(custModel!=null)
 		{	
 		addCustomerName.setText(custModel.getCustomerName());
@@ -143,28 +124,28 @@ public class AddCustomerController implements Initializable{
 		String additionalInfo=addAdditionalInfo.getText();
 		String state=(String)addState.getValue();
 		regDate=new Date();
-		
-		if(customerName!=null && address!=null && mobileNO!=null && city!=null && emailID!=null && country!=null
-				&& null!=customerGroup && null!=zipCode && null!=additionalInfo && null!=state)
-		{
-			System.out.println(customerName+" "+address+" "+mobileNO+" "+city+" "+emailID+" "+country);
-			Customer cust=new Customer();
-			cust.setCustomerName(new SimpleStringProperty(customerName));
-			cust.setAddress(new SimpleStringProperty(address));
-			cust.setMobile_no(new SimpleStringProperty(mobileNO));
-		    cust.setCity(new SimpleStringProperty(city));
-		    cust.setEmailID(new SimpleStringProperty(emailID));
-		    cust.setCountry(new SimpleStringProperty(country));
-		    cust.setState(new SimpleStringProperty(state));
-		    cust.setZipCode(new SimpleStringProperty(zipCode)); 
-			cust.setAnniversary_date(anni_date);
-		    cust.setBirth_date(birth_date);
-		    cust.setCustomerGroup(new SimpleStringProperty(customerGroup));
-		    cust.setAddAdditionalInfo(new SimpleStringProperty(additionalInfo));
-		    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-		    String strDate = dateFormat.format(regDate);
-		    cust.setRegistrationDate(new SimpleStringProperty(strDate));
-		    
+		System.out.println(customerName+" "+address+" "+mobileNO+" "+city+" "+emailID+" "+country);
+		Customer cust=new Customer();
+		cust.setCustomerName(new SimpleStringProperty(customerName));
+		cust.setAddress(new SimpleStringProperty(address));
+		cust.setMobile_no(new SimpleStringProperty(mobileNO));
+	    cust.setCity(new SimpleStringProperty(city));
+	    cust.setEmailID(new SimpleStringProperty(emailID));
+	    cust.setCountry(new SimpleStringProperty(country));
+	    cust.setState(new SimpleStringProperty(state));
+	    cust.setZipCode(new SimpleStringProperty(zipCode)); 
+		cust.setAnniversary_date(anni_date);
+	    cust.setBirth_date(birth_date);
+	    cust.setCustomerGroup(new SimpleStringProperty(customerGroup));
+	    cust.setAddAdditionalInfo(new SimpleStringProperty(additionalInfo));
+	    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	    String strDate = dateFormat.format(regDate);
+	    cust.setRegistrationDate(new SimpleStringProperty(strDate));
+	    /**
+	     * All customer Customer validation 
+	     */
+	    if(validateCustomer(cust))
+	    {
 		    if(custModel==null)
 				customerService.addCustomer(cust);
 			else{ 
@@ -185,13 +166,20 @@ public class AddCustomerController implements Initializable{
 				ManageInvoiceController manageInvoiceController=(ManageInvoiceController) applicationContext.getBean("ManageInvoiceController");
 				manageInvoiceController.refreshCustomerList();;
 			}
-			
-			
-			}
-		
-		}	
+		  }
+	    }
 	}
 	
+	private boolean validateCustomer(Customer cust) {
+		boolean valid=true;
+		if(null==cust.getCustomerName() || cust.getCustomerName().isEmpty()) {
+			valid=false;
+			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_CUSTOMER_VALIDATION,AlertType.ERROR);
+		}
+		
+		return valid;
+		
+	}
 	public void clearFields() {
 		addAdditionalInfo.setText(null);
 		addAddress.setText(null);
