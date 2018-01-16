@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
 
-import com.billdiary.model.User1;
+import com.billdiary.model.User;
 import com.billdiary.screenResolution.ScreenController;
 import com.billdiary.service.LoginService;
 import com.billdiary.utility.Constants;
@@ -61,7 +61,7 @@ public class LoginController {
 	
 	
 	@Autowired
-	private User1 user;
+	private User user;
 	
 	@FXML private Text actiontarget;
 	@FXML private TextField textField;

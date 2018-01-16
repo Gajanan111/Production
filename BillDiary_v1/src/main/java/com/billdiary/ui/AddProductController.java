@@ -27,14 +27,11 @@ import javafx.scene.control.TextField;
 @Controller("AddProductController")
 public class AddProductController  implements Initializable {
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Autowired
 	private ProductService productService;
+	
+	Product prodModel;
 	@FXML
 	TextField add_productName;
 	@FXML
@@ -64,13 +61,25 @@ public class AddProductController  implements Initializable {
 	@FXML
 	ComboBox<String> retailGSTpercentage;
 	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		if(getProdModel()!=null) {
+			Product pro=getProdModel();
+			add_Discount.setText(Double.toString(pro.getDiscount()));
+			add_prodDesc.setText(pro.getDescription());
+			add_productName.setText(pro.getName());
+		    add_retailPrice.setText(Double.toString(pro.getRetailPrice()));
+		    add_stock.setText(Integer.toString(pro.getStock()));
+		    add_wholesalePrice.setText(Double.toString(pro.getWholesalePrice()));
+		    productCategory.setText(pro.getProductCategory()); 
+		}
+	}
+
 	
 	@FXML
 	public void addProduct(ActionEvent event){
-		
-		
 		Product prod=new Product();
-		
+	
 		String productName=add_productName.getText();
 		String productDesc=add_prodDesc.getText();
 		Double retailPrice=Double.parseDouble(add_retailPrice.getText());
@@ -115,7 +124,12 @@ public class AddProductController  implements Initializable {
 		prod.setDiscount(new SimpleDoubleProperty(discount));
 		prod.setStock(new SimpleIntegerProperty(stock)); 
 		prod.setProductCategory(new SimpleStringProperty(productCategory.getText()));
-		
+		if(getProdModel()!=null)
+		{
+			prod.setProductId(new SimpleIntegerProperty(getProdModel().getProductId()));
+			productService.updateProduct(prod);
+		}
+		else
 		productService.addProduct(prod);
 		/*getRefreshedTable();*/
 			
@@ -125,5 +139,13 @@ public class AddProductController  implements Initializable {
 		ManageProductController  manageProductController=( ManageProductController)applicationContext.getBean("ManageProductController");
 		manageProductController.getRefreshedTable();
 		
+	}
+	public Product getProdModel() {
+		return prodModel;
+	}
+
+
+	public void setProdModel(Product prodModel) {
+		this.prodModel = prodModel;
 	}
 }

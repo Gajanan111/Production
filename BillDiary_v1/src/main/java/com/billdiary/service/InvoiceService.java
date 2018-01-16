@@ -13,21 +13,19 @@ public class InvoiceService {
 	
 	@Autowired
 	InvoiceDAO invoiceDAO;
+	
+	@Autowired
+	ModelTOEntityMapper modelTOEntityMapper;
 
 	public boolean save(Invoice inv) {
-		// TODO Auto-generated method stub
 		InvoiceEntity invEntity=new InvoiceEntity();
-		ModelTOEntityMapper mapper=new ModelTOEntityMapper();
-		invEntity=mapper.getInvoiceEntity(inv);
-		return invoiceDAO.save(invEntity);
-		
-		
+		invEntity=modelTOEntityMapper.getInvoiceEntity(inv);
+		return invoiceDAO.save(invEntity);	
 	}
 
 	public String generateInvoiceNO() {
 		String invoiceNo=null;
 		invoiceNo=String.valueOf(invoiceDAO.generateInvoiceNO());
-		
 		return invoiceNo;
 	}
 

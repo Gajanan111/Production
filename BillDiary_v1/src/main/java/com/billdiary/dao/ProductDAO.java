@@ -45,18 +45,23 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 			ProductEntity productEntity=entityManager.merge(prodEntity);
 			updatedProdEntities.add(productEntity);
 		}
-		
-		
-		
-		
 		return updatedProdEntities;
 	}
+	
 	@Transactional
 	public boolean addProduct(ProductEntity prodEntity) {
 		boolean productAdded=false;
 		create(prodEntity);
 		productAdded=true;
 		return productAdded;
+	}
+	
+	@Transactional
+	public ProductEntity updateProduct(ProductEntity proEntity) {
+		// TODO Auto-generated method stub
+		ProductEntity updatedProduct=null;
+		updatedProduct=update(proEntity);
+		return updatedProduct;
 	}
 	
 	

@@ -3,12 +3,12 @@ package com.billdiary.service;
 //import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.billdiary.DAOUtility.Mapper;
+import com.billdiary.DAOUtility.ModelTOEntityMapper;
 import com.billdiary.dao.LoginDAO;
 import com.billdiary.dao.ProductDAO;
+import com.billdiary.entities.UserEntity;
+
 import com.billdiary.model.User;
-import com.billdiary.model.User1;
 
 
 @Service
@@ -20,12 +20,15 @@ public class LoginService {
 	public LoginDAO loginDAO;
 	@Autowired
 	public ProductDAO productDAO;
-	public boolean doLogin(User1 user)
+	
+	@Autowired
+	ModelTOEntityMapper  modelTOEntityMapper;
+	public boolean doLogin(User user)
 	{
 		//LOGGER.debug("In method LoginService:doLogin Entry ");
 		boolean userLogged=false;
 		
-		User u=Mapper.getUserEntity(user);
+		UserEntity u=modelTOEntityMapper.getUserEntity(user);
 		
 		
 		if(loginDAO.doLogin(u))

@@ -1,50 +1,15 @@
 package com.billdiary.model;
 
+import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
+@Component
+public class User {
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-
-
-@Entity
-@Table(name = "user")
-public class User implements Serializable{
 	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	@Id
-    @GeneratedValue
-    @Column(name = "id")
 	private Long id;
-	
-	@Column(name = "username")
 	private String userName;
-	
-	@Column(name = "password")
 	private String password;
-	
-	@Column(name = "role")
 	private String role;
-	
-	
-	/**
-	 * Default constructor
-	 */
-	public User()
-	{
-		
-	}
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -70,10 +35,4 @@ public class User implements Serializable{
 		this.role = role;
 	}
 	
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
 }

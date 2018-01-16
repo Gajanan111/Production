@@ -1,32 +1,23 @@
 package com.billdiary.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-
-import org.springframework.beans.factory.annotation.Autowired;
-//import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
-
+import com.billdiary.entities.UserEntity;
 import com.billdiary.model.Product;
-import com.billdiary.model.User;
-import com.billdiary.utility.Constants;
+
 
 import javafx.scene.control.Hyperlink;
 
 
 @Repository
-public class LoginDAO extends AbstractJpaDAO< User >{
+public class LoginDAO extends AbstractJpaDAO< UserEntity >{
 
 	//final static Logger LOGGER = Logger.getLogger(LoginDAO.class);
 	
@@ -37,19 +28,19 @@ public class LoginDAO extends AbstractJpaDAO< User >{
 	
 	public LoginDAO()
 	{
-		setClazz(User.class );
+		setClazz(UserEntity.class );
 	}
 	
 	PreparedStatement st;
 	ResultSet r1;
 	Connection connection;
-	public boolean doLogin(User user)
+	public boolean doLogin(UserEntity user)
 	{
 	//	LOGGER.debug("In method LoginDAO:doLogin Entry ");
 		boolean userLogged=true;
 		
 		try {
-		User u=findOne(1);
+		UserEntity u=findOne(1);
 		if(null!=u)
 		{
 			System.out.println(u.toString());

@@ -19,7 +19,7 @@
                   <Text layoutX="43.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Code" />
                   <TextField id="productId" fx:id="productId" layoutX="129.0" layoutY="81.0" />
                   <Separator layoutX="8.0" layoutY="133.0" prefHeight="3.0" prefWidth="964.0" />
-                  <TableView id="ProductTable" fx:id="ProductTable" editable="true" layoutX="10.0" layoutY="146.0" prefHeight="245.0" prefWidth="960.0">
+                  <TableView id="ProductTable" fx:id="ProductTable" editable="true" layoutX="10.0" layoutY="143.0" prefHeight="245.0" prefWidth="960.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="ID (Code)">
                       <cellValueFactory>
@@ -84,12 +84,8 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button layoutX="10.0" layoutY="402.0" mnemonicParsing="false" onAction="#addNewProduct" prefHeight="25.0" prefWidth="116.0" text="Add New Product" />
-                  <Button layoutX="129.0" layoutY="402.0" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="25.0" prefWidth="116.0" text="Delete Product" />
+                  <Button layoutX="725.0" layoutY="102.0" mnemonicParsing="false" onAction="#addNewProduct" prefHeight="25.0" prefWidth="116.0" text="New Product" />
                   <Button layoutX="854.0" layoutY="102.0" mnemonicParsing="false" onAction="#searchProduct" prefHeight="25.0" prefWidth="116.0" text="Search" />
-                  <Button layoutX="729.0" layoutY="102.0" mnemonicParsing="false" onAction="#uploadExcelFile" prefHeight="25.0" prefWidth="116.0" text="Upload Template" />
-                  <Button layoutX="598.0" layoutY="102.0" mnemonicParsing="false" onAction="#createExcelFile" prefHeight="25.0" prefWidth="125.0" text="Download Template" />
-                  <Button layoutX="251.0" layoutY="402.0" mnemonicParsing="false" onAction="#saveProduct" prefHeight="25.0" prefWidth="116.0" text="Save" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

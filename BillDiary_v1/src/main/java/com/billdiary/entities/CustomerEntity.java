@@ -89,8 +89,8 @@ public class CustomerEntity implements Serializable {
 	/*@OneToOne(cascade = CascadeType.ALL) @JoinColumn( name = "address_id" )
     private AddressEntity addressEntity;*/
 	
-	@OneToMany(mappedBy = "customerEntity", cascade=CascadeType.ALL, orphanRemoval=true)
-	private Set<InvoiceEntity> invoiceEntities;
+/*	@OneToMany(mappedBy = "customerEntity", cascade=CascadeType.ALL, orphanRemoval=true)
+	private Set<InvoiceEntity> invoiceEntities;*/
 	
 	public Date getRegDate() {
 		return regDate;
