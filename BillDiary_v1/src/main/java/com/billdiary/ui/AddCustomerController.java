@@ -92,19 +92,19 @@ public class AddCustomerController implements Initializable{
 		support.registerValidator( addCustomerName, true, controlFXValidation.getStringValidator() );
 		if(custModel!=null)
 		{	
-		addCustomerName.setText(custModel.getCustomerName());
-		addAdditionalInfo.setText(custModel.getAddAdditionalInfo());
-		addAddress.setText(custModel.getAddress());
-		addCity.setValue(custModel.getCity());
-		addCountry.setValue(custModel.getCountry());
-		addCustomerGroup.setValue(custModel.getCustomerGroup());
-		addEmailID.setText(custModel.getEmailID());
-		addMobileNo.setText(custModel.getMobile_no());
-		addState.setValue(custModel.getState());;
-		addZipCode.setText(custModel.getZipCode());
-		Anniversary_Date.setValue(custModel.getAnniversary_date());
-		Birth_Date.setValue(custModel.getBirth_date());
-	    cust_id=custModel.getCustomerID();
+			addCustomerName.setText(custModel.getCustomerName());
+			addAdditionalInfo.setText(custModel.getAddAdditionalInfo());
+			addAddress.setText(custModel.getAddress());
+			addCity.setValue(custModel.getCity());
+			addCountry.setValue(custModel.getCountry());
+			addCustomerGroup.setValue(custModel.getCustomerGroup());
+			addEmailID.setText(custModel.getEmailID());
+			addMobileNo.setText(custModel.getMobile_no());
+			addState.setValue(custModel.getState());;
+			addZipCode.setText(custModel.getZipCode());
+			Anniversary_Date.setValue(custModel.getAnniversary_date());
+			Birth_Date.setValue(custModel.getBirth_date());
+		    cust_id=custModel.getCustomerID();
 		}
 	}
 

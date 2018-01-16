@@ -165,6 +165,7 @@ public class ModelTOEntityMapper {
 		{
 			ProductEntity productEntity =new ProductEntity();
 			productEntity.setDescription(prod.getDescription());
+			productEntity.setProductHSNCode(prod.getProductHSNCode());
 			productEntity.setDiscount(prod.getDiscount());
 			productEntity.setId(prod.getProductId());
 			productEntity.setName(prod.getName());
@@ -181,6 +182,7 @@ public class ModelTOEntityMapper {
 		productEntity.setId(0);
 		productEntity.setDescription(prod.getDescription());
 		productEntity.setName(prod.getName());
+		productEntity.setProductHSNCode(prod.getProductHSNCode());
 		productEntity.setRetail_price(prod.getRetailPrice());;
 		productEntity.setWholesale_price(prod.getWholesalePrice());;
 		productEntity.setDiscount(prod.getDiscount());

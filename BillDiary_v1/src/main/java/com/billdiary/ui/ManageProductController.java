@@ -137,6 +137,7 @@ public class ManageProductController implements Initializable{
 	}
 	@FXML public void addNewProduct()
 	{
+		addProductController.setProdModel(null);
 		SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
 		StackPane addProduct=(StackPane)  loader.load(URLS.ADD_PRODUCT_PAGE);
 		BorderPane root = new BorderPane();

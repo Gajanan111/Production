@@ -106,6 +106,7 @@ public class EntityTOModelMapper {
 			prod.setDescription(new SimpleStringProperty(productEntity.getDescription()));
 			prod.setDiscount(new SimpleDoubleProperty(productEntity.getDiscount()));
 			prod.setName(new SimpleStringProperty(productEntity.getName()));
+			prod.setProductHSNCode(new SimpleStringProperty(productEntity.getProductHSNCode()));
 			prod.setRetailPrice(new SimpleDoubleProperty(productEntity.getRetail_price()));
 			prod.setWholesalePrice(new SimpleDoubleProperty(productEntity.getWholesale_price()));
 			prod.setStock(new SimpleIntegerProperty(productEntity.getStock()));

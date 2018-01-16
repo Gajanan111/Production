@@ -25,7 +25,6 @@ import com.billdiary.utility.Calculate;
 import com.billdiary.utility.Constants;
 import com.billdiary.utility.GeneratePDF;
 import com.billdiary.utility.URLS;
-
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,19 +33,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -61,7 +55,6 @@ public class ManageInvoiceController implements Initializable {
 
 	@Autowired
 	public LayoutController layoutController;
-	
 	
 	@Autowired
 	GeneratePDF generatePDF;
@@ -232,38 +225,19 @@ public class ManageInvoiceController implements Initializable {
 	public void calculatefinalAmount() {
 		double total;
 		double disc;
-		if(totalAmount.getText().isEmpty()) {
-			total=0;
-		}else {
-			total=Double.parseDouble(totalAmount.getText());
-		}
-		
-		if(discount.getText().isEmpty()) {
-			/*discount.setText("0");*/
-			disc=0.0;
-		}else {
-		disc=Double.parseDouble(discount.getText());
-		}
+		total=Calculate.getNonEmptyDoubleValue(totalAmount.getText());
+		disc=Calculate.getNonEmptyDoubleValue(discount.getText());
 		total=total-(total*(disc/100));
-		finalAmount.setText(String.valueOf(total));
+		finalAmount.setText(String.valueOf(Calculate.getFormatedDoubleValue(total)));
 	}
 	
 	public void calculateAmountDue()
 	{
 		double paidAmt;
 		double total;
-		if(finalAmount.getText().isEmpty() ) {
-			total=0.0;
-		}else {
-			total=Double.parseDouble(finalAmount.getText());
-		}
-		if(paidAmount.getText().isEmpty()) {
-			paidAmt=0.0;
-			
-		}else {
-			paidAmt=Double.parseDouble(paidAmount.getText());
-		}
-		amountDue.setText(String.valueOf(total-paidAmt));
+		total=Calculate.getNonEmptyDoubleValue(finalAmount.getText());
+		paidAmt=Calculate.getNonEmptyDoubleValue(paidAmount.getText());
+		amountDue.setText(String.valueOf(Calculate.getFormatedDoubleValue(total-paidAmt)));
 	}
 	private void refreshProductList() {
 		// TODO Auto-generated method stub
@@ -404,7 +378,6 @@ public class ManageInvoiceController implements Initializable {
 	}
 	
 	public Customer getCustomer(String custID) {
-		
 		Customer cust=	custList.stream()
 		.filter(x -> (String.valueOf(x.getCustomerID())).equals(custID)).findAny()
 		.orElse(null);
@@ -421,21 +394,9 @@ public class ManageInvoiceController implements Initializable {
 		Invoice inv=new Invoice();
 		inv.setInvoiceID(Long.parseLong(invNO.getText()));
 		inv.setCustomer(cust);
-		if(null==amountDue.getText()) {
-			inv.setAmountDue(0.00);
-		}else {
-			inv.setAmountDue(Double.parseDouble(amountDue.getText()));
-		}
-		if(null==finalAmount.getText()) {
-			inv.setFinalAmount(0.00);
-		}else {
-			inv.setFinalAmount(Double.parseDouble(finalAmount.getText()));
-		}
-		if(null==paidAmount.getText()) {
-			inv.setPaidAmount(0.00);
-		}else {
-			inv.setPaidAmount(Double.parseDouble(paidAmount.getText()));
-		}
+		inv.setAmountDue(Calculate.getNonEmptyDoubleValue(amountDue.getText()));
+		inv.setFinalAmount(Calculate.getNonEmptyDoubleValue(finalAmount.getText()));
+		inv.setPaidAmount(Calculate.getNonEmptyDoubleValue(paidAmount.getText()));
 		inv.setProduct_sale_qty(data.size());
 		inv.setLastAmountPaidDate(LocalDate.now());
 		inv.setInvoiceDate(LocalDate.now());

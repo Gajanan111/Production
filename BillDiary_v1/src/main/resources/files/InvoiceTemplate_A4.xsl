@@ -10,11 +10,9 @@
 			</fo:layout-master-set>
 			<fo:page-sequence master-reference="simpleA4">
 				<fo:flow flow-name="xsl-region-body">
-					<fo:block>
-					<fo:external-graphic src="url('file:.//src/main/resources/images/pay-bills logo.jpg')" content-height="scale-to-fit" height="1.00in"  content-width="2.00in" padding-left="150pt"/>
-					</fo:block>
-					<fo:block font-size="16pt" font-weight="bold" space-after="5mm" >
-						<fo:inline font-size="12pt" font-weight="bold" padding-left="200pt" text-align="right" >
+					<fo:block font-size="16pt" font-weight="bold" space-after="5mm">
+					<fo:external-graphic src="url('file:.//src/main/resources/images/pay-bills logo.jpg')" content-height="scale-to-fit" height="1.00in"  content-width="2.00in" padding-left="20pt"/>
+						<fo:inline font-size="12pt" font-weight="bold" padding-left="205pt" text-align="right" >
 						InvoiceNo:<xsl:value-of select="invoiceNO"/>
 						</fo:inline>
 					</fo:block>

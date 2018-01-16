@@ -42,9 +42,9 @@
                               <PropertyValueFactory property="productCategory" />
                            </cellValueFactory>
                         </TableColumn>
-                        <TableColumn id="ProductDesc" onEditCommit="#setEditedValue" prefWidth="75.0" text="Product Description">
+                        <TableColumn id="ProductHSNCode" onEditCommit="#setEditedValue" prefWidth="75.0" text="Product HSNCode">
                         <cellValueFactory>
-							<PropertyValueFactory property="description" />
+							<PropertyValueFactory property="productHSNCode" />
 							</cellValueFactory>
 							<cellFactory>
 							<TextFieldTableCell fx:factory="forTableColumn" />

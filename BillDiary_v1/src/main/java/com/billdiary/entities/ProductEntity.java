@@ -17,8 +17,6 @@ import javafx.beans.property.SimpleStringProperty;
 @Entity
 @Table(name = "product")
 public class ProductEntity implements Serializable {
-	
-	
 	/**
 	 * serialVersionUID
 	 */
@@ -35,7 +33,9 @@ public class ProductEntity implements Serializable {
 	@Column(name="product_category")
 	String productCategory;
 	
-	
+	@Column(name="product_hsncode")
+	String productHSNCode;
+
 	@Column(name = "description")
 	String description;
 	
@@ -135,6 +135,13 @@ public class ProductEntity implements Serializable {
 	}
 	public void setRetailGSTpercentage(double retailGSTpercentage) {
 		this.retailGSTpercentage = retailGSTpercentage;
+	}
+	
+	public String getProductHSNCode() {
+		return productHSNCode;
+	}
+	public void setProductHSNCode(String productHSNCode) {
+		this.productHSNCode = productHSNCode;
 	}
 
 }

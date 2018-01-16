@@ -126,7 +126,7 @@ public class Calculate {
 		}else {
 			doubleValue=0.00;
 		}
-		return doubleValue;	
+		return getFormatedDoubleValue(doubleValue);	
 	}
 	public static int getNonEmptyIntegerValue(String value) {
 		int intValue=0;

@@ -25,6 +25,8 @@ public class Product {
 	
 	private SimpleStringProperty productCategory;
 	
+	private SimpleStringProperty productHSNCode;
+	
 	
 	private SimpleDoubleProperty wholesalePrice;
 	
@@ -214,5 +216,11 @@ public class Product {
 	}
 	public void setRetailGSTpercentage(SimpleDoubleProperty retailGSTpercentage) {
 		this.retailGSTpercentage = retailGSTpercentage;
+	}
+	public String getProductHSNCode() {
+		return productHSNCode.get();
+	}
+	public void setProductHSNCode(SimpleStringProperty productHSNCode) {
+		this.productHSNCode = productHSNCode;
 	}
 }

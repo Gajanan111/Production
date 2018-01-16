@@ -14,9 +14,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
+import com.billdiary.javafxUtility.Popup;
 import com.billdiary.model.Address;
 import com.billdiary.model.Supplier;
 import com.billdiary.service.SupplierService;
+import com.billdiary.utility.Constants;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -29,6 +31,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 @Controller("AddSupplierController")
 public class AddSupplierController implements Initializable{
@@ -87,8 +90,11 @@ public class AddSupplierController implements Initializable{
 	@FXML
 	public void addSupplier(ActionEvent event) {
 		
+		
+		if(validateSupplier()) {
 		//String  supplID=
 		String supplName=supplierName.getText();
+	
 		String supplCompany=supplierCompany.getText();
 		String supplAddress=supplierAddress.getText();
 		String supplGovID=supplierGovID.getText();
@@ -186,9 +192,20 @@ public class AddSupplierController implements Initializable{
 		ManageSupplierController manageSupplirController=(ManageSupplierController)applicationContext.getBean("ManageSupplierController");
 		manageSupplirController.getRefreshedTable();
 		setSupModel(null);
-		((Node)(event.getSource())).getScene().getWindow().hide();	
+		((Node)(event.getSource())).getScene().getWindow().hide();
+		}
 	}
 	
+	private boolean validateSupplier() {
+		if(supplierName.getText().isEmpty()) {
+			Popup.showAlert(Constants.ERROR_TITLE,Constants.ERROR_COMMON_VALIDATION,AlertType.ERROR);
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
+
 	public Supplier getSupModel() {
 		return supModel;
 	}

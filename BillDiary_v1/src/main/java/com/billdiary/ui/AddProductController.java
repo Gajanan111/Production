@@ -1,6 +1,7 @@
 package com.billdiary.ui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.model.Product;
+import com.billdiary.model.Supplier;
 import com.billdiary.service.ProductService;
+import com.billdiary.service.SupplierService;
 import com.billdiary.utility.Calculate;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -27,17 +30,20 @@ import javafx.scene.control.TextField;
 @Controller("AddProductController")
 public class AddProductController  implements Initializable {
 
-	
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private SupplierService supplierService;
 	Product prodModel;
 	@FXML
 	TextField add_productName;
 	@FXML
 	TextField add_prodDesc;
 	@FXML
-	TextField supplierName;
+	ComboBox<String> supplierComboList;
+	@FXML
+	TextField add_PrdHSNCodes;
 	@FXML
 	TextField add_retailPrice;
 	@FXML
@@ -63,6 +69,11 @@ public class AddProductController  implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		supplierComboList.setVisibleRowCount(5);
+		getSupplierList();
+		
+		
 		if(getProdModel()!=null) {
 			Product pro=getProdModel();
 			add_Discount.setText(Double.toString(pro.getDiscount()));
@@ -70,7 +81,7 @@ public class AddProductController  implements Initializable {
 			add_productName.setText(pro.getName());
 		    initialStock.setText(String.valueOf(pro.getStock()));
 		    productCategory.setText(pro.getProductCategory()); 
-		    
+		    add_PrdHSNCodes.setText(pro.getProductHSNCode());
 		    if(null!=pro.getRetailGST() && "Y".equals(pro.getRetailGST())){
 		    	add_retailPrice.setText(Double.toString(Calculate.getRetailWithGST(pro.getRetailPrice(),pro.getRetailGSTpercentage())));
 		    	retailGST.setSelected(true);
@@ -92,8 +103,14 @@ public class AddProductController  implements Initializable {
 	}
 
 	
-	
-	
+	private void getSupplierList() {
+		List<Supplier> supplierList=supplierService.fetchSuppliers();
+		supplierList.forEach(supplier->{
+			supplierComboList.getItems().add(supplier.getSupplierID()+" "+supplier.getSupplierName());
+		});
+		
+	}
+
 	@FXML
 	public void addProduct(ActionEvent event){
 		Product prod=new Product();
@@ -146,6 +163,7 @@ public class AddProductController  implements Initializable {
 		prod.setDiscount(new SimpleDoubleProperty(discount));
 		prod.setStock(new SimpleIntegerProperty(stock)); 
 		prod.setProductCategory(new SimpleStringProperty(productCategory.getText()));
+		prod.setProductHSNCode(new SimpleStringProperty(add_PrdHSNCodes.getText()));
 		if(getProdModel()!=null)
 		{
 			prod.setProductId(new SimpleIntegerProperty(getProdModel().getProductId()));

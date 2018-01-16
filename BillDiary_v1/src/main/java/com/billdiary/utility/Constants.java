@@ -29,4 +29,5 @@ public class Constants {
 	 */
 	public static final String ERROR_TITLE="Error";
 	public static final String ERROR_CUSTOMER_VALIDATION="Please insert necessary fields(*)";
+	public static final String ERROR_COMMON_VALIDATION="Please insert necessary fields(*)";
 }

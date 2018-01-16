@@ -2,8 +2,6 @@ package com.billdiary.ui;
 
 
 
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 
 import org.apache.log4j.Logger;
 
@@ -59,4 +57,9 @@ public class MainController extends Application{
         stage.show();	
        
 	}
+	
+	
+	
+	
+	
 }
