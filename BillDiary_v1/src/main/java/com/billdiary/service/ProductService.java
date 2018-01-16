@@ -62,7 +62,6 @@ public class ProductService {
 		
 	}
 	
-	
 	public Product updateProduct(Product product) {
 		Product updatedProduct=null;
 		ProductEntity updatedProEnitity=null;

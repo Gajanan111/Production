@@ -68,13 +68,31 @@ public class AddProductController  implements Initializable {
 			add_Discount.setText(Double.toString(pro.getDiscount()));
 			add_prodDesc.setText(pro.getDescription());
 			add_productName.setText(pro.getName());
-		    add_retailPrice.setText(Double.toString(pro.getRetailPrice()));
-		    add_stock.setText(Integer.toString(pro.getStock()));
-		    add_wholesalePrice.setText(Double.toString(pro.getWholesalePrice()));
+		    initialStock.setText(String.valueOf(pro.getStock()));
 		    productCategory.setText(pro.getProductCategory()); 
+		    
+		    if(null!=pro.getRetailGST() && "Y".equals(pro.getRetailGST())){
+		    	add_retailPrice.setText(Double.toString(Calculate.getRetailWithGST(pro.getRetailPrice(),pro.getRetailGSTpercentage())));
+		    	retailGST.setSelected(true);
+		    	retailGSTpercentage.setValue(pro.getRetailGSTpercentage()+"%");
+		    }else {
+		    	retailGST.setSelected(false);
+		    	add_retailPrice.setText(Double.toString(pro.getRetailPrice()));
+		    }
+		    if(null!=pro.getWholeSaleGST() && "Y".equals(pro.getWholeSaleGST())) {
+		    	add_wholesalePrice.setText(Double.toString(Calculate.getWholeSaleWithGST(pro.getWholesalePrice(),pro.getWholeSaleGSTpercentage())));
+		    	wholeSaleGST.setSelected(true);
+		    	wholeSaleGSTpercentage.setValue(pro.getWholeSaleGSTpercentage()+"%");
+		    }else {
+		    	wholeSaleGST.setSelected(false);
+		    	add_wholesalePrice.setText(Double.toString(pro.getWholesalePrice()));
+		    }
+		   
 		}
 	}
 
+	
+	
 	
 	@FXML
 	public void addProduct(ActionEvent event){
@@ -82,10 +100,14 @@ public class AddProductController  implements Initializable {
 	
 		String productName=add_productName.getText();
 		String productDesc=add_prodDesc.getText();
-		Double retailPrice=Double.parseDouble(add_retailPrice.getText());
-		Double wholesalePrice=Double.parseDouble(add_wholesalePrice.getText());
-		Double discount=Double.parseDouble(add_Discount.getText());
-		Integer stock=Integer.parseInt(add_stock.getText());
+		Double retailPrice=Calculate.getNonEmptyDoubleValue(add_retailPrice.getText());
+		Double wholesalePrice=Calculate.getNonEmptyDoubleValue(add_wholesalePrice.getText());
+		Double discount=Calculate.getNonEmptyDoubleValue(add_Discount.getText());
+		if(discount>100.00) {
+			discount=0.00;
+		}
+		Integer stock=Calculate.getNonEmptyIntegerValue(add_stock.getText());
+		stock=stock+Calculate.getNonEmptyIntegerValue(initialStock.getText());
 		String wholeSaleGSTper=wholeSaleGSTpercentage.getValue();
 		String retailGSTper=retailGSTpercentage.getValue();
 		if(null==wholeSaleGSTper) {
