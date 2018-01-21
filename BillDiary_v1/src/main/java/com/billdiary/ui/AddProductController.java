@@ -9,11 +9,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
+import com.billdiary.javafxUtility.Popup;
 import com.billdiary.model.Product;
 import com.billdiary.model.Supplier;
 import com.billdiary.service.ProductService;
 import com.billdiary.service.SupplierService;
 import com.billdiary.utility.Calculate;
+import com.billdiary.utility.Constants;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -25,6 +27,7 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 
 @Controller("AddProductController")
@@ -113,8 +116,12 @@ public class AddProductController  implements Initializable {
 
 	@FXML
 	public void addProduct(ActionEvent event){
+		
+		
+		
 		Product prod=new Product();
-	
+		if(validateProduct(add_productName.getText())) {
+			
 		String productName=add_productName.getText();
 		String productDesc=add_prodDesc.getText();
 		Double retailPrice=Calculate.getNonEmptyDoubleValue(add_retailPrice.getText());
@@ -164,6 +171,8 @@ public class AddProductController  implements Initializable {
 		prod.setStock(new SimpleIntegerProperty(stock)); 
 		prod.setProductCategory(new SimpleStringProperty(productCategory.getText()));
 		prod.setProductHSNCode(new SimpleStringProperty(add_PrdHSNCodes.getText()));
+		
+		
 		if(getProdModel()!=null)
 		{
 			prod.setProductId(new SimpleIntegerProperty(getProdModel().getProductId()));
@@ -178,8 +187,23 @@ public class AddProductController  implements Initializable {
 		ApplicationContext applicationContext=SpringFxmlLoader.getApplicationcontext();
 		ManageProductController  manageProductController=( ManageProductController)applicationContext.getBean("ManageProductController");
 		manageProductController.getRefreshedTable();
+		}
 		
 	}
+	private boolean validateProduct(String text) {
+		if(null==text) {
+			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_COMMON_VALIDATION,AlertType.ERROR);
+			return false;
+		}
+		else if(null!=text && text.isEmpty()) {
+			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_COMMON_VALIDATION,AlertType.ERROR);
+			return false;
+		}
+		
+		return true;
+	}
+
+
 	public Product getProdModel() {
 		return prodModel;
 	}
