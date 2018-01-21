@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.billdiary.DAOUtility.EntityTOModelMapper;
 import com.billdiary.DAOUtility.ModelTOEntityMapper;
 import com.billdiary.dao.ProductDAO;
+import com.billdiary.entities.ProductCategoryEntity;
 import com.billdiary.entities.ProductEntity;
 import com.billdiary.model.Product;
 import javafx.collections.ObservableList;
@@ -71,6 +72,12 @@ public class ProductService {
 		updatedProEnitity=productDAO.updateProduct(proEntity);
 		updatedProduct=entityTOModelMapper.getProductModel(updatedProEnitity);
 		return updatedProduct;
+	}
+	public List<String> getCategoryList() {
+		List<String> categoryList=new ArrayList<>();
+		List<ProductCategoryEntity> categoryListEntity=productDAO.getCategoryList();
+		categoryList=entityTOModelMapper.getProductCategoryList(categoryListEntity);
+		return categoryList;
 	}
 	
 }

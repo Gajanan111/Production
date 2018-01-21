@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.billdiary.entities.ProductCategoryEntity;
 import com.billdiary.entities.ProductEntity;
 
 @Repository
@@ -62,6 +62,13 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		ProductEntity updatedProduct=null;
 		updatedProduct=update(proEntity);
 		return updatedProduct;
+	}
+	@SuppressWarnings("unchecked")
+	public List<ProductCategoryEntity> getCategoryList() {
+		List<ProductCategoryEntity> categoryListEntity=new ArrayList<>();
+		categoryListEntity=entityManager.createQuery( "from " + ProductCategoryEntity.class.getName() )
+	       .getResultList();
+		return categoryListEntity;
 	}
 	
 	

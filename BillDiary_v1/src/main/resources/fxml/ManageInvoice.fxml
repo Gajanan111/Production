@@ -16,8 +16,10 @@
             <Pane maxHeight="600.0" maxWidth="995.0" minHeight="600.0" minWidth="990.0" prefHeight="600.0" prefWidth="995.0">
                <children>
                   <TextField fx:id="invCustName" layoutX="140.0" layoutY="29.0" onKeyPressed="#handleKeyActionEnter" prefHeight="25.0" prefWidth="141.0" promptText="Type Customer Name" />
+                  <Button layoutX="291.0" layoutY="29.0" mnemonicParsing="false" onAction="#showAddNewCustomerPage" onKeyPressed="#handleAddNewCustomer" prefHeight="25.0" prefWidth="122.0" text="Add New Customer" />
                   <TextArea fx:id="invAddress" layoutX="139.0" layoutY="66.0" prefHeight="40.0" prefWidth="141.0" />
                   <TextField fx:id="invMobileNo" layoutX="140.0" layoutY="115.0" prefHeight="25.0" prefWidth="141.0" promptText="XXXXXXXXXX" />
+                  <DatePicker fx:id="invIssueDate" layoutX="594.0" layoutY="74.0" prefHeight="25.0" prefWidth="148.0" />
                   <DatePicker fx:id="invDueDate" layoutX="594.0" layoutY="115.0" prefHeight="25.0" prefWidth="148.0" />
                   <TextField fx:id="invProductName" layoutX="139.0" layoutY="163.0" prefHeight="25.0" prefWidth="141.0" promptText="Product Name/Code" />
                   <TextField fx:id="invProductQuantity" layoutX="352.0" layoutY="163.0" prefHeight="25.0" prefWidth="141.0" promptText="0" />
@@ -110,8 +112,6 @@
                   <Text layoutX="503.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invoice number" />
                   <Text fx:id="invNO" layoutX="615.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" />
                   <Text layoutX="503.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
-                  <Text fx:id="invDate" layoutX="594.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2001-01-01" />
-                  <Button layoutX="291.0" layoutY="29.0" mnemonicParsing="false" onAction="#showAddNewCustomerPage" prefHeight="25.0" prefWidth="122.0" text="Add New Customer" />
                   <Text layoutX="682.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press CTL+P for save and Print" />
                   <Text layoutX="534.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due" />
                   <TextField fx:id="amountDue" layoutX="611.0" layoutY="523.0" prefHeight="25.0" prefWidth="135.0" />

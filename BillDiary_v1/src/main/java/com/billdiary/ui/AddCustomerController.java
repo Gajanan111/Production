@@ -65,7 +65,7 @@ public class AddCustomerController implements Initializable{
 	@FXML
 	TextField addMobileNo;
 	@FXML
-	ChoiceBox<String> addCity;
+	TextField addCity;
 	@FXML
 	TextField addEmailID;
 	@FXML
@@ -95,7 +95,7 @@ public class AddCustomerController implements Initializable{
 			addCustomerName.setText(custModel.getCustomerName());
 			addAdditionalInfo.setText(custModel.getAddAdditionalInfo());
 			addAddress.setText(custModel.getAddress());
-			addCity.setValue(custModel.getCity());
+			addCity.setText(custModel.getCity());
 			addCountry.setValue(custModel.getCountry());
 			addCustomerGroup.setValue(custModel.getCustomerGroup());
 			addEmailID.setText(custModel.getEmailID());
@@ -114,7 +114,7 @@ public class AddCustomerController implements Initializable{
 		String customerName=addCustomerName.getText();
 		String address=addAddress.getText();
 		String mobileNO=addMobileNo.getText();
-		String city=(String)addCity.getValue();
+		String city=addCity.getText();
 		String emailID=addEmailID.getText();
 		String country=(String)addCountry.getValue();
 		String customerGroup=(String)addCustomerGroup.getValue();
@@ -183,7 +183,7 @@ public class AddCustomerController implements Initializable{
 	public void clearFields() {
 		addAdditionalInfo.setText(null);
 		addAddress.setText(null);
-		addCity.setValue(null);
+		addCity.setText(null);
 		addCountry.setValue(null);
 		addCustomerGroup.setValue(null);
 		addCustomerName.setText(null);

@@ -20,17 +20,6 @@
             <TextField fx:id="addCustomerName" layoutX="179.0" layoutY="112.0" prefHeight="25.0" prefWidth="189.0" />
             <TextArea fx:id="addAddress" layoutX="556.0" layoutY="111.0" prefHeight="33.0" prefWidth="189.0" />
             <TextField fx:id="addMobileNo" layoutX="179.0" layoutY="194.0" prefHeight="25.0" prefWidth="189.0" />
-            <ChoiceBox fx:id="addCity" layoutX="556.0" layoutY="157.0" prefWidth="150.0" value="">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Pune" />
-                    <String fx:value="Solapur" />
-                    <String fx:value="Baramati" />
-                    <String fx:value="Ahmadnagar" />
-                    <String fx:value="Mumbai" />
-                </FXCollections>
-            </items>
-            </ChoiceBox>
             <TextField fx:id="addEmailID" layoutX="179.0" layoutY="234.0" prefHeight="25.0" prefWidth="189.0" />
             <ChoiceBox fx:id="addCountry" layoutX="556.0" layoutY="234.0" prefWidth="150.0" value="">
              <items>
@@ -70,6 +59,7 @@
            <DatePicker fx:id="Anniversary_Date" layoutX="179" layoutY="350" />
           <Text layoutX="56.0" layoutY="405" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" />
            <DatePicker fx:id="Birth_Date" layoutX="179" layoutY="400" />
+            <TextField fx:id="addCity" layoutX="556.0" layoutY="157.0" prefHeight="25.0" prefWidth="189.0" />
          </children>
       </Pane>
    </children>

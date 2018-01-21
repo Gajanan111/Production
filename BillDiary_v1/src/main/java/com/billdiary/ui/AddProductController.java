@@ -1,9 +1,11 @@
 package com.billdiary.ui;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.textfield.TextFields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -44,6 +46,8 @@ public class AddProductController  implements Initializable {
 	@FXML
 	TextField add_prodDesc;
 	@FXML
+	TextField productCategory;
+	@FXML
 	ComboBox<String> supplierComboList;
 	@FXML
 	TextField add_PrdHSNCodes;
@@ -63,19 +67,21 @@ public class AddProductController  implements Initializable {
 	TextField initialStock;
 	@FXML
 	TextField  lowStock;
-	@FXML
-	TextField productCategory;
+	
 	@FXML
 	ComboBox<String> wholeSaleGSTpercentage;
 	@FXML
 	ComboBox<String> retailGSTpercentage;
+	
+	List<String> categoryList=new ArrayList<String>();
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		supplierComboList.setVisibleRowCount(5);
 		getSupplierList();
-		
+		getProductCategoryList();
+		TextFields.bindAutoCompletion(productCategory,categoryList).setVisibleRowCount(3);
 		
 		if(getProdModel()!=null) {
 			Product pro=getProdModel();
@@ -106,6 +112,12 @@ public class AddProductController  implements Initializable {
 	}
 
 	
+	private void getProductCategoryList() {
+		// TODO Auto-generated method stub
+		categoryList=productService.getCategoryList();
+	}
+
+
 	private void getSupplierList() {
 		List<Supplier> supplierList=supplierService.fetchSuppliers();
 		supplierList.forEach(supplier->{

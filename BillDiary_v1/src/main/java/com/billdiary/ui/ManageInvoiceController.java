@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.javafxUtility.Popup;
+import com.billdiary.javafxUtility.TabTraversalEventHandler;
 import com.billdiary.model.Customer;
 import com.billdiary.model.Invoice;
 import com.billdiary.model.InvoiceTemplateA4;
@@ -25,16 +26,20 @@ import com.billdiary.utility.Calculate;
 import com.billdiary.utility.Constants;
 import com.billdiary.utility.GeneratePDF;
 import com.billdiary.utility.URLS;
+import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.SkinBase;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -42,6 +47,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -87,6 +94,8 @@ public class ManageInvoiceController implements Initializable {
 	Text invNO;
 	@FXML
 	Text invDate;
+	@FXML
+	DatePicker invIssueDate;
 	@FXML
 	DatePicker invDueDate;
 	@FXML
@@ -137,7 +146,9 @@ public class ManageInvoiceController implements Initializable {
 		refreshCustomerList();
 		refreshProductList();
 		LocalDate localDate = LocalDate.now();
-		invDate.setText(localDate.toString() + " (YYYY-DD-MM)");
+		//invDate.setText(localDate.toString() + " (YYYY-DD-MM)");
+		invIssueDate.setValue(localDate);
+		invDueDate.setValue(localDate);
 		int invoiceNO = calculateInvoiceNO();
 		invNO.setText(invoiceService.generateInvoiceNO());
 		
@@ -173,6 +184,8 @@ public class ManageInvoiceController implements Initializable {
 			}
 		});
 
+		invAddress.addEventFilter(KeyEvent.KEY_PRESSED, new TabTraversalEventHandler());
+		
 		discount.textProperty().addListener((ov, oldV, newV) -> {
 			calculatefinalAmount();	
 		});
@@ -255,7 +268,18 @@ public class ManageInvoiceController implements Initializable {
 		}
 		TextFields.bindAutoCompletion(invProductName, productNameList).setVisibleRowCount(5);
 	}
-
+	
+	@FXML
+	public void handleAddNewCustomer(KeyEvent event) {
+		if ((KeyCode) event.getCode() == KeyCode.ENTER) {
+			try {
+				showAddNewCustomerPage();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+	
 	public void showAddNewCustomerPage() {
 		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
 		// ResourceBundle bundle = ResourceBundle.getBundle("resources.UIResources");
@@ -273,10 +297,20 @@ public class ManageInvoiceController implements Initializable {
 
 	@FXML
 	public void handleKeyAction(KeyEvent event) {
+		
+		final KeyCombination keyComb = new KeyCodeCombination(KeyCode.P, KeyCombination.CONTROL_DOWN);
+
 		if ((KeyCode) event.getCode() == KeyCode.ENTER) {
 			try {
 				addProduct();
 				invProductName.requestFocus();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		if (keyComb.match(event)) {
+			try {
+				generateInvoiceSaveAndPrint(new ActionEvent());
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -399,7 +433,7 @@ public class ManageInvoiceController implements Initializable {
 		inv.setPaidAmount(Calculate.getNonEmptyDoubleValue(paidAmount.getText()));
 		inv.setProduct_sale_qty(data.size());
 		inv.setLastAmountPaidDate(LocalDate.now());
-		inv.setInvoiceDate(LocalDate.now());
+		inv.setInvoiceDate(invIssueDate.getValue());
 		inv.setInvoiceDueDate(LocalDate.now());
 		invoiceSaved=invoiceService.save(inv);
 		return invoiceSaved;
@@ -478,4 +512,6 @@ public class ManageInvoiceController implements Initializable {
 		invProductPrice.clear();
 		data.clear();
 	}
+	
+	
 }

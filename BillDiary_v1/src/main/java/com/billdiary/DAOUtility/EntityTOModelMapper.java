@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.billdiary.entities.CustomerEntity;
+import com.billdiary.entities.ProductCategoryEntity;
 import com.billdiary.entities.ProductEntity;
 import com.billdiary.entities.SupplierEntity;
 import com.billdiary.model.Address;
@@ -191,6 +192,15 @@ public class EntityTOModelMapper {
 		return cust;
 	}
 
+	public List<String> getProductCategoryList(List<ProductCategoryEntity> categoryListEntity) {
+		List<String> categoryList=new ArrayList<>();
+		categoryListEntity.forEach(categoryEntity->{
+			categoryList.add(categoryEntity.getCategoryName());	
+		});
+		return categoryList;
+	}
+
+	
 	
 
 }
