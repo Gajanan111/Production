@@ -47,8 +47,8 @@ public class AddProductController  implements Initializable {
 	TextField add_prodDesc;
 	@FXML
 	TextField productCategory;
-	@FXML
-	ComboBox<String> supplierComboList;
+	/*@FXML
+	ComboBox<String> supplierComboList;*/
 	@FXML
 	TextField add_PrdHSNCodes;
 	@FXML
@@ -78,8 +78,8 @@ public class AddProductController  implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		supplierComboList.setVisibleRowCount(5);
-		getSupplierList();
+		//supplierComboList.setVisibleRowCount(5);
+		//getSupplierList();
 		getProductCategoryList();
 		TextFields.bindAutoCompletion(productCategory,categoryList).setVisibleRowCount(3);
 		
@@ -118,13 +118,13 @@ public class AddProductController  implements Initializable {
 	}
 
 
-	private void getSupplierList() {
+	/*private void getSupplierList() {
 		List<Supplier> supplierList=supplierService.fetchSuppliers();
 		supplierList.forEach(supplier->{
 			supplierComboList.getItems().add(supplier.getSupplierID()+" "+supplier.getSupplierName());
 		});
-		
-	}
+	
+	}*/
 
 	@FXML
 	public void addProduct(ActionEvent event){

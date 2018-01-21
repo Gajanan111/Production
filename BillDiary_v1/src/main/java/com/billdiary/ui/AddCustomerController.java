@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.javafxUtility.ControlFXValidation;
 import com.billdiary.javafxUtility.Popup;
+import com.billdiary.javafxUtility.TabTraversalEventHandler;
 import com.billdiary.model.Customer;
 import com.billdiary.service.CustomerService;
 import com.billdiary.utility.Constants;
@@ -32,6 +33,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyEvent;
 
 
 @Controller("AddCustomerController")
@@ -90,6 +92,8 @@ public class AddCustomerController implements Initializable{
 		System.out.println(this.getClass());
 		System.out.println(this.getClass().getSuperclass());
 		support.registerValidator( addCustomerName, true, controlFXValidation.getStringValidator() );
+		addAddress.addEventFilter(KeyEvent.KEY_PRESSED, new TabTraversalEventHandler());
+		addAdditionalInfo.addEventFilter(KeyEvent.KEY_PRESSED, new TabTraversalEventHandler());
 		if(custModel!=null)
 		{	
 			addCustomerName.setText(custModel.getCustomerName());

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.javafxUtility.Popup;
+import com.billdiary.javafxUtility.TabTraversalEventHandler;
 import com.billdiary.model.Address;
 import com.billdiary.model.Supplier;
 import com.billdiary.service.SupplierService;
@@ -32,11 +33,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyEvent;
 
 @Controller("AddSupplierController")
 public class AddSupplierController implements Initializable{
-	
-	
+
 	@Autowired
 	SupplierService supplierService;
 	
@@ -77,8 +78,10 @@ public class AddSupplierController implements Initializable{
 	 */
 	@FXML
 	TextArea supplierAddress;
+	//@FXML 
+	//ChoiceBox<String> supplierCity;
 	@FXML 
-	ChoiceBox<String> supplierCity;
+	TextField supplierCity;
 	@FXML 
 	ChoiceBox<String> supplierCountry;
 	@FXML 
@@ -104,7 +107,7 @@ public class AddSupplierController implements Initializable{
 		String supplFaxNo=supplierFaxNO.getText();
 		String supplWebsite=supplierwebsite.getText();
 		String street=supplierAddress.getText();
-		String city=(String) supplierCity.getValue();
+		String city=(String) supplierCity.getText();
 		String country=(String) supplierCountry.getValue();
 		String state=(String)supplierState.getValue();
 		String zipcode=supplierZipCode.getText();
@@ -216,6 +219,9 @@ public class AddSupplierController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		supplierOtherInfo.addEventFilter(KeyEvent.KEY_PRESSED, new TabTraversalEventHandler());
+		supplierAddress.addEventFilter(KeyEvent.KEY_PRESSED, new TabTraversalEventHandler());
 		if(null!=supModel) {
 			supplierName.setText(supModel.getSupplierName());
 			
@@ -236,7 +242,7 @@ public class AddSupplierController implements Initializable{
 			if(supModel.getAddress()!=null) {
 				supplierZipCode.setText(supModel.getAddress().getZipcode());
 				//supplierCity.setValue(supplierCity.getConverter().toString(supModel.getAddress().getCity()));
-					supplierCity.setValue(supModel.getAddress().getCity());
+					supplierCity.setText(supModel.getAddress().getCity());
 					supplierCountry.setValue(supModel.getAddress().getCountry());
 					supplierState.setValue(supModel.getAddress().getState());
 					supplierAddress.setText(supModel.getAddress().getStreet1());

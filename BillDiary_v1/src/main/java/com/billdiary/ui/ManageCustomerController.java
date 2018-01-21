@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import com.billdiary.config.SpringFxmlLoader;
+import com.billdiary.javafxUtility.TabTraversalEventHandler;
 import com.billdiary.model.Customer;
 import com.billdiary.service.CustomerService;
 import com.billdiary.utility.Constants;
@@ -21,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.TableView;
@@ -51,6 +53,8 @@ public class ManageCustomerController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
+			
+			
 			customerTable.setItems(data);
 			populate(retrieveData());
 			filter = new TableFilter(customerTable);

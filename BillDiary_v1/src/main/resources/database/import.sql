@@ -27,7 +27,7 @@ create table if not exists product_category(
 											,category_name varchar(30)
 											);
 											
-			insert into product_category values(null,'Mobile');								
+			--insert into product_category values(null,'Mobile');								
 --insert into product(
 --						 product_id
 --						,product_name
