@@ -12,16 +12,16 @@
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
             <Text layoutX="63.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name*" />
-            <Text layoutX="64.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Description" />
-            <Text layoutX="63.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Category" />
+            <Text layoutX="456.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Description" />
+            <Text layoutX="63.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Category" />
           <!--  <Text layoutX="482.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Supplier" /> -->
             <TextField fx:id="add_productName" layoutX="205.0" layoutY="72.0" />
-            <TextField fx:id="add_prodDesc" layoutX="205.0" layoutY="112.0" />
-            <TextField fx:id="productCategory" layoutX="205.0" layoutY="151.0" />
+            <TextField fx:id="productCategory" layoutX="204.0" layoutY="125.0" />
           <!--  <ComboBox fx:id="supplierComboList" layoutX="601.0" layoutY="72.0" prefHeight="25.0" prefWidth="149.0" /> -->
-            <TextField fx:id="add_PrdHSNCodes" layoutX="603.0" layoutY="112.0" />
-            <Separator layoutX="53.0" layoutY="186.0" prefHeight="3.0" prefWidth="699.0" />
-            <Text layoutX="63.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buy/Wholesale Price" />
+            <TextField fx:id="add_PrdHSNCodes" layoutX="573.0" layoutY="72.0" />
+            <TextField fx:id="add_prodDesc" layoutX="573.0" layoutY="112.0" />
+            <Separator layoutX="51.0" layoutY="173.0" prefHeight="3.0" prefWidth="699.0" />
+            <Text layoutX="63.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit/Wholesale Price" />
             <TextField fx:id="add_wholesalePrice" layoutX="205.0" layoutY="199.0" />
             <CheckBox fx:id="wholeSaleGST" layoutX="205.0" layoutY="236.0" mnemonicParsing="false" text="GST incl." />
             <ComboBox fx:id="wholeSaleGSTpercentage" layoutX="278.0" layoutY="232.0" prefHeight="25.0" prefWidth="76.0">
@@ -35,13 +35,9 @@
                 </FXCollections>
             </items>
             </ComboBox>
-            <TextField fx:id="initialStock" layoutX="205.0" layoutY="272.0" />
-            <TextField fx:id="add_stock" layoutX="205.0" layoutY="311.0" />
-            <TextField fx:id="lowStock" layoutX="205.0" layoutY="349.0" />
-            <Text layoutX="482.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Retail Price" />
-            <TextField fx:id="add_retailPrice" layoutX="603.0" layoutY="199.0" />
-            <CheckBox fx:id="retailGST" layoutX="603.0" layoutY="236.0" mnemonicParsing="false" text="GST incl." />
-            <ComboBox fx:id="retailGSTpercentage" layoutX="676.0" layoutY="232.0" prefHeight="25.0" prefWidth="76.0" value="0%">
+            <TextField fx:id="add_retailPrice" layoutX="205.0" layoutY="272.0" />
+            <CheckBox fx:id="retailGST" layoutX="205.0" layoutY="310.0" mnemonicParsing="false" text="GST incl." />
+            <ComboBox fx:id="retailGSTpercentage" layoutX="278.0" layoutY="306.0" prefHeight="25.0" prefWidth="76.0" value="0%">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="0%" />
@@ -52,13 +48,19 @@
                 </FXCollections>
             </items>
             </ComboBox>
-            <TextField fx:id="add_Discount" layoutX="603.0" layoutY="281.0" />
-            <Text layoutX="63.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Stock" />
-            <Text layoutX="61.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Low Stock" />
-            <Text layoutX="61.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Stock" />
-            <Text layoutX="486.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount" />
-            <Button layoutX="629.0" layoutY="333.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="32.0" prefWidth="93.0" text="Save " />
-            <Text layoutX="482.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HSN Code" />
+            <ComboBox fx:id="units" editable="true" layoutX="204.0" layoutY="345.0" onAction="#handleUnitSelection" prefWidth="150.0" />
+            <TextField fx:id="initialStock" layoutX="573.0" layoutY="202.0" />
+            <TextField fx:id="add_stock" layoutX="573.0" layoutY="241.0" />
+            <TextField fx:id="lowStock" layoutX="573.0" layoutY="279.0" />
+            <TextField fx:id="add_Discount" layoutX="573.0" layoutY="315.0" />
+            <Text layoutX="63.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sell/Retail Price" />
+            <Text layoutX="457.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Initial Stock" />
+            <Text layoutX="457.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Low Stock" />
+            <Text layoutX="457.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Stock" />
+            <Text layoutX="459.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount" />
+            <Button layoutX="601.0" layoutY="377.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="32.0" prefWidth="93.0" text="Save " />
+            <Text layoutX="456.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HSN Code" />
+            <Text layoutX="63.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unit*" />
          </children>
       </Pane>
    </children>

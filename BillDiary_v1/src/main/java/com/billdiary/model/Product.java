@@ -26,8 +26,7 @@ public class Product {
 	private SimpleStringProperty productCategory;
 	
 	private SimpleStringProperty productHSNCode;
-	
-	
+		
 	private SimpleDoubleProperty wholesalePrice;
 	
 	private SimpleDoubleProperty retailPrice;
@@ -48,8 +47,9 @@ public class Product {
 	
 	private SimpleDoubleProperty retailGSTpercentage;
 	
-	private HBox action;
+	private Unit unit;
 	
+	private HBox action;
 	
 	private Hyperlink delete;
 	
@@ -222,5 +222,11 @@ public class Product {
 	}
 	public void setProductHSNCode(SimpleStringProperty productHSNCode) {
 		this.productHSNCode = productHSNCode;
+	}
+	public Unit getUnit() {
+		return unit;
+	}
+	public void setUnit(Unit unit) {
+		this.unit = unit;
 	}
 }

@@ -25,6 +25,8 @@ public interface URLS {
 	public static final String QUICK_PAY_PAGE="/fxml/QuickPay.fxml";
 	/* AddCustomer page  */
 	public static final String ADD_CUSTOMER="/fxml/AddCustomer.fxml";
+	/* Add Unit page  */
+	public static final String ADD_UNIT="/fxml/AddUnit.fxml";
 	/* AddSupplier page  */
 	public static final String ADD_SUPPLIER="/fxml/AddSupplier.fxml";
 	/* ManageInvoice page  */

@@ -112,8 +112,8 @@
          <jdbc:script location="classpath:data.sql" />
     </jdbc:embedded-database>
   -->
-	<jdbc:initialize-database data-source="dataSource">
-    <jdbc:script location="classpath*:database/import.sql" />
- </jdbc:initialize-database>
+	 <jdbc:initialize-database data-source="dataSource">
+          <jdbc:script location="classpath*:database/import.sql" />
+    </jdbc:initialize-database>
 	
 </beans>

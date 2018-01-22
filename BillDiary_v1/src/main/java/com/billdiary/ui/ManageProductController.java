@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 
@@ -22,18 +21,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.converter.DoubleStringConverter;
@@ -94,8 +88,6 @@ public class ManageProductController implements Initializable{
 			System.out.println(e.getMessage());
 		}
 		return new ArrayList<Product>();
-		
-		
 	}
 		
 	private void populate(final List < Product > products) 
@@ -160,7 +152,6 @@ public class ManageProductController implements Initializable{
 		ListItems=ProductTable.getItems();
 		SelectedListItem=ProductTable.getSelectionModel().getSelectedItems();	
 		int id=SelectedListItem.get(0).getProductId();
-		//SelectedListItem.forEach(ListItems::remove);
 		boolean productDeleted=false;
 		productDeleted=productService.deleteProduct(id);
 		
@@ -213,9 +204,7 @@ public class ManageProductController implements Initializable{
 	
 	@FXML public void saveProduct()
 	{
-		ObservableList < Product> ObproductList;
-		
-		ObproductList =  ProductTable.getSelectionModel().getSelectedItems();
+		 ObservableList < Product> ObproductList =  ProductTable.getSelectionModel().getSelectedItems();
 		System.out.println(ObproductList.get(0).getDescription());
 		if(ObproductList!=null)
 		{
@@ -223,10 +212,8 @@ public class ManageProductController implements Initializable{
 			productList.clear();
 			data.clear();
 			ProductTable.setItems(data);
-			populate(retrieveData());
-			
+			populate(retrieveData());	
 		}
-		
 	}
 	@FXML public void searchProduct()
 	{
@@ -309,8 +296,7 @@ public class ManageProductController implements Initializable{
 			}
 		}
 		productId.setText("");
-		productName.setText("");
-		
+		productName.setText("");	
 	}
 	
 	public void getRefreshedTable()

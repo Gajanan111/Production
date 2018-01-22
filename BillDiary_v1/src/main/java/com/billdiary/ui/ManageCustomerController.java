@@ -53,8 +53,6 @@ public class ManageCustomerController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
-			
-			
 			customerTable.setItems(data);
 			populate(retrieveData());
 			filter = new TableFilter(customerTable);

@@ -12,10 +12,12 @@ import com.billdiary.entities.CustomerEntity;
 import com.billdiary.entities.ProductCategoryEntity;
 import com.billdiary.entities.ProductEntity;
 import com.billdiary.entities.SupplierEntity;
+import com.billdiary.entities.UnitEntity;
 import com.billdiary.model.Address;
 import com.billdiary.model.Customer;
 import com.billdiary.model.Product;
 import com.billdiary.model.Supplier;
+import com.billdiary.model.Unit;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -116,6 +118,8 @@ public class EntityTOModelMapper {
 			prod.setWholeSaleGSTpercentage(new SimpleDoubleProperty(productEntity.getWholeSaleGSTpercentage()));
 			prod.setRetailGST(new SimpleStringProperty(productEntity.getRetailGST()));
 			prod.setRetailGSTpercentage(new SimpleDoubleProperty(productEntity.getRetailGSTpercentage()));
+			Unit unit=getUnitEntity(productEntity);
+			prod.setUnit(unit);
 			productList.add(prod);
 	
 		}
@@ -123,6 +127,17 @@ public class EntityTOModelMapper {
 		return productList;
 	}
 	
+	
+	
+	private Unit getUnitEntity(ProductEntity prod) {
+		Unit unit=null;
+		UnitEntity unitEntity=prod.getUnitEntity();
+		if(null!=unitEntity) {
+			unit=new Unit(unitEntity);
+		}
+		return unit;
+	}
+
 	/**
 	 * Get Customer List From List of CustomerEntityList
 	 * @param customerEntityList
@@ -198,6 +213,14 @@ public class EntityTOModelMapper {
 			categoryList.add(categoryEntity.getCategoryName());	
 		});
 		return categoryList;
+	}
+
+	public List<Unit> getUnitList(List<UnitEntity> unitEntityList) {
+		List<Unit> units=new ArrayList<>();
+		unitEntityList.forEach(unitEntity->{
+			units.add(new Unit(unitEntity));
+		});
+		return units;
 	}
 
 	

@@ -13,7 +13,8 @@ public class Constants {
 	public static final int POPUP_WINDOW_HEIGHT=600;
 	public static final int SEARCH_CUSTOMER_WIDTH=1000;
 	public static final int SEARCH_CUSTOMER_HEIGHT=600;
-	
+	public static final int POPUP_UNIT_WINDOW_WIDTH=400;
+	public static final int POPUP_UNIT_WINDOW_HEIGHT=350;
 	
 	/**
 	 * Constants for alert, Dialogs, Popup messages
@@ -28,6 +29,15 @@ public class Constants {
 	 * Validation Messages
 	 */
 	public static final String ERROR_TITLE="Error";
+	public static final String SUCCESS_TITLE="Success";
 	public static final String ERROR_CUSTOMER_VALIDATION="Please insert necessary fields(*)";
 	public static final String ERROR_COMMON_VALIDATION="Please insert necessary fields(*)";
+	
+	/**
+	 * Add Unit Message
+	 */
+	public static final String ERROR_ADD_UNIT="Something Went wrong while adding Unit";
+	public static final String ADD_UNIT="Unit Added!";
+	public static final String ERROR_DELETE_UNIT="Something Went wrong while deleting Unit";
+	public static final String DELETE_UNIT="Unit Deleted!";
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -63,7 +64,15 @@ public class ProductEntity implements Serializable {
 	@Column(name = "stock")
 	int stock;
 	
+	@OneToOne
+	UnitEntity unitEntity;
 	
+	public UnitEntity getUnitEntity() {
+		return unitEntity;
+	}
+	public void setUnitEntity(UnitEntity unitEntity) {
+		this.unitEntity = unitEntity;
+	}
 	public int getId() {
 		return id;
 	}

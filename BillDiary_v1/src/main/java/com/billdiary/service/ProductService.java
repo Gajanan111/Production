@@ -7,15 +7,21 @@ import org.springframework.stereotype.Service;
 import com.billdiary.DAOUtility.EntityTOModelMapper;
 import com.billdiary.DAOUtility.ModelTOEntityMapper;
 import com.billdiary.dao.ProductDAO;
+import com.billdiary.dao.UnitDAO;
 import com.billdiary.entities.ProductCategoryEntity;
 import com.billdiary.entities.ProductEntity;
+import com.billdiary.entities.UnitEntity;
 import com.billdiary.model.Product;
+import com.billdiary.model.Unit;
+
 import javafx.collections.ObservableList;
 
 @Service
 public class ProductService {
 	@Autowired
 	ProductDAO productDAO;
+	@Autowired
+	UnitDAO unitDAO;
 	
 	@Autowired
 	EntityTOModelMapper entityTOModelMapper;
@@ -75,9 +81,28 @@ public class ProductService {
 	}
 	public List<String> getCategoryList() {
 		List<String> categoryList=new ArrayList<>();
-		List<ProductCategoryEntity> categoryListEntity=productDAO.getCategoryList();
-		categoryList=entityTOModelMapper.getProductCategoryList(categoryListEntity);
+		List<ProductCategoryEntity> categoryEntityList=productDAO.getCategoryList();
+		categoryList=entityTOModelMapper.getProductCategoryList(categoryEntityList);
 		return categoryList;
 	}
+	public List<Unit> getUnitList() {
+		List<Unit> unitList=new ArrayList<>();
+		List<UnitEntity> unitEntityList=productDAO.getUnitList();
+		unitList=entityTOModelMapper.getUnitList(unitEntityList);
+		return unitList;
+	}
+	public boolean addUnit(String unitName) {
+		UnitEntity unitEntity=new UnitEntity();
+		unitEntity.setName(unitName);
+		unitEntity.setUnitId(0);
+		boolean flag=productDAO.addUnit(unitEntity);
+		return flag;
+	}
+	public boolean deleteUnit(long unitId) {
+		boolean deleted=false;
+		deleted=unitDAO.deleteUnit(unitId);
+		return deleted;
+	}
+	
 	
 }

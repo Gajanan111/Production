@@ -14,13 +14,14 @@ import com.billdiary.entities.CustomerEntity;
 import com.billdiary.entities.InvoiceEntity;
 import com.billdiary.entities.ProductEntity;
 import com.billdiary.entities.SupplierEntity;
+import com.billdiary.entities.UnitEntity;
 import com.billdiary.entities.UserEntity;
 
 import com.billdiary.model.Customer;
 import com.billdiary.model.Invoice;
 import com.billdiary.model.Product;
 import com.billdiary.model.Supplier;
-
+import com.billdiary.model.Unit;
 import com.billdiary.model.User;
 
 import javafx.collections.ObservableList;
@@ -192,7 +193,19 @@ public class ModelTOEntityMapper {
 		productEntity.setWholeSaleGST(prod.getWholeSaleGST());
 		productEntity.setRetailGSTpercentage(prod.getRetailGSTpercentage());
 		productEntity.setWholeSaleGSTpercentage(prod.getWholeSaleGSTpercentage());
+		UnitEntity unitEntity=getUnitEntity(prod);
+		productEntity.setUnitEntity(unitEntity);
 		return productEntity;
+	}
+
+	private UnitEntity getUnitEntity(Product prod) {
+		UnitEntity UnitEntity=new UnitEntity();
+		Unit unit=prod.getUnit();
+		if(null!=unit) {
+			UnitEntity.setUnitId(unit.getUnitId());
+			UnitEntity.setName(unit.getUnitName());
+		}
+		return UnitEntity;
 	}
 
 

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.billdiary.entities.ProductCategoryEntity;
 import com.billdiary.entities.ProductEntity;
+import com.billdiary.entities.UnitEntity;
 
 @Repository
 public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
@@ -70,6 +71,23 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 	       .getResultList();
 		return categoryListEntity;
 	}
+	@SuppressWarnings("unchecked")
+	public List<UnitEntity> getUnitList() {
+		List<UnitEntity> UnitEntityList=new ArrayList<>();
+		UnitEntityList=entityManager.createQuery( "from " + UnitEntity.class.getName() )
+			       .getResultList();
+		return UnitEntityList;
+	}
+	
+	@Transactional
+	public boolean addUnit(UnitEntity unitEntity) {
+		boolean added=false;
+		entityManager.persist(unitEntity);
+		added=true;
+		return added;
+	}
+	
+	
 	
 	
 	
