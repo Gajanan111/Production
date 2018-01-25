@@ -22,7 +22,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.LongStringConverter;
 
 @Controller("AddUnitController")
@@ -47,7 +46,6 @@ public class AddUnitController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		unitId.setCellFactory(TextFieldTableCell.<Unit,Long>forTableColumn(new LongStringConverter()));
-		//unitName.setCellFactory(TextFieldTableCell.<Unit,Long>forTableColumn(new LongStringConverter()));
 		try {
 			unitTable.setItems(data);
 			populate(retrieveData());

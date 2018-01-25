@@ -48,7 +48,7 @@
                 </FXCollections>
             </items>
             </ComboBox>
-            <ComboBox fx:id="units" editable="true" layoutX="204.0" layoutY="345.0" onAction="#handleUnitSelection" prefWidth="150.0" />
+            <ComboBox fx:id="units" editable="true" layoutX="204.0" layoutY="345.0" prefWidth="150.0" />
             <TextField fx:id="initialStock" layoutX="573.0" layoutY="202.0" />
             <TextField fx:id="add_stock" layoutX="573.0" layoutY="241.0" />
             <TextField fx:id="lowStock" layoutX="573.0" layoutY="279.0" />

@@ -33,7 +33,7 @@ create table if not exists unit(
 									,unit_name varchar(30)
 							   );
 
-		insert into unit values(null,'Kilo');										
+		--insert into unit values(null,'Kilo');										
 			--insert into product_category values(null,'Mobile');								
 --insert into product(
 --						 product_id

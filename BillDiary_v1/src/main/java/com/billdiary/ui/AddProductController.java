@@ -23,8 +23,6 @@ import com.billdiary.utility.URLS;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,8 +51,6 @@ public class AddProductController  implements Initializable {
 	TextField add_prodDesc;
 	@FXML
 	TextField productCategory;
-	/*@FXML
-	ComboBox<String> supplierComboList;*/
 	@FXML
 	TextField add_PrdHSNCodes;
 	@FXML
@@ -88,12 +84,12 @@ public class AddProductController  implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		//supplierComboList.setVisibleRowCount(5);
-		//getSupplierList();
 		getProductCategoryList();
 		getUnitList();
+		units.getSelectionModel().selectedIndexProperty().addListener((v,oldValue,newValue)->{
+			handleUnitSelection();
+		});
 		TextFields.bindAutoCompletion(units.getEditor(),units.getItems()).setVisibleRowCount(3);
-		
 		TextFields.bindAutoCompletion(productCategory,categoryList).setVisibleRowCount(3);
 		
 		if(getProdModel()!=null) {
@@ -139,8 +135,8 @@ public class AddProductController  implements Initializable {
 		categoryList=productService.getCategoryList();
 	}
 
-	@FXML
-	public void handleUnitSelection(ActionEvent event) {
+	
+	public void handleUnitSelection() {
 		if("Add Unit".equals(units.getValue())) {
 			SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
 			StackPane addUnit = (StackPane) loader.load(URLS.ADD_UNIT);
@@ -150,23 +146,11 @@ public class AddProductController  implements Initializable {
 					Constants.POPUP_UNIT_WINDOW_HEIGHT);
 		}
 	}
-	
-	/*private void getSupplierList() {
-		List<Supplier> supplierList=supplierService.fetchSuppliers();
-		supplierList.forEach(supplier->{
-			supplierComboList.getItems().add(supplier.getSupplierID()+" "+supplier.getSupplierName());
-		});
-	
-	}*/
 
 	@FXML
-	public void addProduct(ActionEvent event){
-		
-		
-		
+	public void addProduct(ActionEvent event){		
 		Product prod=new Product();
-		if(validateProduct(add_productName.getText()) && validateProduct(units.getValue())) {
-			
+		if(validateProduct(add_productName.getText()) && validateProduct(units.getValue())) {		
 		String productName=add_productName.getText();
 		String productDesc=add_prodDesc.getText();
 		Double retailPrice=Calculate.getNonEmptyDoubleValue(add_retailPrice.getText());
@@ -204,10 +188,7 @@ public class AddProductController  implements Initializable {
 			prod.setRetailGST(new SimpleStringProperty("N"));
 			prod.setRetailGSTpercentage(new SimpleDoubleProperty(Double.parseDouble(Calculate.trimPercentage(retailGSTper))));
 			
-		}
-		
-		//System.out.println(productName+" "+productDesc+" "+productDesc+" "+wholesalePrice+" "+discount+" "+stock);
-			
+		}			
 		prod.setName(new SimpleStringProperty(productName));
 		prod.setDescription(new SimpleStringProperty(productDesc));
 		prod.setRetailPrice(new SimpleDoubleProperty(retailPrice));
@@ -215,8 +196,7 @@ public class AddProductController  implements Initializable {
 		prod.setDiscount(new SimpleDoubleProperty(discount));
 		prod.setStock(new SimpleIntegerProperty(stock)); 
 		prod.setProductCategory(new SimpleStringProperty(productCategory.getText()));
-		prod.setProductHSNCode(new SimpleStringProperty(add_PrdHSNCodes.getText()));
-		
+		prod.setProductHSNCode(new SimpleStringProperty(add_PrdHSNCodes.getText()));	
 		Unit pUnit=unitList.stream()
 		.filter(unit -> (unit.getUnitName()).equals(unit.getUnitName())).findAny()
 		.orElse(null);
@@ -228,9 +208,6 @@ public class AddProductController  implements Initializable {
 		}
 		else
 		productService.addProduct(prod);
-		/*getRefreshedTable();*/
-			
-		
 		((Node)(event.getSource())).getScene().getWindow().hide();
 		ApplicationContext applicationContext=SpringFxmlLoader.getApplicationcontext();
 		ManageProductController  manageProductController=( ManageProductController)applicationContext.getBean("ManageProductController");
