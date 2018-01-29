@@ -89,9 +89,9 @@
                               <PropertyValueFactory property="state" />
                            </cellValueFactory>
                         </TableColumn>
-                        <TableColumn id="country" onEditCommit="#setEditedValue" prefWidth="75.0" text="Country">
+                        <TableColumn id="balance" fx:id="Balance" onEditCommit="#setEditedValue" prefWidth="75.0" text="Balance">
                         	<cellValueFactory>
-							<PropertyValueFactory property="country" />
+							<PropertyValueFactory property="balance" />
 							</cellValueFactory>
 							<cellFactory>
 							<TextFieldTableCell fx:factory="forTableColumn" />

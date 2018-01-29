@@ -149,6 +149,7 @@ public class ModelTOEntityMapper {
 		customerEntity.setZipCode(cust.getZipCode());
 		customerEntity.setAnniversary_Date(cust.getAnniversary_date());
 		customerEntity.setBirth_Date(cust.getBirth_date());
+		customerEntity.setBalance(cust.getBalance());
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		Date regDate=null;
 		try {

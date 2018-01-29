@@ -3,21 +3,13 @@ package com.billdiary.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import javafx.beans.property.SimpleStringProperty;
 
 @Entity
 @Table(name = "customer")
@@ -74,6 +66,15 @@ public class CustomerEntity implements Serializable {
 	@Column(name="birth_Date")
 	private LocalDate birth_date;
 	
+	@Column(name="balance")
+	private double balance;
+	
+	public double getBalance() {
+		return balance;
+	}
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
 	public LocalDate getAnniversary_Date() {
 		return anniversary_date;
 	}

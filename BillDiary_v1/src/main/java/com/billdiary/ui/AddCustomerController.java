@@ -21,6 +21,7 @@ import com.billdiary.model.Customer;
 import com.billdiary.service.CustomerService;
 import com.billdiary.utility.Constants;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -28,7 +29,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -85,6 +85,8 @@ public class AddCustomerController implements Initializable{
 	DatePicker Anniversary_Date;
 	@FXML
 	DatePicker Birth_Date;
+	@FXML
+	TextField balance;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -109,6 +111,7 @@ public class AddCustomerController implements Initializable{
 			Anniversary_Date.setValue(custModel.getAnniversary_date());
 			Birth_Date.setValue(custModel.getBirth_date());
 		    cust_id=custModel.getCustomerID();
+		    balance.setText(String.valueOf(custModel.getBalance()));
 		}
 	}
 
@@ -145,6 +148,11 @@ public class AddCustomerController implements Initializable{
 	    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	    String strDate = dateFormat.format(regDate);
 	    cust.setRegistrationDate(new SimpleStringProperty(strDate));
+	    if(!(balance.getText().isEmpty()) && validateDoubleField(balance.getText())) {
+	    	cust.setBalance(new SimpleDoubleProperty(Double.parseDouble(balance.getText())));
+	    }else {
+	    	cust.setBalance(new SimpleDoubleProperty(0.00));
+	    }
 	    /**
 	     * All customer Customer validation 
 	     */
@@ -174,6 +182,10 @@ public class AddCustomerController implements Initializable{
 	    }
 	}
 	
+	private boolean validateDoubleField(String text) {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	private boolean validateCustomer(Customer cust) {
 		boolean valid=true;
 		if(null==cust.getCustomerName() || cust.getCustomerName().isEmpty()) {

@@ -30,7 +30,7 @@
                 </FXCollections>
             </items>
             </ChoiceBox>
-            <Button layoutX="568.0" layoutY="351.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="25.0" prefWidth="127.0" text="Save" />
+            <Button layoutX="568.0" layoutY="388.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="25.0" prefWidth="127.0" text="Save" />
             <Text layoutX="424.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" />
             <ChoiceBox fx:id="addState" layoutX="556.0" layoutY="194.0" prefWidth="150.0" value="">
                <items>
@@ -60,6 +60,8 @@
           <Text layoutX="56.0" layoutY="405" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" />
            <DatePicker fx:id="Birth_Date" layoutX="179" layoutY="400" />
             <TextField fx:id="addCity" layoutX="556.0" layoutY="157.0" prefHeight="25.0" prefWidth="189.0" />
+            <Text layoutX="427.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance " />
+            <TextField fx:id="balance" layoutX="556.0" layoutY="330.0" prefHeight="25.0" prefWidth="189.0" />
          </children>
       </Pane>
    </children>

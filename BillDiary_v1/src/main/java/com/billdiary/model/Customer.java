@@ -19,6 +19,7 @@ import de.jensd.fx.glyphs.GlyphsBuilder;
 import de.jensd.fx.glyphs.GlyphsStack;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -58,7 +59,10 @@ public class Customer {
 	private SimpleStringProperty addAdditionalInfo;
 	private LocalDate anniversary_date;
     private LocalDate birth_date;
+    private SimpleDoubleProperty balance;
     
+
+	
 
 	private Hyperlink deleteHyperlink;
 	private Hyperlink saveHyperlink;
@@ -270,7 +274,13 @@ public class Customer {
 	public void setRegistrationDate(SimpleStringProperty registrationDate) {
 		this.registrationDate = registrationDate;
 	}
+	public Double getBalance() {
+		return balance.get();
+	}
 
+	public void setBalance(SimpleDoubleProperty balance) {
+		this.balance = balance;
+	}
 
 	
 	public Customer(CustomerEntity customerEnitity)

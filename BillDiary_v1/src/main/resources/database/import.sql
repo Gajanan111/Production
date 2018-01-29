@@ -77,7 +77,7 @@ create table if not exists customer
 						,zipCode varchar(30)
 						,anniversary_Date date
 						,birth_Date date
-						
+						,balance double	
 					);
 
 --insert into customer(customer_id,customer_name,address,mobile_no,city,country) values(101,'Gajanan','kfc baner','7709635664','pune','India');

@@ -163,6 +163,7 @@ public class EntityTOModelMapper {
 			cust.setZipCode(new SimpleStringProperty(customerEntity.getZipCode()));
 			cust.setAnniversary_date(customerEntity.getAnniversary_Date());
 			cust.setBirth_date(customerEntity.getBirth_Date());
+			cust.setBalance(new SimpleDoubleProperty(customerEntity.getBalance()));
 			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			if(null!=customerEntity.getRegDate()) {
 		    String strDate = dateFormat.format(customerEntity.getRegDate());
@@ -199,7 +200,7 @@ public class EntityTOModelMapper {
 		cust.setZipCode(new SimpleStringProperty(customerEntity.getZipCode()));
 		cust.setAnniversary_date(customerEntity.getAnniversary_Date());
 		cust.setBirth_date(customerEntity.getBirth_Date());
-		
+		cust.setBalance(new SimpleDoubleProperty(customerEntity.getBalance()));
 		}catch(Exception e)
 		{
 			System.out.println("Mapper"+ e.getMessage());

@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import org.controlsfx.control.table.TableFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import com.billdiary.config.SpringFxmlLoader;
-import com.billdiary.javafxUtility.TabTraversalEventHandler;
 import com.billdiary.model.Customer;
+import com.billdiary.model.Product;
 import com.billdiary.service.CustomerService;
 import com.billdiary.utility.Constants;
 import com.billdiary.utility.URLS;
@@ -22,9 +21,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -45,6 +46,7 @@ public class ManageCustomerController implements Initializable {
 
 	@FXML
 	private TableView<Customer> customerTable;
+	@FXML TableColumn<Customer,Double>Balance;
 	TableFilter<Customer> filter;
 
 	private ObservableList<Customer> data = FXCollections.observableArrayList();
@@ -52,6 +54,8 @@ public class ManageCustomerController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		
 		try {
 			customerTable.setItems(data);
 			populate(retrieveData());
@@ -59,6 +63,7 @@ public class ManageCustomerController implements Initializable {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		Balance.setCellFactory(TextFieldTableCell.<Customer,Double>forTableColumn(new DoubleStringConverter()));
 	}
 
 	private List<Customer> retrieveData() {

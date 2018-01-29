@@ -80,6 +80,7 @@ public class HomeController {
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			LOGGER.debug("Entering Class HomeController : method :showCustomer "+e.getMessage());
 		}
 		
