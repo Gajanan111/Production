@@ -3,17 +3,16 @@ package com.billdiary.ui;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-
+import org.controlsfx.validation.Severity;
+import org.controlsfx.validation.ValidationMessage;
 import org.controlsfx.validation.ValidationSupport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
-import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.javafxUtility.ControlFXValidation;
 import com.billdiary.javafxUtility.Popup;
 import com.billdiary.javafxUtility.TabTraversalEventHandler;
@@ -39,61 +38,42 @@ import javafx.scene.input.KeyEvent;
 @Controller("AddCustomerController")
 public class AddCustomerController implements Initializable{
 
-	
 	ValidationSupport support=new ValidationSupport();
 	
 	@Autowired 
 	ControlFXValidation controlFXValidation;
 	
-	public Customer custModel;
-	public Customer getCustModel() {
-		return custModel;
-	}
-	public void setCustModel(Customer custModel) {
-		this.custModel = custModel;
-	}
+	@Autowired
+	private CustomerService customerService;
 	
+	@Autowired
+	private ManageCustomerController manageCustomerController;
+	
+	@Autowired
+	private ManageInvoiceController manageInvoiceController;
+	
+	public Customer custModel;
+
+	@FXML TextField addCustomerName;
+	@FXML TextArea addAddress;
+	@FXML TextField addMobileNo;
+	@FXML TextField addCity;
+	@FXML TextField addEmailID;
+	@FXML ChoiceBox<String> addCountry;
+	@FXML ChoiceBox<String> addState;
+	@FXML TextArea addAdditionalInfo;
+	@FXML ChoiceBox<String> addCustomerGroup;
+	@FXML TextField addZipCode;
+	@FXML DatePicker Anniversary_Date;
+	@FXML DatePicker Birth_Date;
+	@FXML TextField balance;
 	
 	public String parentName;
 	
-	private Date regDate;
-	
-	@Autowired
-	private CustomerService customerService;
-	@FXML
-	TextField addCustomerName;
-	@FXML
-	TextArea addAddress;
-	@FXML
-	TextField addMobileNo;
-	@FXML
-	TextField addCity;
-	@FXML
-	TextField addEmailID;
-	@FXML
-	ChoiceBox<String> addCountry;
-	@FXML
-	ChoiceBox<String> addState;
-	@FXML 
-	TextArea addAdditionalInfo;
-	@FXML
-	ChoiceBox<String> addCustomerGroup;
-	@FXML
-	TextField addZipCode;
-	Integer cust_id;
-	@FXML
-	DatePicker Anniversary_Date;
-	@FXML
-	DatePicker Birth_Date;
-	@FXML
-	TextField balance;
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		System.out.println(this.getClass());
-		System.out.println(this.getClass().getSuperclass());
-		support.registerValidator( addCustomerName, true, controlFXValidation.getStringValidator() );
+		
+		support.registerValidator(addCustomerName, true, controlFXValidation.getStringValidator());
 		addAddress.addEventFilter(KeyEvent.KEY_PRESSED, new TabTraversalEventHandler());
 		addAdditionalInfo.addEventFilter(KeyEvent.KEY_PRESSED, new TabTraversalEventHandler());
 		if(custModel!=null)
@@ -110,7 +90,6 @@ public class AddCustomerController implements Initializable{
 			addZipCode.setText(custModel.getZipCode());
 			Anniversary_Date.setValue(custModel.getAnniversary_date());
 			Birth_Date.setValue(custModel.getBirth_date());
-		    cust_id=custModel.getCustomerID();
 		    balance.setText(String.valueOf(custModel.getBalance()));
 		}
 	}
@@ -118,35 +97,21 @@ public class AddCustomerController implements Initializable{
 	
 	@FXML
 	public void addCustomer(ActionEvent event){
-		String customerName=addCustomerName.getText();
-		String address=addAddress.getText();
-		String mobileNO=addMobileNo.getText();
-		String city=addCity.getText();
-		String emailID=addEmailID.getText();
-		String country=(String)addCountry.getValue();
-		String customerGroup=(String)addCustomerGroup.getValue();
-		String zipCode=addZipCode.getText();
-		LocalDate anni_date=Anniversary_Date.getValue();
-		LocalDate birth_date=Birth_Date.getValue();
-		String additionalInfo=addAdditionalInfo.getText();
-		String state=(String)addState.getValue();
-		regDate=new Date();
-		System.out.println(customerName+" "+address+" "+mobileNO+" "+city+" "+emailID+" "+country);
 		Customer cust=new Customer();
-		cust.setCustomerName(new SimpleStringProperty(customerName));
-		cust.setAddress(new SimpleStringProperty(address));
-		cust.setMobile_no(new SimpleStringProperty(mobileNO));
-	    cust.setCity(new SimpleStringProperty(city));
-	    cust.setEmailID(new SimpleStringProperty(emailID));
-	    cust.setCountry(new SimpleStringProperty(country));
-	    cust.setState(new SimpleStringProperty(state));
-	    cust.setZipCode(new SimpleStringProperty(zipCode)); 
-		cust.setAnniversary_date(anni_date);
-	    cust.setBirth_date(birth_date);
-	    cust.setCustomerGroup(new SimpleStringProperty(customerGroup));
-	    cust.setAddAdditionalInfo(new SimpleStringProperty(additionalInfo));
+		cust.setCustomerName(new SimpleStringProperty(addCustomerName.getText()));
+		cust.setAddress(new SimpleStringProperty(addAddress.getText()));
+		cust.setMobile_no(new SimpleStringProperty(addMobileNo.getText()));
+	    cust.setCity(new SimpleStringProperty(addCity.getText()));
+	    cust.setEmailID(new SimpleStringProperty(addEmailID.getText()));
+	    cust.setCountry(new SimpleStringProperty(addCountry.getValue()));
+	    cust.setState(new SimpleStringProperty(addState.getValue()));
+	    cust.setZipCode(new SimpleStringProperty(addZipCode.getText())); 
+		cust.setAnniversary_date(Anniversary_Date.getValue());
+	    cust.setBirth_date(Birth_Date.getValue());
+	    cust.setCustomerGroup(new SimpleStringProperty(addCustomerGroup.getValue()));
+	    cust.setAddAdditionalInfo(new SimpleStringProperty(addAdditionalInfo.getText()));
 	    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-	    String strDate = dateFormat.format(regDate);
+	    String strDate = dateFormat.format(new Date());
 	    cust.setRegistrationDate(new SimpleStringProperty(strDate));
 	    if(!(balance.getText().isEmpty()) && validateDoubleField(balance.getText())) {
 	    	cust.setBalance(new SimpleDoubleProperty(Double.parseDouble(balance.getText())));
@@ -156,6 +121,9 @@ public class AddCustomerController implements Initializable{
 	    /**
 	     * All customer Customer validation 
 	     */
+	    
+	    
+	    
 	    if(validateCustomer(cust))
 	    {
 		    if(custModel==null)
@@ -166,16 +134,10 @@ public class AddCustomerController implements Initializable{
 			    }
 			 setCustModel(null);
 			((Node)(event.getSource())).getScene().getWindow().hide();
-			
-			System.out.println("ParentController of addcustomer : "+this.parentName);
 			if(null!=this.parentName) {
 			if(this.parentName.equals("CustomerController")) {
-				ApplicationContext applicationContext=SpringFxmlLoader.getApplicationcontext();
-				ManageCustomerController manageCustomer=(ManageCustomerController) applicationContext.getBean("ManageCustomerController");
-				manageCustomer.getRefreshedTable();
+				manageCustomerController.getRefreshedTable();
 			}else if(this.parentName.equals("InvoiceController")) {
-				ApplicationContext applicationContext=SpringFxmlLoader.getApplicationcontext();
-				ManageInvoiceController manageInvoiceController=(ManageInvoiceController) applicationContext.getBean("ManageInvoiceController");
 				manageInvoiceController.refreshCustomerList();;
 			}
 		  }
@@ -183,18 +145,20 @@ public class AddCustomerController implements Initializable{
 	}
 	
 	private boolean validateDoubleField(String text) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	private boolean validateCustomer(Customer cust) {
 		boolean valid=true;
-		if(null==cust.getCustomerName() || cust.getCustomerName().isEmpty()) {
-			valid=false;
-			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_CUSTOMER_VALIDATION,AlertType.ERROR);
-		}
-		
-		return valid;
-		
+		Collection<ValidationMessage> mes=support.getValidationResult().getErrors();
+	    System.out.println(mes);
+	    for(ValidationMessage m:mes) {
+		    	if(m.getSeverity()==Severity.ERROR)
+		    	{
+		    		valid=false;
+		    		Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_CUSTOMER_FEILD_VALIDATION,AlertType.ERROR);
+		    	}
+	    	}
+		return valid;	
 	}
 	public void clearFields() {
 		addAdditionalInfo.setText(null);
@@ -214,10 +178,14 @@ public class AddCustomerController implements Initializable{
 	public String getParentName() {
 		return parentName;
 	}
-
-
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
+	}
+	public Customer getCustModel() {
+		return custModel;
+	}
+	public void setCustModel(Customer custModel) {
+		this.custModel = custModel;
 	}
 
 

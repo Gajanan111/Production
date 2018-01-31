@@ -30,59 +30,38 @@ import javafx.stage.Stage;
 @Controller("LoginController")
 public class LoginController {
 	
-	public static BorderPane root=new BorderPane();
 	public static StackPane MainStage= new StackPane();
 	
 	@Autowired
 	public LayoutController layoutController;
 	
-	
-	public static BorderPane getRoot() {
-		return root;
-	}
+	@Autowired
+	private LoginService loginService;
 
-	public void setRoot(BorderPane root) {
-		this.root = root;
-	}
-//	final static Logger LOGGER = Logger.getLogger(LoginController.class);
+	@Autowired
+	private User user;
 	
-	// Reference to the main application
-    @SuppressWarnings("unused")
+	
+
+    /*@SuppressWarnings("unused")
     private MainController mainController;
 	
 	
 	public void setMainController(MainController mainController) {
 		this.mainController = mainController;
-	}
+	}*/
 
-	@Autowired
-	private LoginService loginService;
-	
-	
-	
-	@Autowired
-	private User user;
-	
 	@FXML private Text actiontarget;
 	@FXML private TextField textField;
 	@FXML private PasswordField passwordField;
-	
-	
-	
-	public LoginController()
-	{
-		
-	}
+
     
     @FXML protected void handleSignInButtonAction(ActionEvent event) {
-    	
-    //	LOGGER.debug("In method LoginController:handleSignInButtonAction Entry ");
     	String userName=textField.getText();
     	String password=passwordField.getText();
     	System.out.println("dffsdfds");
     	if(userName!=null && password!=null)
     	{
-    		System.out.println("dfdsfd");
     		user.setUserName(userName);
     		user.setPassword(password);
     		if(loginService.doLogin(user))
@@ -91,21 +70,16 @@ public class LoginController {
     			((Node)(event.getSource())).getScene().getWindow().hide();
     			SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
     			MainStage= (StackPane) loader.load(URLS.HOME_PAGE);
-    			
     			layoutController.loadWindow(MainStage, Constants.APPLICATION_TITLE,ScreenController.getScreenWidth(), ScreenController.getScreenHeight());
     		}
     		else {
     			actiontarget.setText("Login failed");
-    		}
-    			
-    		
+    		}	
     	}else
     	{
     		actiontarget.setText("UserName & Password cannot be valid");
     	}
-    	
-    	//LOGGER.debug("In method LoginController:handleSignInButtonAction Exit ");
-        
+    	//LOGGER.debug("In method LoginController:handleSignInButtonAction Exit ");     
     }
  
 	

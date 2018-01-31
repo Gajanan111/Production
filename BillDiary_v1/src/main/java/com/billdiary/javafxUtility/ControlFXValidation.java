@@ -9,28 +9,18 @@ import javafx.scene.control.Control;
 
 @Component
 public class ControlFXValidation {
-
 	public Validator<String> getStringValidator() {
-	    	Validator<String> validator = new Validator<String>()
-		    {
-		      @Override
-		      public ValidationResult apply( Control control, String value )
-		      {
-		        boolean condition =
-		            value != null
-		                ? !value
-		                    .matches(
-		                        "^(\\w+)$" )
-		                : value == null;
-		        condition =
-    		            (value != null)? value.matches("^(\\w+)$"):false;             
-                
-
-		        System.out.println( condition );
-
-		        return ValidationResult.fromMessageIf( control, "not a String", Severity.ERROR, condition );
-		      }
-		    };
-	    	return validator;
-	    }
+    	Validator<String> validator = new Validator<String>()
+	    {
+	      @Override
+	      public ValidationResult apply( Control control, String value )
+	      {
+	        boolean condition =
+		            (value != null)?(!value.matches("^(\\w+)$")):false;             
+	        System.out.println( condition );
+	        return ValidationResult.fromMessageIf( control, "not a valid String", Severity.ERROR, condition );
+	      }
+	    };
+    	return validator;
+    }
 }

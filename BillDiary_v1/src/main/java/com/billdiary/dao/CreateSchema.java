@@ -32,9 +32,7 @@ public class CreateSchema {
 	/**
 	 * Constant for rawtypes.
 	 */
-	private static final String RAW_TYPES = "rawtypes";
-	
-	
+	private static final String RAW_TYPES = "rawtypes";	
 	/**
 	 * Constant for batchSize.
 	 */
@@ -77,8 +75,6 @@ public class CreateSchema {
 	public  Integer executeNativeSQLQuery(final String nativeSQLQuery) {
 		System.out.println("hi");
 		int i=0;
-		
-		
 		/**
 		 * Check this code what is happing in it.
 		 */

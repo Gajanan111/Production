@@ -46,14 +46,22 @@ public class MainController extends Application{
     private ProgressBar loadProgress;
     private Label progressText;
     private Stage mainStage;
-    private static final int SPLASH_WIDTH = 676;
+    private static final int SPLASH_WIDTH = 730;
     private static final int SPLASH_HEIGHT = 227;
-    
-   /* public static final String SPLASH_IMAGE =
-    		"http://fxexperience.com/wp-content/uploads/2010/06/logo.png";
-    */
     public static final String SPLASH_IMAGE ="";
+
+    /**
+     * main Method thats starts the application
+     * @param args
+     */
+    public static void main(String[] args) {
+		LOGGER.debug("Entering Class MainController : method : main.");		
+		launch(args); 
+	}
     
+    /**
+     * Overridden init method
+     */
     @Override
     public void init() {
         ImageView splash = new ImageView(new Image(
@@ -78,40 +86,14 @@ public class MainController extends Application{
         );
         splashLayout.setEffect(new DropShadow());
     }
-    
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		LOGGER.debug("Entering Class MainController : method : main.");		
-		launch(args); 
-		
-	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		//Below fxml file will be loaded by SpringFxmlLoader 
-		try {
-			CreateSchema c=new CreateSchema();
-			int i=c.executeNativeSQLQuery(DAOConstants.CREATE_USER_TABLE);
-		//	System.out.println(i);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
 		final Task<ObservableList<String>> splashfriendTask = new Task<ObservableList<String>>() {
             @Override
             protected ObservableList<String> call() throws InterruptedException {
                 ObservableList<String> foundFriends =
                         FXCollections.<String>observableArrayList();
-                /*ObservableList<String> availableFriends =
-                        FXCollections.observableArrayList(
-                                "Fili", "Kili", "Oin", "Gloin", "Thorin",
-                                "Dwalin", "Balin", "Bifur", "Bofur",
-                                "Bombur", "Dori", "Nori", "Ori"
-                        );*/
                 updateMessage("Initializing.");
                 for(int i = 0; i < 4; i++) {
                 	Thread.sleep(4);
@@ -120,7 +102,6 @@ public class MainController extends Application{
                 	 loader=SpringFxmlLoader.getInstance();
                 	updateMessage("Initializing..");
                 }
-               
                 updateMessage("Initializing...");
                 Thread.sleep(4);
                 updateMessage("All friends found.");
@@ -146,7 +127,6 @@ public class MainController extends Application{
                 fadeSplash.setToValue(0.0);
                 fadeSplash.setOnFinished(actionEvent -> initStage.hide());
                 fadeSplash.play();
-
                 initCompletionHandler.complete();
             } // todo add code to gracefully handle other task states.
         });
@@ -158,21 +138,17 @@ public class MainController extends Application{
         initStage.setY(bounds.getMinY() + bounds.getHeight() / 2 - SPLASH_HEIGHT / 2);
         initStage.initStyle(StageStyle.TRANSPARENT);
         initStage.setAlwaysOnTop(true);
-        initStage.show();
-		
-		
-		
+        initStage.show();			
 	}
 	public interface InitCompletionHandler {
         void complete();
-}
-	
-	
+    }
+	/**
+	 * Main method thatopens login page
+	 * @param friends
+	 */
 	private void showMainStage(ReadOnlyObjectProperty<ObservableList<String>> friends) {
 		Parent root = (Parent) loader.load(URLS.LOGIN_PAGE);
-		//Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/Login.fxml"));
-		//Stage stage = new Stage();
-		
 		mainStage = new Stage(StageStyle.DECORATED);
 		Scene scene = new Scene(root,ScreenController.getScreenWidth(), ScreenController.getScreenHeight()); 
 		mainStage.setTitle(Constants.APPLICATION_TITLE);

@@ -45,45 +45,27 @@ public class AddProductController  implements Initializable {
 	private LayoutController layoutController;
 	
 	Product prodModel;
-	@FXML
-	TextField add_productName;
-	@FXML
-	TextField add_prodDesc;
-	@FXML
-	TextField productCategory;
-	@FXML
-	TextField add_PrdHSNCodes;
-	@FXML
-	TextField add_retailPrice;
-	@FXML
-	CheckBox retailGST;
-	@FXML
-	TextField add_wholesalePrice;
-	@FXML
-	CheckBox wholeSaleGST;
-	@FXML
-	TextField add_Discount;
-	@FXML
-	TextField add_stock;
-	@FXML
-	TextField initialStock;
-	@FXML
-	TextField  lowStock;
-	
-	@FXML
-	ComboBox<String> wholeSaleGSTpercentage;
-	@FXML
-	ComboBox<String> retailGSTpercentage;
+	@FXML TextField add_productName;
+	@FXML TextField add_prodDesc;
+	@FXML TextField productCategory;
+	@FXML TextField add_PrdHSNCodes;
+	@FXML TextField add_retailPrice;
+	@FXML CheckBox retailGST;
+	@FXML TextField add_wholesalePrice;
+	@FXML CheckBox wholeSaleGST;
+	@FXML TextField add_Discount;
+	@FXML TextField add_stock;
+	@FXML TextField initialStock;
+	@FXML TextField  lowStock;
+	@FXML ComboBox<String> wholeSaleGSTpercentage;
+	@FXML ComboBox<String> retailGSTpercentage;
+	@FXML ComboBox<String> units;
 	
 	List<String> categoryList=new ArrayList<String>();
-	
-	@FXML
-	ComboBox<String> units;
 	List<Unit> unitList=new ArrayList<>();
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
 		getProductCategoryList();
 		getUnitList();
 		units.getSelectionModel().selectedIndexProperty().addListener((v,oldValue,newValue)->{
