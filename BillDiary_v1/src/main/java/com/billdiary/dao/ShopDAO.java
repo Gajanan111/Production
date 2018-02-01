@@ -40,7 +40,7 @@ public class ShopDAO extends AbstractJpaDAO< ShopEntity >{
 			return shop;
 		}
 		@Transactional
-		public void EditShopDetails(ShopEntity addShopDetails) {
+		public void editShopDetails(ShopEntity addShopDetails) {
 			List<ShopEntity> shopDetails =new ArrayList<>();
 			shopDetails=getShopDetails();
 			int i=(int)shopDetails.get(0).getShopId();

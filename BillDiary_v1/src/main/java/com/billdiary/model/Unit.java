@@ -22,8 +22,8 @@ public class Unit {
 		super();
 		this.unitId = new SimpleLongProperty(unitEntity.getUnitId());
 		this.unitName = new SimpleStringProperty(unitEntity.getName());
-		this.delete=getDelete();
-		this.action=getAction();
+		//this.delete=getDelete();
+		//this.action=getAction();
 	}
 	
 	public Hyperlink getDelete() {

@@ -59,15 +59,12 @@ public class ShopController  {
 		addShopDetails.setLogo(Logo.getText());
 		if(shop.size()==0)
 		{
-			
-			
-			shopService.SaveShopDetails(addShopDetails);
+			shopService.saveShopDetails(addShopDetails);
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		}
 		else
 		{
-			
-			shopService.EditShopDetails(addShopDetails);
+			shopService.editShopDetails(addShopDetails);
 			((Node)(event.getSource())).getScene().getWindow().hide();
 		}
 		

@@ -13,22 +13,15 @@ import com.billdiary.entities.ShopEntity;
 public class ShopService {
 	@Autowired
 	ShopDAO shopDAO;
-	public void SaveShopDetails(ShopEntity addShopDetails) {
-		// TODO Auto-generated method stub
-		
-		shopDAO.saveShopDetails(addShopDetails);
-		
+	public void saveShopDetails(ShopEntity addShopDetails) {
+		shopDAO.saveShopDetails(addShopDetails);	
 	}
 	public List<ShopEntity> getShopDetails() {
 		List<ShopEntity> shop = new ArrayList<>();
 		shop = shopDAO.getShopDetails();
-		
-		
 		return shop;
 	}
-	public void EditShopDetails(ShopEntity addShopDetails) {
-		// TODO Auto-generated method stub
-		shopDAO.EditShopDetails(addShopDetails);
+	public void editShopDetails(ShopEntity addShopDetails) {
+		shopDAO.editShopDetails(addShopDetails);
 	}
-
 }

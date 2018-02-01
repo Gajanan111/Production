@@ -1,15 +1,10 @@
 package com.billdiary.ui;
 
-
-
-
 import org.apache.log4j.Logger;
 
 import com.billdiary.config.SpringFxmlLoader;
-import com.billdiary.dao.CreateSchema;
 import com.billdiary.screenResolution.ScreenController;
 import com.billdiary.utility.Constants;
-import com.billdiary.utility.DAOConstants;
 import com.billdiary.utility.URLS;
 
 import javafx.animation.FadeTransition;
@@ -41,12 +36,11 @@ public class MainController extends Application{
 	
 	final static Logger LOGGER = Logger.getLogger(MainController.class);
 	private static SpringFxmlLoader loader;
-	
 	private Pane splashLayout;
     private ProgressBar loadProgress;
     private Label progressText;
     private Stage mainStage;
-    private static final int SPLASH_WIDTH = 730;
+    private static final int SPLASH_WIDTH = 720;
     private static final int SPLASH_HEIGHT = 227;
     public static final String SPLASH_IMAGE ="";
 
@@ -128,7 +122,7 @@ public class MainController extends Application{
                 fadeSplash.setOnFinished(actionEvent -> initStage.hide());
                 fadeSplash.play();
                 initCompletionHandler.complete();
-            } // todo add code to gracefully handle other task states.
+            } 
         });
 
         Scene splashScene = new Scene(splashLayout, Color.TRANSPARENT);

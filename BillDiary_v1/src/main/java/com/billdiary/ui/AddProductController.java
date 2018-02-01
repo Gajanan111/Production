@@ -27,12 +27,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 
 @Controller("AddProductController")
@@ -71,7 +73,7 @@ public class AddProductController  implements Initializable {
 		units.getSelectionModel().selectedIndexProperty().addListener((v,oldValue,newValue)->{
 			handleUnitSelection();
 		});
-		TextFields.bindAutoCompletion(units.getEditor(),units.getItems()).setVisibleRowCount(3);
+		//TextFields.bindAutoCompletion(units.getEditor(),units.getItems()).setVisibleRowCount(3);
 		TextFields.bindAutoCompletion(productCategory,categoryList).setVisibleRowCount(3);
 		
 		if(getProdModel()!=null) {
@@ -124,8 +126,13 @@ public class AddProductController  implements Initializable {
 			StackPane addUnit = (StackPane) loader.load(URLS.ADD_UNIT);
 			BorderPane root = new BorderPane();
 			root.setCenter(addUnit);
-			layoutController.loadWindow(root, "Add Units", Constants.POPUP_UNIT_WINDOW_WIDTH,
-					Constants.POPUP_UNIT_WINDOW_HEIGHT);
+			StackPane stk=new StackPane();
+			stk.getChildren().add(addUnit);
+			Stage stage = new Stage();
+		    Scene scene = new Scene(stk, Constants.POPUP_UNIT_WINDOW_WIDTH, Constants.POPUP_UNIT_WINDOW_HEIGHT); 
+	        stage.setTitle("Add Units");
+	        stage.setScene(scene);
+	        stage.showAndWait();
 		}
 	}
 

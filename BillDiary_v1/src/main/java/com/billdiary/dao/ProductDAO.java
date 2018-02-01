@@ -73,10 +73,10 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 	}
 	@SuppressWarnings("unchecked")
 	public List<UnitEntity> getUnitList() {
-		List<UnitEntity> UnitEntityList=new ArrayList<>();
-		UnitEntityList=entityManager.createQuery( "from " + UnitEntity.class.getName() )
+		List<UnitEntity> unitEntityList=new ArrayList<>();
+		unitEntityList=entityManager.createQuery( "from " + UnitEntity.class.getName() )
 			       .getResultList();
-		return UnitEntityList;
+		return unitEntityList;
 	}
 	
 	@Transactional

@@ -1,11 +1,11 @@
 package com.billdiary.utility;
 
-public interface URLS {
+public class URLS {
 
 	
-	/* DashBoard page  */
+	// DashBoard page  
 	public static final String DASHBOARD_PAGE="/fxml/DashBoard.fxml";
-	/* Login page  */
+	// Login page  
 	public static final String LOGIN_PAGE="/fxml/Login.fxml";
 	/* Home page  */
 	public static final String HOME_PAGE="/fxml/Home.fxml";
