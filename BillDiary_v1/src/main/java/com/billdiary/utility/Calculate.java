@@ -15,11 +15,12 @@ public class Calculate {
 	static StringBuffer buffer = new StringBuffer();
 	static DecimalFormat df = new DecimalFormat("0.00");
 
-	public Double getTotalPrice(Product product) {
+	public Double getProductTotalPrice(Product product) {
 		Double price = 0.0;
-		price = product.getRetailPrice() * product.getQuantity();
+		
+		price = getRetailWithGST(product.getRetailPrice(),product.getRetailGSTpercentage()) * product.getQuantity();
 		if (product.getDiscount() > 0) {
-			Double dis = product.getRetailPrice() * product.getQuantity() * (product.getDiscount() / 100);
+			Double dis = getRetailWithGST(product.getRetailPrice(),product.getRetailGSTpercentage()) * product.getQuantity() * (product.getDiscount() / 100);
 			price = price - dis;
 		}
 

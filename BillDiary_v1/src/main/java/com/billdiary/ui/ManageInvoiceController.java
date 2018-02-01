@@ -26,7 +26,7 @@ import com.billdiary.utility.Calculate;
 import com.billdiary.utility.Constants;
 import com.billdiary.utility.GeneratePDF;
 import com.billdiary.utility.URLS;
-import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
+
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -34,12 +34,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.SkinBase;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -74,38 +72,26 @@ public class ManageInvoiceController implements Initializable {
 	@FXML
 	SplitMenuButton saveButton;
 
-	@FXML
-	TextField paidAmount;
-	@FXML
-	TextField totalAmount;
-	@FXML
-	TextField bigFinalAmount;
-	@FXML
-	TextField amountDue;
-	@FXML
-	TextField discount;
-	@FXML
-	TextField finalAmount;
-	@FXML
-	TextArea invAddress;
-	@FXML
-	TextField invMobileNo;
-	@FXML
-	Text invNO;
-	@FXML
-	Text invDate;
-	@FXML
-	DatePicker invIssueDate;
-	@FXML
-	DatePicker invDueDate;
-	@FXML
-	TextField invCustName;
-	@FXML
-	TextField invProductName;
-	@FXML
-	TextField invProductQuantity;
-	@FXML
-	TextField invProductPrice;
+	@FXML TextField paidAmount;
+	@FXML TextField totalAmount;
+	@FXML TextField bigFinalAmount;
+	@FXML TextField amountDue;
+	@FXML TextField discount;
+	@FXML TextField finalAmount;
+	@FXML TextArea invAddress;
+	@FXML TextField invMobileNo;
+	@FXML Text invNO;
+	@FXML Text invDate;
+	@FXML DatePicker invIssueDate;
+	@FXML DatePicker invDueDate;
+	@FXML TextField invCustName;
+	@FXML TextField invProductName;
+	@FXML TextField invProductQuantity;
+	@FXML TextField invProductPrice;
+	@FXML TextField taxableAmt;
+	@FXML TextField totalCGST;
+	@FXML TextField totalSGST;
+	@FXML TextField totalAmt;
 
 	/** All table related **/
 	@FXML
@@ -123,6 +109,8 @@ public class ManageInvoiceController implements Initializable {
 	TableColumn<Product, Integer> serialNumber;
 	@FXML
 	TableColumn<Product, Double> totalPrice;
+	@FXML
+	TableColumn<Product, Double> gstRate;
 
 	Customer selectedCustomer = null;
 	Product selectedProduct = null;
@@ -161,7 +149,7 @@ public class ManageInvoiceController implements Initializable {
 		productID.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
 		serialNumber.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
 		totalPrice.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
-
+		gstRate.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
 		invCustName.focusedProperty().addListener((ov, oldV, newV) -> {
 			if (!newV) {
 				selectCustomerAddMob();
@@ -346,19 +334,21 @@ public class ManageInvoiceController implements Initializable {
 	private void addProduct() {
 		if (null != selectedProduct) {
 			Product pr=new Product();
-			//pr=selectedProduct;
-			pr.setProductId(new SimpleIntegerProperty(selectedProduct.getProductId()));
+			pr=(Product)selectedProduct.clone();
+			/*pr.setProductId(new SimpleIntegerProperty(selectedProduct.getProductId()));
 			pr.setName(new SimpleStringProperty(selectedProduct.getName()));
 			pr.setDescription(new SimpleStringProperty(selectedProduct.getDescription()));
 			pr.setRetailPrice(new SimpleDoubleProperty(selectedProduct.getRetailPrice()));
-	        pr.setDiscount(new SimpleDoubleProperty(selectedProduct.getDiscount()));
+	        pr.setDiscount(new SimpleDoubleProperty(selectedProduct.getDiscount()));*/
+	        
+	        
 			if(invProductQuantity.getText()!="") {
 			pr.setSerialNumber(new SimpleIntegerProperty(productTable.getItems().size() + 1));
 			pr.setQuantity(new SimpleIntegerProperty(Integer.parseInt(invProductQuantity.getText())));
 			
-			pr.setTotalPrice(new SimpleDoubleProperty(calculate.getTotalPrice(pr)));
+			pr.setTotalPrice(new SimpleDoubleProperty(calculate.getProductTotalPrice(pr)));
 			data.add(pr);
-			int index=data.indexOf(pr);
+			int index=data.size()-1;
 			pr.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(index));
 			}
 			productTable.setItems(data);
@@ -366,7 +356,7 @@ public class ManageInvoiceController implements Initializable {
 			invProductName.clear();
 			invProductPrice.clear();
 			invProductQuantity.clear();
-			
+			selectedProduct=null;
 			
 		}
 	}

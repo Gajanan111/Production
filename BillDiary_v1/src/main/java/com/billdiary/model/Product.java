@@ -8,12 +8,11 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 
 
 @Component
-public class Product {
+public class Product implements Cloneable{
 	
 	private SimpleIntegerProperty serialNumber;
 	
@@ -59,6 +58,16 @@ public class Product {
 	public Product()
 	{
 	
+	}
+	public Object clone()
+	{
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new Product();
 	}
 	public Product(int prodId, String nameOfProduct,
 			double wholesale_Price, double retail_Price, String descriptionOfProduct,
