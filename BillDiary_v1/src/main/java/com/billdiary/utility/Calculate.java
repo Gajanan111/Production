@@ -2,7 +2,6 @@ package com.billdiary.utility;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.stereotype.Component;
 
@@ -56,17 +55,15 @@ public class Calculate {
 		return wholeSalePrice;
 	}
 
-	public static double getRetailPrice(double price, String percentageString) {
+	public static double getRetailPrice(double price, String percentageString,double discount) {
 		double retailPrice = 0.0;
 		if (null != percentageString) {
-			percentageString = percentageString.replace('%', ' ');
-			percentageString = percentageString.trim();
-			if (!("0".equals(percentageString))) {
-				double percentage = Double.parseDouble(percentageString);
+			double percentage=getPercentage(percentageString);
+			//percentage=percentage+discount;
+			if (!(percentage==0.00)) {
 				price = price * 100.00;
 				percentage = percentage + 100.00;
 				retailPrice = price / percentage;
-
 			} else {
 				retailPrice = price;
 			}
@@ -85,6 +82,15 @@ public class Calculate {
 		return retailPrice;
 	}
 
+	public static double getPercentage(String percentageString)
+	{
+		double percentage=0.00;
+		percentageString = percentageString.replace('%', ' ');
+		percentageString = percentageString.trim();
+		percentage=Double.parseDouble(percentageString);
+		return percentage;
+		
+	}
 	public static String trimPercentage(String percentage) {
 
 		percentage = percentage.replace('%', ' ');

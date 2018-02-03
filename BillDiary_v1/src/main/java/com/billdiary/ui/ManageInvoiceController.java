@@ -185,12 +185,20 @@ public class ManageInvoiceController implements Initializable {
 		paidAmount.textProperty().addListener((ov,oldV,newV)->{
 			calculateAmountDue();
 		});
+		taxableAmt.textProperty().addListener((ov,oldV,newV)->{
+			calculateTaxableAmount();
+		});
 	
 		finalAmount.textProperty().bindBidirectional(bigFinalAmount.textProperty());
 		finalAmount.textProperty().addListener((ov,oldV,newV)->{
 			paidAmount.setText("0");
 			amountDue.setText(finalAmount.getText());
 		});
+	}
+
+	private void calculateTaxableAmount() {
+		
+		
 	}
 
 	private void refreshInvoiceTable() {
@@ -365,10 +373,13 @@ public class ManageInvoiceController implements Initializable {
 	
 	private void calculateTotalAmount() {
 		double total=0;
+		double taxableTotal=0;
 		for (Product row : productTable.getItems()) {
 			total=total+row.getTotalPrice();
+			
 		    }
 		totalAmount.setText(String.valueOf(total));
+		
 	}
 
 	private void deleteButtonClickedThroughHyperlink(int index) {

@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.billdiary.DAOUtility.EntityTOModelMapper;
-import com.billdiary.DAOUtility.ModelTOEntityMapper;
 import com.billdiary.dao.CustomerDAO;
+import com.billdiary.daoUtility.EntityTOModelMapper;
+import com.billdiary.daoUtility.ModelTOEntityMapper;
 import com.billdiary.entities.CustomerEntity;
 import com.billdiary.model.Customer;
 import javafx.collections.ObservableList;

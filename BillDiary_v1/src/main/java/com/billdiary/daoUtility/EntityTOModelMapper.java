@@ -1,4 +1,4 @@
-package com.billdiary.DAOUtility;
+package com.billdiary.daoUtility;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

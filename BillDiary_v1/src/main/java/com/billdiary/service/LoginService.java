@@ -3,9 +3,10 @@ package com.billdiary.service;
 //import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.billdiary.DAOUtility.ModelTOEntityMapper;
+
 import com.billdiary.dao.LoginDAO;
 import com.billdiary.dao.ProductDAO;
+import com.billdiary.daoUtility.ModelTOEntityMapper;
 import com.billdiary.entities.UserEntity;
 
 import com.billdiary.model.User;

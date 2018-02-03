@@ -169,7 +169,7 @@ public class AddProductController  implements Initializable {
 			prod.setWholeSaleGSTpercentage(new SimpleDoubleProperty(Double.parseDouble(Calculate.trimPercentage(wholeSaleGSTper))));
 		}
 		if(retailGST.isSelected()) {
-			retailPrice=Calculate.getRetailPrice(retailPrice,retailGSTper);
+			retailPrice=Calculate.getRetailPrice(retailPrice,retailGSTper,discount);
 			System.out.println(retailPrice);
 			prod.setRetailGST(new SimpleStringProperty("Y"));
 			prod.setRetailGSTpercentage(new SimpleDoubleProperty(Double.parseDouble(Calculate.trimPercentage(retailGSTper))));
