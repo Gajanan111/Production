@@ -1,10 +1,12 @@
 package com.billdiary.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.billdiary.service.GSTService;
 import com.billdiary.utility.BasicCalculator;
 
+@Repository
 public class GSTServiceImpl implements GSTService {
 
 	@Autowired
@@ -14,6 +16,7 @@ public class GSTServiceImpl implements GSTService {
 	private double gstAmount;
 	private double gstIncludedPrice;
 	private double gstExcludedPrice;
+	private double amount;
 	public double getGSTAmount(double amount,double percentage) {
 		if(percentage!=0) {
 			
@@ -21,18 +24,18 @@ public class GSTServiceImpl implements GSTService {
 		return gstAmount;
 	}
 	public double getGSTPercentage(double oldamount,double newAmount) {
+		amount=newAmount-oldamount;
+		amount=amount*100;
+		gstPercentage=amount/oldamount;
 		return gstPercentage;
 	}
 	
 	public double getGSTIncludedPrice(double price,double percentage) {
+		gstIncludedPrice=calculator.getPercentageOfValue(price,percentage);
 		return gstIncludedPrice;
 	}
 	public double getGSTExcludedPrice(double price,double percentage) {
-		if(percentage!=0) {
-			price=price*100;
-			percentage=percentage+100;
-			gstExcludedPrice=price/percentage;
-		}
+		gstExcludedPrice=calculator.getValueOfPercentage(price,percentage);
 		return gstExcludedPrice;
 	}
 }

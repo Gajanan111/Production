@@ -14,6 +14,7 @@ import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.javafxUtility.Popup;
 import com.billdiary.model.Product;
 import com.billdiary.model.Unit;
+import com.billdiary.service.PriceService;
 import com.billdiary.service.ProductService;
 
 import com.billdiary.utility.Calculate;
@@ -41,7 +42,10 @@ import javafx.stage.Stage;
 public class AddProductController  implements Initializable {
 
 	@Autowired
-	private ProductService productService;	
+	private ProductService productService;
+	
+	@Autowired 
+	private PriceService priceService;
 	
 	@Autowired
 	private LayoutController layoutController;
@@ -86,7 +90,9 @@ public class AddProductController  implements Initializable {
 		    add_PrdHSNCodes.setText(pro.getProductHSNCode());
 		    units.setValue(pro.getUnit().getUnitName());
 		    if(null!=pro.getRetailGST() && "Y".equals(pro.getRetailGST())){
-		    	add_retailPrice.setText(Double.toString(Calculate.getRetailWithGST(pro.getRetailPrice(),pro.getRetailGSTpercentage())));
+		    	double retailGSTPrice=priceService.getRetailGSTPrice(pro.getRetailPrice(), pro.getRetailGSTpercentage(), pro.getDiscount());
+		    	
+		    	add_retailPrice.setText(Double.toString(retailGSTPrice));
 		    	retailGST.setSelected(true);
 		    	retailGSTpercentage.setValue(pro.getRetailGSTpercentage()+"%");
 		    }else {
@@ -94,7 +100,9 @@ public class AddProductController  implements Initializable {
 		    	add_retailPrice.setText(Double.toString(pro.getRetailPrice()));
 		    }
 		    if(null!=pro.getWholeSaleGST() && "Y".equals(pro.getWholeSaleGST())) {
-		    	add_wholesalePrice.setText(Double.toString(Calculate.getWholeSaleWithGST(pro.getWholesalePrice(),pro.getWholeSaleGSTpercentage())));
+		    	double wholeSaleGSTPrice=priceService.getWholeSaleGSTPrice(pro.getWholesalePrice(), pro.getWholeSaleGSTpercentage(), pro.getDiscount());
+		    	
+		    	add_wholesalePrice.setText(Double.toString(wholeSaleGSTPrice));
 		    	wholeSaleGST.setSelected(true);
 		    	wholeSaleGSTpercentage.setValue(pro.getWholeSaleGSTpercentage()+"%");
 		    }else {
@@ -160,7 +168,8 @@ public class AddProductController  implements Initializable {
 		}
 		
 		if(wholeSaleGST.isSelected()) {
-			wholesalePrice=Calculate.getWholeSalePrice(wholesalePrice,wholeSaleGSTper);
+			//wholesalePrice=Calculate.getWholeSalePrice(wholesalePrice,wholeSaleGSTper);
+			wholesalePrice=priceService.getWholeSalePrice(wholesalePrice, Double.parseDouble(Calculate.trimPercentage(wholeSaleGSTper)), discount);
 			System.out.println(wholesalePrice);
 			prod.setWholeSaleGST(new SimpleStringProperty("Y"));
 			prod.setWholeSaleGSTpercentage(new SimpleDoubleProperty(Double.parseDouble(Calculate.trimPercentage(wholeSaleGSTper))));
@@ -169,7 +178,8 @@ public class AddProductController  implements Initializable {
 			prod.setWholeSaleGSTpercentage(new SimpleDoubleProperty(Double.parseDouble(Calculate.trimPercentage(wholeSaleGSTper))));
 		}
 		if(retailGST.isSelected()) {
-			retailPrice=Calculate.getRetailPrice(retailPrice,retailGSTper,discount);
+			//retailPrice=Calculate.getRetailPrice(retailPrice,retailGSTper,discount);
+			retailPrice=priceService.getRetailPrice(retailPrice, Double.parseDouble(Calculate.trimPercentage(retailGSTper)), discount);
 			System.out.println(retailPrice);
 			prod.setRetailGST(new SimpleStringProperty("Y"));
 			prod.setRetailGSTpercentage(new SimpleDoubleProperty(Double.parseDouble(Calculate.trimPercentage(retailGSTper))));

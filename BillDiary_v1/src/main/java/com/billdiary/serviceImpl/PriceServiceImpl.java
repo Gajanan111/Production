@@ -1,6 +1,7 @@
 package com.billdiary.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.billdiary.service.GSTService;
 import com.billdiary.service.PriceService;
@@ -10,7 +11,7 @@ import com.billdiary.utility.BasicCalculator;
  * @author Gajanan Gaikwad
  * This class is used for calculation of all Retail and WholeSalePrice. 
  */
-
+@Repository
 public class PriceServiceImpl implements PriceService {
 	
 	
@@ -21,33 +22,44 @@ public class PriceServiceImpl implements PriceService {
 	
 	double retailPrice;
 	double wholeSalePrice;
+	double productSellingPrice;
 	
 	
 	@Override
 	public double getRetailPrice(double price, double gstPercentage, double discount) {
-		if(discount!=0) {
-			retailPrice=price-(calculator.getDiscountedValue(discount, price));
-			retailPrice=gstService.getGSTExcludedPrice(retailPrice,gstPercentage);
-		}
+		price=calculator.getDiscountSubtractedValue(price,discount);
+		retailPrice=gstService.getGSTExcludedPrice(price,gstPercentage);
 		return retailPrice;
 	}
 
 	@Override
 	public double getWholeSalePrice(double price, double gstPercentage, double discount) {
-		
+		//price=calculator.getDiscountSubtractedValue(price,discount);
+		wholeSalePrice=gstService.getGSTExcludedPrice(price,gstPercentage);
 		return wholeSalePrice;
 	}
 
 	@Override
 	public double getRetailGSTPrice(double price, double gstPercentage, double discount) {
-		
+		price=gstService.getGSTIncludedPrice(price, gstPercentage);
+		retailPrice=calculator.getDiscountaddedValue(price,discount);	
 		return retailPrice;
 	}
 
 	@Override
 	public double getWholeSaleGSTPrice(double price, double gstPercentage, double discount) {
-		
+		wholeSalePrice=gstService.getGSTIncludedPrice(price, gstPercentage);
+		//wholeSalePrice=calculator.getDiscountaddedValue(price,discount);
 		return wholeSalePrice;
+	}
+
+	
+
+	@Override
+	public double getProductSellingPrice(double retailPrice, double gstPercentage, double quantity) {
+		retailPrice=getRetailGSTPrice(retailPrice,gstPercentage,0);
+		productSellingPrice=quantity==0?retailPrice:(retailPrice*quantity);
+		return productSellingPrice;
 	}
 
 	

@@ -75,7 +75,7 @@ public class GeneratePDF {
 		FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
 		OutputStream out=null;
 		try {
-			out = new java.io.FileOutputStream(URLS.PDF_GENERATION_PATH + "//Bill.pdf");
+			out = new java.io.FileOutputStream(new File(URLS.PDF_GENERATION_PATH + "//Bill.pdf"));
 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
 			// Setup XSLT
 			TransformerFactory factory = TransformerFactory.newInstance();

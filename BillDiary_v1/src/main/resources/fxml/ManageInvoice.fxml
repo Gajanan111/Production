@@ -46,9 +46,17 @@
 							<TextFieldTableCell fx:factory="forTableColumn" />
 							</cellFactory>	
 					  </TableColumn>
-                        <TableColumn id="productDescription" prefWidth="75.0" text="Description">
+                        <TableColumn id="mrpPrice" fx:id="mrpPrice" prefWidth="75.0" text="MRP Rs.">
                             <cellValueFactory>
-							<PropertyValueFactory property="description" />
+							<PropertyValueFactory property="mrpPrice" />
+							</cellValueFactory>
+							<cellFactory>
+							<TextFieldTableCell fx:factory="forTableColumn" />
+							</cellFactory>
+                        </TableColumn>
+                        <TableColumn id="productPrice" fx:id="productPrice" prefWidth="75.0" text="Rate">
+                        	<cellValueFactory>
+							<PropertyValueFactory property="totalPrice" />
 							</cellValueFactory>
 							<cellFactory>
 							<TextFieldTableCell fx:factory="forTableColumn" />
@@ -62,14 +70,6 @@
 							<TextFieldTableCell fx:factory="forTableColumn" />
 							</cellFactory>
 						</TableColumn>
-                        <TableColumn id="productPrice" fx:id="productPrice" prefWidth="75.0" text="Price">
-                        	<cellValueFactory>
-							<PropertyValueFactory property="retailPrice" />
-							</cellValueFactory>
-							<cellFactory>
-							<TextFieldTableCell fx:factory="forTableColumn" />
-							</cellFactory>
-                        </TableColumn>
                         <TableColumn id="productDiscount" fx:id="productDiscount" prefWidth="75.0" text="Discount %">
                         	<cellValueFactory>
 							<PropertyValueFactory property="discount" />

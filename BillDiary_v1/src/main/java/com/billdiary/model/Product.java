@@ -46,6 +46,9 @@ public class Product implements Cloneable{
 	
 	private SimpleDoubleProperty retailGSTpercentage;
 	
+	private SimpleDoubleProperty mrpPrice;
+	
+	
 	private Unit unit;
 	
 	private HBox action;
@@ -237,5 +240,11 @@ public class Product implements Cloneable{
 	}
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+	public Double getMrpPrice() {
+		return mrpPrice.get();
+	}
+	public void setMrpPrice(SimpleDoubleProperty mrpPrice) {
+		this.mrpPrice = mrpPrice;
 	}
 }

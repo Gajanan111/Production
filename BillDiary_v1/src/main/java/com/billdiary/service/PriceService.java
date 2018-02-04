@@ -9,5 +9,5 @@ public interface PriceService {
 	public double getWholeSalePrice(double price,double gstPercentage,double discount);
 	public double getRetailGSTPrice(double price,double gstPercentage,double discount);
 	public double getWholeSaleGSTPrice(double price,double gstPercentage,double discount);
-	
+	public double getProductSellingPrice(double retailPrice,double gstPercentage,double quantity);
 }

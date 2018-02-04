@@ -21,6 +21,7 @@ import com.billdiary.model.InvoiceTemplateA4;
 import com.billdiary.model.Product;
 import com.billdiary.service.CustomerService;
 import com.billdiary.service.InvoiceService;
+import com.billdiary.service.PriceService;
 import com.billdiary.service.ProductService;
 import com.billdiary.utility.Calculate;
 import com.billdiary.utility.Constants;
@@ -58,14 +59,19 @@ import javafx.util.converter.IntegerStringConverter;
 @Controller("ManageInvoiceController")
 public class ManageInvoiceController implements Initializable {
 
-	@Autowired
-	public LayoutController layoutController;
+	
 	
 	@Autowired
 	GeneratePDF generatePDF;
 	
 	@Autowired
 	public InvoiceService invoiceService;
+	
+	@Autowired
+	public LayoutController layoutController;
+	
+	@Autowired
+	private PriceService priceService;
 	
 	@Autowired
 	public Calculate calculate;
@@ -111,6 +117,9 @@ public class ManageInvoiceController implements Initializable {
 	TableColumn<Product, Double> totalPrice;
 	@FXML
 	TableColumn<Product, Double> gstRate;
+	@FXML
+	TableColumn<Product, Double> mrpPrice;;
+	
 
 	Customer selectedCustomer = null;
 	Product selectedProduct = null;
@@ -150,6 +159,8 @@ public class ManageInvoiceController implements Initializable {
 		serialNumber.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
 		totalPrice.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
 		gstRate.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
+		mrpPrice.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
+		
 		invCustName.focusedProperty().addListener((ov, oldV, newV) -> {
 			if (!newV) {
 				selectCustomerAddMob();
@@ -354,7 +365,11 @@ public class ManageInvoiceController implements Initializable {
 			pr.setSerialNumber(new SimpleIntegerProperty(productTable.getItems().size() + 1));
 			pr.setQuantity(new SimpleIntegerProperty(Integer.parseInt(invProductQuantity.getText())));
 			
-			pr.setTotalPrice(new SimpleDoubleProperty(calculate.getProductTotalPrice(pr)));
+			double totalPrice=priceService.getProductSellingPrice(pr.getRetailPrice(),pr.getRetailGSTpercentage(),pr.getQuantity());
+			pr.setTotalPrice(new SimpleDoubleProperty(totalPrice));
+			
+			double mrpPrice=priceService.getRetailGSTPrice(pr.getRetailPrice(), pr.getRetailGSTpercentage(), pr.getDiscount());
+			pr.setMrpPrice(new SimpleDoubleProperty(mrpPrice));
 			data.add(pr);
 			int index=data.size()-1;
 			pr.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(index));
@@ -365,12 +380,38 @@ public class ManageInvoiceController implements Initializable {
 			invProductPrice.clear();
 			invProductQuantity.clear();
 			selectedProduct=null;
+			calculateGST();
 			
 		}
 	}
 	
 	
 	
+	private void calculateGST() {
+		/**
+		 * taxableAmt
+		 * totalCGST
+		 * totalSGST
+		 * totalAmt
+		 */
+		double taxableAmount=0;
+		double totalCGSTAmount=0;
+		double totalSGSTAmount=0;
+		double totalGSTAddedAmount=0;
+		double subtractedAmont=0;
+		for (Product row : productTable.getItems()) {
+			taxableAmount=taxableAmount+row.getRetailPrice();
+			totalGSTAddedAmount=totalGSTAddedAmount+row.getTotalPrice();
+			subtractedAmont=totalGSTAddedAmount-taxableAmount;
+			totalCGSTAmount=totalSGSTAmount=(subtractedAmont/2);
+		    }
+		taxableAmt.setText(Double.toString(taxableAmount));
+		totalCGST.setText(Double.toString(totalCGSTAmount));
+		totalSGST.setText(Double.toString(totalSGSTAmount));
+		totalAmt.setText(Double.toString(totalGSTAddedAmount));
+		
+	}
+
 	private void calculateTotalAmount() {
 		double total=0;
 		double taxableTotal=0;
