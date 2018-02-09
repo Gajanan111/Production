@@ -32,7 +32,7 @@ public class Product implements Cloneable{
 	
 	private SimpleStringProperty description;
 	
-	private SimpleIntegerProperty stock;
+	private SimpleDoubleProperty stock;
 	
 	private SimpleDoubleProperty discount;
 	
@@ -82,7 +82,7 @@ public class Product implements Cloneable{
 		this.wholesalePrice =new SimpleDoubleProperty( wholesale_Price);
 		this.retailPrice = new SimpleDoubleProperty(retail_Price);
 		this.description = new SimpleStringProperty(descriptionOfProduct);
-		this.stock = new SimpleIntegerProperty(stockOfProduct);
+		this.stock = new SimpleDoubleProperty(stockOfProduct);
 		this.discount =new SimpleDoubleProperty (Discount);
 		this.delete = new Hyperlink();
 		this.delete.setGraphic(iconGallery.getDeleteIcon());
@@ -122,11 +122,12 @@ public class Product implements Cloneable{
 	public void setDescription(SimpleStringProperty descriptionOfProduct) {
 		this.description=descriptionOfProduct;
 	}
-	public int getStock() {
+
+	public Double getStock() {
 		return stock.get();
 	}
-	public void setStock(SimpleIntegerProperty stockOfProduct) {
-		this.stock=stockOfProduct;
+	public void setStock(SimpleDoubleProperty stock) {
+		this.stock = stock;
 	}
 	public double getDiscount() {
 		return discount.get();

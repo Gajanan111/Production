@@ -91,7 +91,7 @@ public class EntityTOModelMapper {
 	    product.setName(new SimpleStringProperty(productEntity.getName()));
 	    product.setRetailPrice(new SimpleDoubleProperty(productEntity.getRetail_price()));
 	    product.setWholesalePrice(new SimpleDoubleProperty(productEntity.getWholesale_price()));
-	    product.setStock(new SimpleIntegerProperty(productEntity.getStock()));
+	    product.setStock(new SimpleDoubleProperty(productEntity.getStock()));
 	    product.setProductCategory(new SimpleStringProperty(productEntity.getProductCategory()));
 	    product.setWholeSaleGST(new SimpleStringProperty(productEntity.getWholeSaleGST()));
 	    product.setWholeSaleGSTpercentage(new SimpleDoubleProperty(productEntity.getWholeSaleGSTpercentage()));
@@ -112,7 +112,7 @@ public class EntityTOModelMapper {
 			prod.setProductHSNCode(new SimpleStringProperty(productEntity.getProductHSNCode()));
 			prod.setRetailPrice(new SimpleDoubleProperty(productEntity.getRetail_price()));
 			prod.setWholesalePrice(new SimpleDoubleProperty(productEntity.getWholesale_price()));
-			prod.setStock(new SimpleIntegerProperty(productEntity.getStock()));
+			prod.setStock(new SimpleDoubleProperty(productEntity.getStock()));
 			prod.setProductCategory(new SimpleStringProperty(productEntity.getProductCategory()));
 			prod.setWholeSaleGST(new SimpleStringProperty(productEntity.getWholeSaleGST()));
 			prod.setWholeSaleGSTpercentage(new SimpleDoubleProperty(productEntity.getWholeSaleGSTpercentage()));

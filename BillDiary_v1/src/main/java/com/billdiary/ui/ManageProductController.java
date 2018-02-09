@@ -55,7 +55,7 @@ public class ManageProductController implements Initializable{
 	@FXML TableColumn<Product,Double>WholesalePrice;
 	@FXML TableColumn<Product,Double>RetailPrice;
 	@FXML TableColumn<Product,Double>Discount;
-	@FXML TableColumn<Product,Integer>Stock;
+	@FXML TableColumn<Product,Double>Stock;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
@@ -64,7 +64,7 @@ public class ManageProductController implements Initializable{
 		RetailPrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		WholesalePrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		Discount.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
-		Stock.setCellFactory(TextFieldTableCell.<Product,Integer>forTableColumn(new IntegerStringConverter()));
+		Stock.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		System.out.println("Inside Initialize");
 		ProductTable.setItems(data);
 		populate(retrieveData());	
@@ -197,8 +197,8 @@ public class ManageProductController implements Initializable{
 		}
 		if("Stock".equals(event.getTableColumn().getId())) {
 			Integer stock=(Integer)event.getNewValue();
-			event.getTableView().getItems().get(event.getTablePosition().getRow()).setStock(new SimpleIntegerProperty(stock));
-			Stock.setCellFactory(TextFieldTableCell.<Product,Integer>forTableColumn(new IntegerStringConverter()));	
+			event.getTableView().getItems().get(event.getTablePosition().getRow()).setStock(new SimpleDoubleProperty(stock));
+			Stock.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));	
 		}	
 	}
 	

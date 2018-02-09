@@ -18,7 +18,7 @@ create table if not exists product
 									,retail_GST varchar(30)
 									,retail_GST_percentage double
 									,discount varchar(30)
-									,stock varchar(30)
+									,stock double
 									,unit_id BIGINT
 									,foreign key (unit_id) references unit(unit_id)
 								);

@@ -156,8 +156,8 @@ public class AddProductController  implements Initializable {
 		if(discount>100.00) {
 			discount=0.00;
 		}
-		Integer stock=Calculate.getNonEmptyIntegerValue(add_stock.getText());
-		stock=stock+Calculate.getNonEmptyIntegerValue(initialStock.getText());
+		double stock=Calculate.getNonEmptyDoubleValue(add_stock.getText());
+		stock=stock+Calculate.getNonEmptyDoubleValue(initialStock.getText());
 		String wholeSaleGSTper=wholeSaleGSTpercentage.getValue();
 		String retailGSTper=retailGSTpercentage.getValue();
 		if(null==wholeSaleGSTper) {
@@ -193,7 +193,7 @@ public class AddProductController  implements Initializable {
 		prod.setRetailPrice(new SimpleDoubleProperty(retailPrice));
 		prod.setWholesalePrice(new SimpleDoubleProperty(wholesalePrice));
 		prod.setDiscount(new SimpleDoubleProperty(discount));
-		prod.setStock(new SimpleIntegerProperty(stock)); 
+		prod.setStock(new SimpleDoubleProperty(stock)); 
 		prod.setProductCategory(new SimpleStringProperty(productCategory.getText()));
 		prod.setProductHSNCode(new SimpleStringProperty(add_PrdHSNCodes.getText()));	
 		Unit pUnit=unitList.stream()

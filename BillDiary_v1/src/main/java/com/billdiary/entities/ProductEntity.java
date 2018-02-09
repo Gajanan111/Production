@@ -62,7 +62,7 @@ public class ProductEntity implements Serializable {
 	double discount; 
 	
 	@Column(name = "stock")
-	int stock;
+	double stock;
 	
 	@OneToOne
 	UnitEntity unitEntity;
@@ -109,12 +109,12 @@ public class ProductEntity implements Serializable {
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
-	public int getStock() {
+	public double getStock() {
 		return stock;
 	}
-	public void setStock(int stock) {
+	public void setStock(double stock) {
 		this.stock = stock;
-	} 
+	}
 	public String getProductCategory() {
 		return productCategory;
 	}
