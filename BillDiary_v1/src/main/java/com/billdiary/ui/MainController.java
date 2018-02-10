@@ -1,6 +1,6 @@
 package com.billdiary.ui;
 
-import org.apache.log4j.Logger;
+
 
 import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.screenResolution.ScreenController;
@@ -34,7 +34,7 @@ import javafx.util.Duration;
 public class MainController extends Application{
 	
 	
-	final static Logger LOGGER = Logger.getLogger(MainController.class);
+	//final static Logger LOGGER = Logger.getLogger(MainController.class);
 	private static SpringFxmlLoader loader;
 	private Pane splashLayout;
     private ProgressBar loadProgress;
@@ -49,7 +49,7 @@ public class MainController extends Application{
      * @param args
      */
     public static void main(String[] args) {
-		LOGGER.debug("Entering Class MainController : method : main.");		
+		//LOGGER.debug("Entering Class MainController : method : main.");		
 		launch(args); 
 	}
     

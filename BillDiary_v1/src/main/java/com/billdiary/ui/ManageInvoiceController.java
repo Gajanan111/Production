@@ -506,9 +506,8 @@ public class ManageInvoiceController implements Initializable {
 			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_UNSUCCESSFULL_STATUS,AlertType.INFORMATION);
 		}
 		InvoiceTemplateA4 invoiceTemplate=generateInvoiceTemplateA4();
-		generatePDF.generateXML(invoiceTemplate);
-		generatePDF.transformXSLToPDF();
-		System.out.println("Invice PDF generated");
+		generatePDF.transformXSLToPDF(invoiceTemplate);
+		System.out.println("Invoice PDF generated");
 		Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_SUCCESSFULL_PDF_STATUS,AlertType.INFORMATION);
 		clearAllFields();
 	}

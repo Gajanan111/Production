@@ -2,7 +2,6 @@ package com.billdiary.utility;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.stereotype.Component;
 
 
@@ -128,7 +127,7 @@ public class Calculate {
 		double doubleValue=0.00;
 		if(value.isEmpty()) {
 			doubleValue=0.00;
-		}else if(NumberUtils.isNumber(value)){
+		}else if(value.matches("^\\d*\\.?\\d*$")){
 			doubleValue=Double.parseDouble(value);
 		}else {
 			doubleValue=0.00;
@@ -139,7 +138,7 @@ public class Calculate {
 		int intValue=0;
 		if(value.isEmpty()) {
 			intValue=0;
-		}else if(NumberUtils.isNumber(value)){
+		}else if(value.matches("^\\d*\\.?\\d*$")){
 			intValue=Integer.parseInt(value);
 		}else {
 			intValue=0;

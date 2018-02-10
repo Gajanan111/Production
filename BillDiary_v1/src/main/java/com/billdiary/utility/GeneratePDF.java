@@ -30,11 +30,49 @@ import com.billdiary.model.Product;
 @Component
 public class GeneratePDF {
 	
-	public void generateXML(InvoiceTemplateA4 template)
+	private File directory=null;
+	
+	
+	public File getDirectory() {
+		return directory;
+	}
+
+
+	public void setDirectory(File directory) {
+		this.directory = directory;
+	}
+
+
+	public void createUserFolder(final String directoryName) throws IOException {
+		final File homeDir = new File(System.getProperty("user.home"));
+		directory=new File(homeDir,directoryName);
+		if (!directory.exists() && !directory.mkdirs()) {
+	        throw new IOException("Unable to create " + directory.getAbsolutePath());
+	    }
+	}
+	
+	public File getInvoiceTemplate() {
+		URL url = getClass().getResource("/files/InvoiceTemplate_A4.xsl");
+		File xsltFile = new File(url.getPath());
+		return xsltFile;
+	}
+	
+	public File createPDF() throws IOException {
+		final File pdf=new File(directory,"bill.pdf");
+		if(!pdf.exists())
+			pdf.createNewFile();
+		return pdf;
+	}
+	
+	
+	public File generateXML(InvoiceTemplateA4 template)
 	{
+		File input=null;
 		try
 		{
-			File input = new File(URLS.INVOICE_XML);
+			input = new File(directory,URLS.INVOICE_XML);
+			if(!input.exists())
+				input.createNewFile();
 			PrintWriter writer = new PrintWriter(input, "UTF-8");
 			writer.println("<?xml version='1.0'?><Invoice><companyname>"+template.getCompanyName()+"</companyname>");
 			writer.println("<Logo>"+/*template.getLogo().getImage()*/"image"+"</Logo>");
@@ -63,29 +101,33 @@ public class GeneratePDF {
 			writer.close();    
 		} catch (IOException e) 
 		{
-		   // do something
+		   e.printStackTrace();
 		}	
+		return input;
 	}
 
-	public void transformXSLToPDF() {
-		URL url = getClass().getResource("/files/InvoiceTemplate_A4.xsl");
-		File xsltFile = new File(url.getPath());
-		StreamSource xmlSource = new StreamSource(new File(URLS.Invoice_Template_A4_XML_PATH + "//Invoice.xml"));
-		FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
-		FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+	public void transformXSLToPDF(InvoiceTemplateA4 template) {
+		
 		OutputStream out=null;
 		try {
-			out = new java.io.FileOutputStream(new File(URLS.PDF_GENERATION_PATH + "//Bill.pdf"));
+			createUserFolder("BillDiaryPDF");
+			File xsltFile = getInvoiceTemplate();
+			StreamSource xmlSource = new StreamSource(generateXML(template));
+			FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+			FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+
+			out = new java.io.FileOutputStream(createPDF());
 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
 			// Setup XSLT
 			TransformerFactory factory = TransformerFactory.newInstance();
 			Transformer transformer = factory.newTransformer(new StreamSource(xsltFile));
-			
+
 			// FOP
 			Result res = new SAXResult(fop.getDefaultHandler());
 			transformer.transform(xmlSource, res);
-			
-		} catch (FileNotFoundException e) {
+
+		}
+		catch (FileNotFoundException e) {
 			System.out.println("Error in PDF Generation");
 			e.printStackTrace();
 		} catch (FOPException e) {
@@ -95,13 +137,14 @@ public class GeneratePDF {
 			System.out.println("Error in PDF Generation");
 			e.printStackTrace();
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}finally {
 			try {
-				out.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				if(out!=null)
+					out.close();
+			} catch (IOException e) {	
 				e.printStackTrace();
 			}
 		}
