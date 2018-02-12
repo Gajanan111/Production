@@ -22,15 +22,20 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import com.billdiary.javafxUtility.Popup;
 import com.billdiary.model.InvoiceTemplateA4;
 import com.billdiary.model.Product;
+
+import javafx.scene.control.Alert.AlertType;
 
 @Component
 public class GeneratePDF {
 	
 	private File directory=null;
+	final static Logger LOGGER = Logger.getLogger(GeneratePDF.class);
 	
 	
 	public File getDirectory() {
@@ -57,8 +62,8 @@ public class GeneratePDF {
 		return xsltFile;
 	}
 	
-	public File createPDF() throws IOException {
-		final File pdf=new File(directory,"bill.pdf");
+	public File createPDF(String fileName) throws IOException {
+		final File pdf=new File(directory,fileName);
 		if(!pdf.exists())
 			pdf.createNewFile();
 		return pdf;
@@ -67,6 +72,7 @@ public class GeneratePDF {
 	
 	public File generateXML(InvoiceTemplateA4 template)
 	{
+		LOGGER.info("In generateXML");
 		File input=null;
 		try
 		{
@@ -87,27 +93,37 @@ public class GeneratePDF {
 				products.forEach(product->{	
 					writer.println("<products><id>"+product.getProductId()+"</id>");
 					writer.println("<name>"+product.getName()+"</name>");
-					writer.println("<Quantity>"+product.getQuantity()+"</Quantity>");
-					writer.println("<amtperquantity>"+product.getRetailPrice()+"</amtperquantity>");
-					writer.println("<total>"+product.getTotalPrice()+"</total>");
+					writer.println("<MRP>"+String.format("%.2f", product.getMrpPrice())+"</MRP>");
+					writer.println("<rate>"+String.format("%.2f",product.getRetailPrice())+"</rate>");
+					writer.println("<quantity>"+product.getQuantity()+"</quantity>");
+					/*writer.println("<amtperquantity>"+product.getRetailPrice()+"</amtperquantity>");*/
+					writer.println("<discount>"+product.getDiscount()+"</discount>");
+					writer.println("<GSTRate>"+product.getRetailGSTpercentage()+"</GSTRate>");
+					writer.println("<total>"+String.format("%.2f",product.getTotalPrice())+"</total>");
 					writer.println("</products>");
 					
 				});
 			}	
 			writer.println("<total>"+template.getTotalAmount()+"</total>");
-			writer.println("<discount>"+template.getDiscount()+"</discount>");
+			String discount=(template.getDiscount()==null || template.getDiscount().isEmpty()) ?"0":template.getDiscount();
+			writer.println("<discount>"+discount+"</discount>");
 			writer.println("<Totalafterdiscount>"+template.getFinalAmount()+"</Totalafterdiscount>");
+			writer.println("<totalPaidAmount>"+template.getPaidAmount()+"</totalPaidAmount>");
+			writer.println("<totalAmountDue>"+template.getAmountDue()+"</totalAmountDue>");
 			writer.println("</Invoice>");			
 			writer.close();    
 		} catch (IOException e) 
 		{
+			LOGGER.info(e.getMessage());
 		   e.printStackTrace();
 		}	
+		LOGGER.info("Exit generateXML");
 		return input;
 	}
 
 	public void transformXSLToPDF(InvoiceTemplateA4 template) {
 		
+		LOGGER.info("in transform");
 		OutputStream out=null;
 		try {
 			createUserFolder("BillDiaryPDF");
@@ -116,37 +132,68 @@ public class GeneratePDF {
 			FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
 			FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
 
-			out = new java.io.FileOutputStream(createPDF());
+			StringBuffer buff=new StringBuffer("bill_");
+			buff.append(template.getInvoiceNO());
+			buff.append(".pdf");
+			
+			
+			out = new java.io.FileOutputStream(createPDF(buff.toString()));
+			LOGGER.info("upto Out ");
 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
 			// Setup XSLT
 			TransformerFactory factory = TransformerFactory.newInstance();
-			Transformer transformer = factory.newTransformer(new StreamSource(xsltFile));
+			//InputStream targetStream = new FileInputStream(xsltFile);
 
+			Transformer transformer = factory.newTransformer(new StreamSource(getClass().getResourceAsStream("/files/InvoiceTemplate_A4.xsl")));
+			LOGGER.info("upto transformer ");
 			// FOP
 			Result res = new SAXResult(fop.getDefaultHandler());
+			LOGGER.info("upto Result ");
+			
+			LOGGER.info("xmlSource " +xmlSource);
+			LOGGER.info("Res "+ res);
+			LOGGER.info("xsltFile "+ xsltFile+ " path "+ xsltFile.getAbsolutePath());
+			LOGGER.info("transformer "+ transformer);
+			if(null!=transformer)
 			transformer.transform(xmlSource, res);
+			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_SUCCESSFULL_PDF_STATUS+directory.getPath()+"\\"+buff.toString(),AlertType.INFORMATION);
+			LOGGER.info("upto transformer ");
 
 		}
 		catch (FileNotFoundException e) {
 			System.out.println("Error in PDF Generation");
+			LOGGER.info(e.getMessage());
 			e.printStackTrace();
 		} catch (FOPException e) {
 			System.out.println("Error in PDF Generation");
+			LOGGER.info(e.getMessage());
 			e.printStackTrace();
 		} catch (TransformerConfigurationException e) {
 			System.out.println("Error in PDF Generation");
+			LOGGER.info(e.getMessage());
 			e.printStackTrace();
 		} catch (TransformerException e) {
+			LOGGER.info(e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally {
+			LOGGER.info(e.getMessage());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.error( "My custom message",e );
+			LOGGER.info(e.getMessage() + " "+ e.getClass()+ " "+ e.getClass());
+		}
+		finally {
 			try {
 				if(out!=null)
 					out.close();
 			} catch (IOException e) {	
+				LOGGER.info(e.getMessage());
 				e.printStackTrace();
 			}
+			LOGGER.info("Exit transform");
 		}
+		
 	}
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.apache.log4j.Logger;
 import org.controlsfx.control.textfield.TextFields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -59,7 +60,7 @@ import javafx.util.converter.IntegerStringConverter;
 @Controller("ManageInvoiceController")
 public class ManageInvoiceController implements Initializable {
 
-	
+	final static Logger LOGGER = Logger.getLogger(ManageInvoiceController.class);
 	
 	@Autowired
 	GeneratePDF generatePDF;
@@ -500,15 +501,24 @@ public class ManageInvoiceController implements Initializable {
 		
 		if(saveInvoice()) {
 			System.out.println("invoice saved");
+			LOGGER.info("invoice saved");
 						
 		}else {
 			System.out.println("invoice not saved");
 			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_UNSUCCESSFULL_STATUS,AlertType.INFORMATION);
 		}
+		try {
 		InvoiceTemplateA4 invoiceTemplate=generateInvoiceTemplateA4();
+		LOGGER.info("InvoiceTemplateA4 generated");
 		generatePDF.transformXSLToPDF(invoiceTemplate);
+		LOGGER.info("transformXSLToPDF generated ");
 		System.out.println("Invoice PDF generated");
-		Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_SUCCESSFULL_PDF_STATUS,AlertType.INFORMATION);
+		LOGGER.info("Invoice PDF generated");
+		}
+		catch(Exception e){
+			LOGGER.info(e.getMessage()+ e.getCause()+ e.getClass());
+		}
+		
 		clearAllFields();
 	}
 

@@ -42,16 +42,23 @@
 					
 					<fo:block font-size="10pt">
 						<fo:table table-layout="fixed" width="100%" border-collapse="collapse" margin-top="0.6cm">    
-							<fo:table-column border-width="2px" border-style="solid" column-width="4cm" margin-top="0.6cm" >Id</fo:table-column>
-							<fo:table-column border-width="2px" border-style="solid" column-width="4cm">Name</fo:table-column> 
-							<fo:table-column border-width="2px" border-style="solid" column-width="3cm">Quantity</fo:table-column>	
-							<fo:table-column border-width="2px" border-style="solid" column-width="3cm">Amount Per Quantity</fo:table-column>
-							<fo:table-column border-width="2px" border-style="solid" column-width="3cm">Total</fo:table-column>
+							<fo:table-column border-width="2px" border-style="solid" column-width="3cm" margin-top="0.6cm" >Id</fo:table-column>
+							<fo:table-column border-width="2px" border-style="solid" column-width="3cm">Name</fo:table-column>
+							<fo:table-column border-width="2px" border-style="solid" column-width="2cm">MRP RS.</fo:table-column>  
+							<fo:table-column border-width="2px" border-style="solid" column-width="2cm">Rate</fo:table-column> 
+							<fo:table-column border-width="2px" border-style="solid" column-width="2cm">Quantity</fo:table-column>	
+							<fo:table-column border-width="2px" border-style="solid" column-width="2cm">Discount</fo:table-column> 
+							<fo:table-column border-width="2px" border-style="solid" column-width="2cm">GST Rate</fo:table-column>
+							<fo:table-column border-width="2px" border-style="solid" column-width="2cm">Total</fo:table-column>
 							<fo:table-header>
 							<fo:table-cell><fo:block>Id</fo:block></fo:table-cell>
 							<fo:table-cell><fo:block>Name</fo:block></fo:table-cell>
+							<fo:table-cell><fo:block>MRP RS.</fo:block></fo:table-cell>
+							<fo:table-cell><fo:block>Rate</fo:block></fo:table-cell>
 							<fo:table-cell><fo:block>Quantity</fo:block></fo:table-cell>
-							<fo:table-cell><fo:block>Amount per Quantity</fo:block></fo:table-cell>
+							<fo:table-cell><fo:block>Discount</fo:block></fo:table-cell>
+							<fo:table-cell><fo:block>GST Rate</fo:block></fo:table-cell>
+							<!-- <fo:table-cell><fo:block>Amount per Quantity</fo:block></fo:table-cell> -->
 							<fo:table-cell><fo:block>Total</fo:block></fo:table-cell>
 							</fo:table-header>
 							<fo:table-body>
@@ -66,6 +73,10 @@
 					</fo:block>
 					<fo:block font-size="12pt"  space-after="5mm" padding="8pt"  margin-left="305pt">Total Amount to be paid:<fo:inline font-weight="bold"><xsl:value-of select="Totalafterdiscount"/>Rs</fo:inline>
 					</fo:block>
+					<fo:block font-size="12pt"  space-after="5mm" padding="8pt"  margin-left="305pt">Total Amount paid:<fo:inline font-weight="bold"><xsl:value-of select="totalPaidAmount"/>Rs</fo:inline>
+					</fo:block>
+					<fo:block font-size="12pt"  space-after="5mm" padding="8pt"  margin-left="305pt">Total Amount Due:<fo:inline font-weight="bold"><xsl:value-of select="totalAmountDue"/>Rs</fo:inline>
+					</fo:block>
 				</fo:flow>
 			</fo:page-sequence>
 		</fo:root>
@@ -78,22 +89,36 @@
 					<xsl:value-of select="id"/>
 				</fo:block>
 			</fo:table-cell>
-
 			<fo:table-cell>
 				<fo:block>
 					<xsl:value-of select="name"/>
 				</fo:block>
-			</fo:table-cell>   
+			</fo:table-cell>
 			<fo:table-cell>
 				<fo:block>
-					<xsl:value-of select="Quantity"/>
+					<xsl:value-of select="MRP"/>
 				</fo:block>
 			</fo:table-cell>
 			<fo:table-cell>
 				<fo:block>
-					<xsl:value-of select="amtperquantity"/>
+					<xsl:value-of select="rate"/>
+				</fo:block>
+			</fo:table-cell>     
+			<fo:table-cell>
+				<fo:block>
+					<xsl:value-of select="quantity"/>
 				</fo:block>
 			</fo:table-cell>
+			<fo:table-cell>
+				<fo:block>
+					<xsl:value-of select="discount"/>
+				</fo:block>
+			</fo:table-cell>
+			<fo:table-cell>
+				<fo:block>
+					<xsl:value-of select="GSTRate"/>
+				</fo:block>
+			</fo:table-cell>  
 			<fo:table-cell>
 				<fo:block>
 					<xsl:value-of select="total"/>
