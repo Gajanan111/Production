@@ -87,6 +87,16 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		return added;
 	}
 	
+	@Transactional
+	public boolean updateProductStock(int id, double stock) {
+		boolean updateStock=false;
+		ProductEntity productEntity=entityManager.find(ProductEntity.class, id);
+		productEntity.setStock(stock);
+		entityManager.merge(productEntity);
+		updateStock=true;
+		return updateStock;
+	}
+	
 	
 	
 	

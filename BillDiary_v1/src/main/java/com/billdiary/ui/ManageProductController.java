@@ -66,8 +66,7 @@ public class ManageProductController implements Initializable{
 		Discount.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		Stock.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		System.out.println("Inside Initialize");
-		ProductTable.setItems(data);
-		populate(retrieveData());	
+		getRefreshedTable();	
 	}
 		
 		

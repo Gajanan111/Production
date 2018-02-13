@@ -479,47 +479,67 @@ public class ManageInvoiceController implements Initializable {
 		inv.setInvoiceDate(invIssueDate.getValue());
 		inv.setInvoiceDueDate(LocalDate.now());
 		invoiceSaved=invoiceService.save(inv);
+		if(invoiceSaved) {
+			updateProductStock();
+			LOGGER.info("Product Stock updated");	
+		}
 		return invoiceSaved;
 	}
 	
 	
+	private void updateProductStock() {
+		for(Product product:data) {
+			double stock=product.getStock()-product.getQuantity();
+			if(stock>=0) {
+				product.setStock(new SimpleDoubleProperty(stock));
+				boolean stockUpdated=productService.updateProductStock(product.getProductId(),product.getStock());
+			}
+		}
+	}	
 	@FXML
 	public void generateInvoiceSave(ActionEvent event) {
 		System.out.println("generateInvoiceSave");
 		if(saveInvoice()) {
-			System.out.println("invoice saved");
-			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_SUCCESSFULL_STATUS,AlertType.INFORMATION);
-			clearAllFields();			
+			System.out.println("Invoice saved");
+			createPDF();
+			clearAllFields();
+			LOGGER.info("Invoice saved & PDF Generated");			
 		}else {
 			System.out.println("invoice not saved");
 			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_UNSUCCESSFULL_STATUS,AlertType.INFORMATION);
 		}
+		
 	}
 	@FXML
 	public void generateInvoiceSaveAndPrint(ActionEvent event) {
 		System.out.println("generateInvoiceSaveAndPrint");
 		
 		if(saveInvoice()) {
-			System.out.println("invoice saved");
-			LOGGER.info("invoice saved");
+			System.out.println("Invoice saved");
+			createPDF();
+			clearAllFields();
+			LOGGER.info("Invoice saved & PDF Generated");
 						
 		}else {
 			System.out.println("invoice not saved");
 			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_UNSUCCESSFULL_STATUS,AlertType.INFORMATION);
 		}
-		try {
-		InvoiceTemplateA4 invoiceTemplate=generateInvoiceTemplateA4();
-		LOGGER.info("InvoiceTemplateA4 generated");
-		generatePDF.transformXSLToPDF(invoiceTemplate);
-		LOGGER.info("transformXSLToPDF generated ");
-		System.out.println("Invoice PDF generated");
-		LOGGER.info("Invoice PDF generated");
-		}
-		catch(Exception e){
-			LOGGER.info(e.getMessage()+ e.getCause()+ e.getClass());
-		}
 		
-		clearAllFields();
+	}
+	
+	private void createPDF() {
+		try {
+			InvoiceTemplateA4 invoiceTemplate=generateInvoiceTemplateA4();
+			LOGGER.info("InvoiceTemplateA4 generated");
+			generatePDF.transformXSLToPDF(invoiceTemplate);
+			LOGGER.info("transformXSLToPDF generated ");
+			System.out.println("Invoice PDF generated");
+			LOGGER.info("Invoice PDF generated");
+			}
+			catch(Exception e){
+				LOGGER.info(e.getMessage()+ e.getCause()+ e.getClass());
+			}
+			
 	}
 
 	private InvoiceTemplateA4 generateInvoiceTemplateA4() {

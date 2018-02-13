@@ -104,6 +104,10 @@ public class ProductService {
 		deleted=unitDAO.deleteUnit(unitId);
 		return deleted;
 	}
+	public boolean updateProductStock(int id,double stock) {
+		boolean updateStock=productDAO.updateProductStock(id,stock);
+		return updateStock;
+	}
 	
 	
 }
