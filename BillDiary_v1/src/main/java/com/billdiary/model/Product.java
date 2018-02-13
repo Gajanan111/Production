@@ -36,7 +36,7 @@ public class Product implements Cloneable{
 	
 	private SimpleDoubleProperty discount;
 	
-	private SimpleIntegerProperty quantity;
+	private SimpleDoubleProperty quantity;
 	
 	private SimpleStringProperty wholeSaleGST;
 	
@@ -47,6 +47,8 @@ public class Product implements Cloneable{
 	private SimpleDoubleProperty retailGSTpercentage;
 	
 	private SimpleDoubleProperty mrpPrice;
+	
+	private SimpleDoubleProperty ratePrice;
 	
 	
 	private Unit unit;
@@ -179,10 +181,11 @@ public class Product implements Cloneable{
 		this.action = action;
 	}
 
-	public int getQuantity() {
+
+	public Double getQuantity() {
 		return quantity.get();
 	}
-	public void setQuantity(SimpleIntegerProperty quantity) {
+	public void setQuantity(SimpleDoubleProperty quantity) {
 		this.quantity = quantity;
 	}
 	public int getSerialNumber() {
@@ -248,4 +251,12 @@ public class Product implements Cloneable{
 	public void setMrpPrice(SimpleDoubleProperty mrpPrice) {
 		this.mrpPrice = mrpPrice;
 	}
+	public Double getRatePrice() {
+		return ratePrice.get();
+	}
+	public void setRatePrice(SimpleDoubleProperty ratePrice) {
+		this.ratePrice = ratePrice;
+	}
+	
+	
 }

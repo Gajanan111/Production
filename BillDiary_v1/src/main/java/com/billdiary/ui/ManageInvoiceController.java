@@ -105,9 +105,9 @@ public class ManageInvoiceController implements Initializable {
 	TableView<Product> productTable;
 	private ObservableList<Product> data = FXCollections.observableArrayList();
 	@FXML
-	TableColumn<Product, Integer> productQuantity;
+	TableColumn<Product, Double> productQuantity;
 	@FXML
-	TableColumn<Product, Double> productPrice;
+	TableColumn<Product, Double> ratePrice;
 	@FXML
 	TableColumn<Product, Double> productDiscount;
 	@FXML
@@ -153,8 +153,8 @@ public class ManageInvoiceController implements Initializable {
 		
 
 		productQuantity
-				.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
-		productPrice.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
+				.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new  DoubleStringConverter()));
+		ratePrice.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
 		productDiscount.setCellFactory(TextFieldTableCell.<Product, Double>forTableColumn(new DoubleStringConverter()));
 		productID.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
 		serialNumber.setCellFactory(TextFieldTableCell.<Product, Integer>forTableColumn(new IntegerStringConverter()));
@@ -364,9 +364,11 @@ public class ManageInvoiceController implements Initializable {
 	        
 			if(invProductQuantity.getText()!="") {
 			pr.setSerialNumber(new SimpleIntegerProperty(productTable.getItems().size() + 1));
-			pr.setQuantity(new SimpleIntegerProperty(Integer.parseInt(invProductQuantity.getText())));
+			pr.setQuantity(new SimpleDoubleProperty(Double.parseDouble(invProductQuantity.getText())));
 			
-			double totalPrice=priceService.getProductSellingPrice(pr.getRetailPrice(),pr.getRetailGSTpercentage(),pr.getQuantity());
+			double ratePrice=priceService.getProductRatePrice(pr.getRetailPrice(),pr.getRetailGSTpercentage(),pr.getQuantity());
+			pr.setRatePrice(new SimpleDoubleProperty(ratePrice));
+			double totalPrice=priceService.getProductTotalPrice(pr.getRetailPrice(),pr.getRetailGSTpercentage(),pr.getQuantity());
 			pr.setTotalPrice(new SimpleDoubleProperty(totalPrice));
 			
 			double mrpPrice=priceService.getRetailGSTPrice(pr.getRetailPrice(), pr.getRetailGSTpercentage(), pr.getDiscount());
@@ -401,7 +403,7 @@ public class ManageInvoiceController implements Initializable {
 		double totalGSTAddedAmount=0;
 		double subtractedAmont=0;
 		for (Product row : productTable.getItems()) {
-			taxableAmount=taxableAmount+row.getRetailPrice();
+			taxableAmount=taxableAmount+(row.getRetailPrice()*row.getQuantity());
 			totalGSTAddedAmount=totalGSTAddedAmount+row.getTotalPrice();
 			subtractedAmont=totalGSTAddedAmount-taxableAmount;
 			totalCGSTAmount=totalSGSTAmount=(subtractedAmont/2);
@@ -415,17 +417,16 @@ public class ManageInvoiceController implements Initializable {
 
 	private void calculateTotalAmount() {
 		double total=0;
-		double taxableTotal=0;
 		for (Product row : productTable.getItems()) {
 			total=total+row.getTotalPrice();
-			
 		    }
-		totalAmount.setText(String.valueOf(total));
-		
+		totalAmount.setText(String.valueOf(total));	
 	}
 
 	private void deleteButtonClickedThroughHyperlink(int index) {
 		data.remove(index);
+		calculateTotalAmount();
+		calculateGST();
 	}
 	
 	@FXML
@@ -581,6 +582,10 @@ public class ManageInvoiceController implements Initializable {
 		invProductName.clear();
 		invProductQuantity.clear();
 		invProductPrice.clear();
+		taxableAmt.clear();
+		totalCGST.clear();
+		totalSGST.clear();
+		totalAmt.clear();
 		data.clear();
 	}
 	

@@ -94,7 +94,7 @@ public class GeneratePDF {
 					writer.println("<products><id>"+product.getProductId()+"</id>");
 					writer.println("<name>"+product.getName()+"</name>");
 					writer.println("<MRP>"+String.format("%.2f", product.getMrpPrice())+"</MRP>");
-					writer.println("<rate>"+String.format("%.2f",product.getRetailPrice())+"</rate>");
+					writer.println("<rate>"+String.format("%.2f",product.getRatePrice())+"</rate>");
 					writer.println("<quantity>"+product.getQuantity()+"</quantity>");
 					/*writer.println("<amtperquantity>"+product.getRetailPrice()+"</amtperquantity>");*/
 					writer.println("<discount>"+product.getDiscount()+"</discount>");

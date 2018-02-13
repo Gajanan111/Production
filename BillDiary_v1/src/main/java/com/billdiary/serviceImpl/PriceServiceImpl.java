@@ -23,6 +23,7 @@ public class PriceServiceImpl implements PriceService {
 	double retailPrice;
 	double wholeSalePrice;
 	double productSellingPrice;
+	double productRatePrice;
 	
 	
 	@Override
@@ -56,10 +57,16 @@ public class PriceServiceImpl implements PriceService {
 	
 
 	@Override
-	public double getProductSellingPrice(double retailPrice, double gstPercentage, double quantity) {
+	public double getProductTotalPrice(double retailPrice, double gstPercentage, double quantity) {
 		retailPrice=getRetailGSTPrice(retailPrice,gstPercentage,0);
 		productSellingPrice=quantity==0?retailPrice:(retailPrice*quantity);
 		return productSellingPrice;
+	}
+
+	@Override
+	public double getProductRatePrice(double retailPrice, double gstPercentage, double quantity) {
+		productRatePrice=gstService.getGSTIncludedPrice(retailPrice, gstPercentage);
+		return productRatePrice;
 	}
 
 	
