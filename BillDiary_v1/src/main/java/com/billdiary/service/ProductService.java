@@ -109,5 +109,18 @@ public class ProductService {
 		return updateStock;
 	}
 	
+	/**
+	 * To get no of products from the System.
+	 */
+	public long getProductCount() {
+		long count=productDAO.getProductCount();
+		return count;
+	}
+	public List<Product> getProducts(int pages, int index,int rowsPerPage) {
+		
+		List<ProductEntity> productEntities=productDAO.getProducts(pages,index,rowsPerPage);
+		List<Product> productList=entityTOModelMapper.getProductModels(productEntities);
+		return productList;
+	}
 	
 }
