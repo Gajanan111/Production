@@ -108,7 +108,7 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 	 * @return
 	 */
 	public long getProductCount() {
-
+		System.out.println("*********"+ "getProductCount");
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
 		countQuery.select(criteriaBuilder.count(countQuery.from(ProductEntity.class)));
@@ -116,21 +116,29 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		return count;
 	}
 	public List<ProductEntity> getProducts(int pages, int pageNumber,int rowsPerPage) {
+		System.out.println("*********"+ "getProducts");
 		List<ProductEntity> productEntities=null;
+		try {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+		/*CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
 		countQuery.select(criteriaBuilder.count(countQuery.from(ProductEntity.class)));
-		Long count = entityManager.createQuery(countQuery).getSingleResult();
+		Long count = entityManager.createQuery(countQuery).getSingleResult();*/
 		CriteriaQuery<ProductEntity> criteriaQuery = criteriaBuilder.createQuery(ProductEntity.class);
 		Root<ProductEntity> from = criteriaQuery.from(ProductEntity.class);
 		CriteriaQuery<ProductEntity> select = criteriaQuery.select(from);
 		TypedQuery<ProductEntity> typedQuery = entityManager.createQuery(select);
-		while (pageNumber < count.intValue()) {
+		typedQuery.setFirstResult((pageNumber*rowsPerPage));
+	    typedQuery.setMaxResults(rowsPerPage);
+	    productEntities=typedQuery.getResultList();
+		/*while (pageNumber < count.intValue()) {
 		    typedQuery.setFirstResult(pageNumber - 1);
 		    typedQuery.setMaxResults(rowsPerPage);
-		    System.out.println("Current page: " + typedQuery.getResultList());
+		    //System.out.println("Current page: " + typedQuery.getResultList());
 		    productEntities=typedQuery.getResultList();
 		    pageNumber += rowsPerPage;
+		}*/
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
 		}
 		return productEntities;
 	}

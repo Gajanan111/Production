@@ -41,4 +41,11 @@ public class Constants {
 	public static final String ADD_UNIT="Unit Added!";
 	public static final String ERROR_DELETE_UNIT="Something Went wrong while deleting Unit";
 	public static final String DELETE_UNIT="Unit Deleted!";
+	
+	
+	
+	/**
+	 * Pagination
+	 */
+	public static final int rowsPerPage=10;
 }

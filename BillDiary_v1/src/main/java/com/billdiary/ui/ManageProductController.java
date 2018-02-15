@@ -16,13 +16,17 @@ import com.billdiary.service.ProductService;
 
 import com.billdiary.utility.Constants;
 import com.billdiary.utility.URLS;
+
+import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -57,18 +61,60 @@ public class ManageProductController implements Initializable{
 	@FXML TableColumn<Product,Double>Discount;
 	@FXML TableColumn<Product,Double>Stock;
 	
+	@FXML Pagination pagination;
+	private static int pages;
+	private static int index=0;
+	//private static int rowsPerPage=10;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{	
 		//this.customerName.textProperty().bind(this.customer.getName());
+		
 		RetailPrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		WholesalePrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		Discount.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		Stock.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		System.out.println("Inside Initialize");
-		getRefreshedTable();	
+		/*
+		Platform.runLater(new Runnable() {
+            @Override public void run() {
+            	long count=productService.getProductCount();
+        		pages=(int) ((count/Constants.rowsPerPage)+1);
+            	updateTable(pages,index,Constants.rowsPerPage);
+            }
+        });*/
+		Task<Void> showTable = new Task<Void>() {
+		    @Override public Void call() {
+		    	long count=productService.getProductCount();
+        		pages=(int) ((count/Constants.rowsPerPage)+1);
+            	updateTable(pages,index,Constants.rowsPerPage);
+		        return null;
+		    }
+		};
+		new Thread(showTable).start();
+		pagination.setPageCount(pages);
+		pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> 
+        updateTable(pages, newIndex.intValue(),Constants.rowsPerPage));
+		//getRefreshedTable();	
 	}
-		
+	
+	public void updateTable(int pages, int index,int rowsPerPage) {
+		List<Product> products=productService.getProducts(pages, index, rowsPerPage);	
+		data.clear();
+		if(data.isEmpty())
+		{
+	        for(Product prods:products)
+	        {
+	        	data.add(prods);
+	        	int pid=prods.getProductId();
+	        	int row=data.indexOf(prods);
+	        	prods.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid));
+	        	prods.getSave().setOnAction(e->editButtonClickedThroughHyperlink(pid,row));
+	        }
+	     }
+		ProductTable.setItems(data);	
+	}
 		
 	private List<Product> retrieveData(){
 		

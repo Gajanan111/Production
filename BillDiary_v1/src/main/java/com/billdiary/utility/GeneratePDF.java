@@ -42,11 +42,9 @@ public class GeneratePDF {
 		return directory;
 	}
 
-
 	public void setDirectory(File directory) {
 		this.directory = directory;
 	}
-
 
 	public void createUserFolder(final String directoryName) throws IOException {
 		final File homeDir = new File(System.getProperty("user.home"));
