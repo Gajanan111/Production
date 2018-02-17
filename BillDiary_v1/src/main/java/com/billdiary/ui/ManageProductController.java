@@ -64,6 +64,7 @@ public class ManageProductController implements Initializable{
 	@FXML Pagination pagination;
 	private static int pages;
 	private static int index=0;
+	private static long count=0;
 	//private static int rowsPerPage=10;
 	
 	@Override
@@ -84,19 +85,24 @@ public class ManageProductController implements Initializable{
             	updateTable(pages,index,Constants.rowsPerPage);
             }
         });*/
+		count=productService.getProductCount();
 		Task<Void> showTable = new Task<Void>() {
 		    @Override public Void call() {
-		    	long count=productService.getProductCount();
-        		pages=(int) ((count/Constants.rowsPerPage)+1);
+		    	count=productService.getProductCount();
+        		pages=getPages(count);
             	updateTable(pages,index,Constants.rowsPerPage);
 		        return null;
 		    }
 		};
 		new Thread(showTable).start();
-		pagination.setPageCount(pages);
+		pagination.setPageCount(getPages(count));
 		pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> 
         updateTable(pages, newIndex.intValue(),Constants.rowsPerPage));
 		//getRefreshedTable();	
+	}
+	
+	public int getPages(long count) {
+		return (int)((count/Constants.rowsPerPage)+1);
 	}
 	
 	public void updateTable(int pages, int index,int rowsPerPage) {

@@ -47,5 +47,5 @@ public class Constants {
 	/**
 	 * Pagination
 	 */
-	public static final int rowsPerPage=10;
+	public static final int rowsPerPage=5;
 }

@@ -39,7 +39,7 @@ public class LoginService {
 			userLogged=false;
 		}
 		
-		productDAO.fetchProducts();
+		//productDAO.fetchProducts();
 		//loginDAO.fetchProducts();
 		//LOGGER.debug("In method LoginService:doLogin Exit ");
 		return userLogged;
