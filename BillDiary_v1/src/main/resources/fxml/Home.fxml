@@ -129,7 +129,5 @@
          </center>
       </BorderPane>
    </children>
-   <stylesheets>
-    	<URL value="@/css/HomePage.css" />
-    </stylesheets>
+   
 </StackPane>

@@ -1,6 +1,8 @@
 
-
-.choice-box .choice-box-popup .list-view{
-	-fx-min-height: 100;
-    -fx-max-height: 100;
-	}
+.pagination .toggle-button , .mypage .button{
+	-fx-background-radius:15px;
+	-fx-padding: 0px;
+}
+.pagination .button{
+	-fx-padding: 5 15 5 18px;
+}

@@ -19,7 +19,7 @@
                   <Text layoutX="43.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Code" />
                   <TextField id="productId" fx:id="productId" layoutX="129.0" layoutY="81.0" />
                   <Separator layoutX="8.0" layoutY="133.0" prefHeight="3.0" prefWidth="964.0" />
-                  <TableView id="ProductTable" fx:id="ProductTable" editable="true" layoutX="10.0" layoutY="143.0" prefHeight="245.0" prefWidth="960.0">
+                  <TableView id="ProductTable" fx:id="ProductTable" editable="true" layoutX="10.0" layoutY="143.0" prefHeight="259.0" prefWidth="959.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="ID (Code)">
                       <cellValueFactory>
@@ -86,7 +86,7 @@
                   </TableView>
                   <Button layoutX="725.0" layoutY="102.0" mnemonicParsing="false" onAction="#addNewProduct" prefHeight="25.0" prefWidth="116.0" text="New Product" />
                   <Button layoutX="854.0" layoutY="102.0" mnemonicParsing="false" onAction="#searchProduct" prefHeight="25.0" prefWidth="116.0" text="Search" />
-                  <Pagination fx:id="pagination" layoutX="770.0" layoutY="397.0" prefHeight="42.0" prefWidth="200.0" />
+                  <Pagination fx:id="pagination" layoutX="750.0" layoutY="406.0" prefHeight="47.0" prefWidth="219.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

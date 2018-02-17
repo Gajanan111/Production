@@ -88,8 +88,9 @@ public class ManageProductController implements Initializable{
 		count=productService.getProductCount();
 		Task<Void> showTable = new Task<Void>() {
 		    @Override public Void call() {
-		    	count=productService.getProductCount();
+		    	//count=productService.getProductCount();
         		pages=getPages(count);
+        		System.out.println("pages:"+ pages+"count: "+count );
             	updateTable(pages,index,Constants.rowsPerPage);
 		        return null;
 		    }
@@ -97,12 +98,17 @@ public class ManageProductController implements Initializable{
 		new Thread(showTable).start();
 		pagination.setPageCount(getPages(count));
 		pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> 
-        updateTable(pages, newIndex.intValue(),Constants.rowsPerPage));
+			{
+				//System.out.println("pages:"+ pages+"count: "+count );
+				updateTable(pages, newIndex.intValue(),Constants.rowsPerPage);
+	        
+			}
+		);
 		//getRefreshedTable();	
 	}
 	
 	public int getPages(long count) {
-		return (int)((count/Constants.rowsPerPage)+1);
+		return (int)(((count-1)/Constants.rowsPerPage)+1);
 	}
 	
 	public void updateTable(int pages, int index,int rowsPerPage) {
@@ -114,9 +120,9 @@ public class ManageProductController implements Initializable{
 	        {
 	        	data.add(prods);
 	        	int pid=prods.getProductId();
-	        	int row=data.indexOf(prods);
-	        	prods.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid));
-	        	prods.getSave().setOnAction(e->editButtonClickedThroughHyperlink(pid,row));
+	        	int rowIndex=data.indexOf(prods);
+	        	prods.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid,rowIndex));
+	        	prods.getSave().setOnAction(e->editButtonClickedThroughHyperlink(pid,rowIndex));
 	        }
 	     }
 		ProductTable.setItems(data);	
@@ -152,7 +158,7 @@ public class ManageProductController implements Initializable{
 	        	data.add(prods);
 	        	int pid=prods.getProductId();
 	        	int index=data.indexOf(prods);
-	        	prods.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid));
+	        	prods.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid,index));
 	        	prods.getSave().setOnAction(e->editButtonClickedThroughHyperlink(pid,index));
 	        }
 	      }
@@ -165,9 +171,9 @@ public class ManageProductController implements Initializable{
 	
 	
 	
-	public void editButtonClickedThroughHyperlink(int productId,int index) {
+	public void editButtonClickedThroughHyperlink(int productId,int rowIndex) {
 		
-		Product product=data.get(index);
+		Product product=data.get(rowIndex);
 		product.setProductId(new SimpleIntegerProperty(productId));
 	    addProductController.setProdModel(product);
 		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
@@ -178,6 +184,25 @@ public class ManageProductController implements Initializable{
 				Constants.POPUP_WINDOW_HEIGHT);
 		
 	}
+	@SuppressWarnings("restriction")
+	public void deleteButtonClickedThroughHyperlink(int productId,int rowIndex)
+	{
+		System.out.println("Inside DeleteButtonClicked");
+		productService.deleteProduct(productId);
+		/*count=count-1;
+		pages=getPages(count);
+		pagination.setPageCount(pages);*/
+		refreshPagination();
+		if(rowIndex==0 && !(pagination.getCurrentPageIndex()==Constants.ZERO)) {
+			pagination.setCurrentPageIndex(pagination.getCurrentPageIndex()-1);
+			//updateTable(pages, pagination.getCurrentPageIndex()-1,Constants.rowsPerPage);
+		}else {
+			updateTable(pages, pagination.getCurrentPageIndex(),Constants.rowsPerPage);
+		}
+		
+		//getRefreshedTable();
+		
+	}
 	@FXML public void addNewProduct()
 	{
 		addProductController.setProdModel(null);
@@ -186,14 +211,6 @@ public class ManageProductController implements Initializable{
 		BorderPane root = new BorderPane();
 		root.setCenter(addProduct);
 		layoutController.loadWindow(root,"Add Product Details",Constants.POPUP_WINDOW_WIDTH,Constants.POPUP_WINDOW_HEIGHT);
-		}
-	
-	public void deleteButtonClickedThroughHyperlink(int productId)
-	{
-		System.out.println("Inside DeleteButtonClicked");
-		productService.deleteProduct(productId);
-		getRefreshedTable();
-		
 	}
 	@FXML public void deleteButtonClicked()
 	{
@@ -205,7 +222,6 @@ public class ManageProductController implements Initializable{
 		int id=SelectedListItem.get(0).getProductId();
 		boolean productDeleted=false;
 		productDeleted=productService.deleteProduct(id);
-		
 		if(productDeleted)
 		{
 			System.out.println("Product Deleted");
@@ -303,7 +319,8 @@ public class ManageProductController implements Initializable{
 				data.add(pd);
 				ProductTable.setItems(data);
 				int pid=pd.getProductId();
-				pd.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid));
+				int rowIndex=data.indexOf(pd);
+				pd.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid,rowIndex));
 				search=false;
 				break;
 			}
@@ -329,7 +346,8 @@ public class ManageProductController implements Initializable{
 					data.add(pd);
 					ProductTable.setItems(data);
 					int pid=pd.getProductId();
-					pd.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid));
+					int rowIndex=data.indexOf(pd);
+					pd.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid,rowIndex));
 					count++;
 					search=false;	
 				}
@@ -354,8 +372,16 @@ public class ManageProductController implements Initializable{
 	{
 		productList.clear();
 		data.clear();
-		ProductTable.setItems(data);
-		populate(retrieveData());
+		refreshPagination();
+		pagination.setCurrentPageIndex(pagination.getMaxPageIndicatorCount());
+		//updateTable(pages, pagination.getCurrentPageIndex(),Constants.rowsPerPage);
+		//ProductTable.setItems(data);
+		//populate(retrieveData());
+	}
+	public void refreshPagination() {
+		count=productService.getProductCount();
+		pages=getPages(count);
+		pagination.setPageCount(pages);
 	}
 	
 	 @FXML private void createExcelFile()
