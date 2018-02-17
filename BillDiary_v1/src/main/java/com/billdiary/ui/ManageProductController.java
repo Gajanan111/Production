@@ -107,8 +107,20 @@ public class ManageProductController implements Initializable{
 		//getRefreshedTable();	
 	}
 	
+	/**
+	 * 
+	 * All pagination related funtions
+	 * 
+	 */
+	
 	public int getPages(long count) {
 		return (int)(((count-1)/Constants.rowsPerPage)+1);
+	}
+	
+	public void refreshPagination() {
+		count=productService.getProductCount();
+		pages=getPages(count);
+		pagination.setPageCount(pages);
 	}
 	
 	public void updateTable(int pages, int index,int rowsPerPage) {
@@ -128,7 +140,7 @@ public class ManageProductController implements Initializable{
 		ProductTable.setItems(data);	
 	}
 		
-	private List<Product> retrieveData(){
+	/*private List<Product> retrieveData(){
 		
 		try 
 		{
@@ -169,7 +181,7 @@ public class ManageProductController implements Initializable{
 	
 	}
 	
-	
+	*/
 	
 	public void editButtonClickedThroughHyperlink(int productId,int rowIndex) {
 		
@@ -233,42 +245,6 @@ public class ManageProductController implements Initializable{
 		
 	}
 	
-	
-	
-	@FXML private <T>void setEditedValue(CellEditEvent<Product,T> event)
-	{
-		if("ProductName".equals(event.getTableColumn().getId())) {
-			String ProductName=event.getNewValue().toString();
-			event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(new SimpleStringProperty(ProductName));
-		}
-		if("ProductDesc".equals(event.getTableColumn().getId())) {
-			String ProductDesc=event.getNewValue().toString();
-			event.getTableView().getItems().get(event.getTablePosition().getRow()).setDescription(new SimpleStringProperty(ProductDesc));
-		}
-		if("WholesalePrice".equals(event.getTableColumn().getId())) {
-			Double wholesalePrice=(Double)event.getNewValue();
-			event.getTableView().getItems().get(event.getTablePosition().getRow()).setWholesalePrice(new SimpleDoubleProperty(wholesalePrice));
-			WholesalePrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
-			
-		}
-		if("RetailPrice".equals(event.getTableColumn().getId())) {
-			Double retailPrice=(Double)event.getNewValue();
-			event.getTableView().getItems().get(event.getTablePosition().getRow()).setRetailPrice(new SimpleDoubleProperty(retailPrice));
-			RetailPrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
-		}
-		if("Discount".equals(event.getTableColumn().getId())) {
-			Double discount=(Double)event.getNewValue();
-			event.getTableView().getItems().get(event.getTablePosition().getRow()).setDiscount(new SimpleDoubleProperty(discount));
-			Discount.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));	
-		
-		}
-		if("Stock".equals(event.getTableColumn().getId())) {
-			Integer stock=(Integer)event.getNewValue();
-			event.getTableView().getItems().get(event.getTablePosition().getRow()).setStock(new SimpleDoubleProperty(stock));
-			Stock.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));	
-		}	
-	}
-	
 	@FXML public void saveProduct()
 	{
 		 ObservableList < Product> ObproductList =  ProductTable.getSelectionModel().getSelectedItems();
@@ -279,7 +255,7 @@ public class ManageProductController implements Initializable{
 			productList.clear();
 			data.clear();
 			ProductTable.setItems(data);
-			populate(retrieveData());	
+			getRefreshedTable();	
 		}
 	}
 	@FXML public void searchProduct()
@@ -378,10 +354,41 @@ public class ManageProductController implements Initializable{
 		//ProductTable.setItems(data);
 		//populate(retrieveData());
 	}
-	public void refreshPagination() {
-		count=productService.getProductCount();
-		pages=getPages(count);
-		pagination.setPageCount(pages);
+	
+	
+	
+	@FXML private <T>void setEditedValue(CellEditEvent<Product,T> event)
+	{
+		if("ProductName".equals(event.getTableColumn().getId())) {
+			String ProductName=event.getNewValue().toString();
+			event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(new SimpleStringProperty(ProductName));
+		}
+		if("ProductDesc".equals(event.getTableColumn().getId())) {
+			String ProductDesc=event.getNewValue().toString();
+			event.getTableView().getItems().get(event.getTablePosition().getRow()).setDescription(new SimpleStringProperty(ProductDesc));
+		}
+		if("WholesalePrice".equals(event.getTableColumn().getId())) {
+			Double wholesalePrice=(Double)event.getNewValue();
+			event.getTableView().getItems().get(event.getTablePosition().getRow()).setWholesalePrice(new SimpleDoubleProperty(wholesalePrice));
+			WholesalePrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
+			
+		}
+		if("RetailPrice".equals(event.getTableColumn().getId())) {
+			Double retailPrice=(Double)event.getNewValue();
+			event.getTableView().getItems().get(event.getTablePosition().getRow()).setRetailPrice(new SimpleDoubleProperty(retailPrice));
+			RetailPrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
+		}
+		if("Discount".equals(event.getTableColumn().getId())) {
+			Double discount=(Double)event.getNewValue();
+			event.getTableView().getItems().get(event.getTablePosition().getRow()).setDiscount(new SimpleDoubleProperty(discount));
+			Discount.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));	
+		
+		}
+		if("Stock".equals(event.getTableColumn().getId())) {
+			Integer stock=(Integer)event.getNewValue();
+			event.getTableView().getItems().get(event.getTablePosition().getRow()).setStock(new SimpleDoubleProperty(stock));
+			Stock.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));	
+		}	
 	}
 	
 	 @FXML private void createExcelFile()
