@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.billdiary.utility.IconGallery;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Hyperlink;
@@ -19,6 +20,8 @@ public class Product implements Cloneable{
 	private SimpleDoubleProperty totalPrice;
 	
 	private SimpleIntegerProperty productId;
+	
+	private SimpleLongProperty productCode;
 	
 	private SimpleStringProperty name;
 	
@@ -257,6 +260,11 @@ public class Product implements Cloneable{
 	public void setRatePrice(SimpleDoubleProperty ratePrice) {
 		this.ratePrice = ratePrice;
 	}
-	
+	public Long getProductCode() {
+		return productCode.get();
+	}
+	public void setProductCode(SimpleLongProperty productCode) {
+		this.productCode = productCode;
+	}	
 	
 }

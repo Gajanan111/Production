@@ -113,6 +113,7 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
 		countQuery.select(criteriaBuilder.count(countQuery.from(ProductEntity.class)));
 		Long count = entityManager.createQuery(countQuery).getSingleResult();
+		System.out.println("*********"+ "getProductCount: "+count);
 		return count;
 	}
 	public List<ProductEntity> getProducts(int pages, int pageNumber,int rowsPerPage) {
@@ -142,6 +143,7 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+		System.out.println("*********"+ "getProducts : end");
 		return productEntities;
 	}
 	

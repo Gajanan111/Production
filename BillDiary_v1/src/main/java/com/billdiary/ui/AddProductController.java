@@ -22,6 +22,7 @@ import com.billdiary.utility.Constants;
 import com.billdiary.utility.URLS;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -52,6 +53,7 @@ public class AddProductController  implements Initializable {
 	
 	Product prodModel;
 	@FXML TextField add_productName;
+	@FXML TextField productCode;
 	@FXML TextField add_prodDesc;
 	@FXML TextField productCategory;
 	@FXML TextField add_PrdHSNCodes;
@@ -85,6 +87,7 @@ public class AddProductController  implements Initializable {
 			add_Discount.setText(Double.toString(pro.getDiscount()));
 			add_prodDesc.setText(pro.getDescription());
 			add_productName.setText(pro.getName());
+			productCode.setText(Long.toString(pro.getProductCode()));
 		    initialStock.setText(String.valueOf(pro.getStock()));
 		    productCategory.setText(pro.getProductCategory()); 
 		    add_PrdHSNCodes.setText(pro.getProductHSNCode());
@@ -147,7 +150,8 @@ public class AddProductController  implements Initializable {
 	@FXML
 	public void addProduct(ActionEvent event){		
 		Product prod=new Product();
-		if(validateProduct(add_productName.getText()) && validateProduct(units.getValue())) {		
+		if(validateProduct()) {
+			
 		String productName=add_productName.getText();
 		String productDesc=add_prodDesc.getText();
 		Double retailPrice=Calculate.getNonEmptyDoubleValue(add_retailPrice.getText());
@@ -189,6 +193,7 @@ public class AddProductController  implements Initializable {
 			
 		}			
 		prod.setName(new SimpleStringProperty(productName));
+		prod.setProductCode(new SimpleLongProperty(Long.parseLong(productCode.getText())));
 		prod.setDescription(new SimpleStringProperty(productDesc));
 		prod.setRetailPrice(new SimpleDoubleProperty(retailPrice));
 		prod.setWholesalePrice(new SimpleDoubleProperty(wholesalePrice));
@@ -214,12 +219,20 @@ public class AddProductController  implements Initializable {
 		}
 		
 	}
-	private boolean validateProduct(String text) {
-		if(null==text) {
+	private boolean validateProduct() {
+
+		try{
+			long code=Long.parseLong(productCode.getText());
+		}catch(Exception e) {
+			Popup.showErrorAlert(Constants.ERROR_TITLE,"Please enter a product code as a number",AlertType.ERROR);
+			return false;
+		}
+		
+		if(null==add_productName.getText() || null== units.getValue() || null==productCode.getText()) {
 			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_COMMON_VALIDATION,AlertType.ERROR);
 			return false;
 		}
-		else if(null!=text && text.isEmpty()) {
+		else if(add_productName.getText().isEmpty() || productCode.getText().isEmpty()) {
 			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_COMMON_VALIDATION,AlertType.ERROR);
 			return false;
 		}

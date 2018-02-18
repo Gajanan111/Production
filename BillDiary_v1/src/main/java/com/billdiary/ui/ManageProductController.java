@@ -36,6 +36,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LongStringConverter;
 
 @Controller("ManageProductController")
 public class ManageProductController implements Initializable{
@@ -56,6 +57,7 @@ public class ManageProductController implements Initializable{
  
     @FXML
 	private TableView < Product > ProductTable;
+    @FXML TableColumn<Product,Long>productCode;
 	@FXML TableColumn<Product,Double>WholesalePrice;
 	@FXML TableColumn<Product,Double>RetailPrice;
 	@FXML TableColumn<Product,Double>Discount;
@@ -70,22 +72,18 @@ public class ManageProductController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{	
+		try {
+			System.out.println("Hi");
 		//this.customerName.textProperty().bind(this.customer.getName());
-		
+		productCode.setCellFactory(TextFieldTableCell.<Product,Long>forTableColumn(new LongStringConverter()));
 		RetailPrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		WholesalePrice.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		Discount.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		Stock.setCellFactory(TextFieldTableCell.<Product,Double>forTableColumn(new DoubleStringConverter()));
 		System.out.println("Inside Initialize");
-		/*
-		Platform.runLater(new Runnable() {
-            @Override public void run() {
-            	long count=productService.getProductCount();
-        		pages=(int) ((count/Constants.rowsPerPage)+1);
-            	updateTable(pages,index,Constants.rowsPerPage);
-            }
-        });*/
+		System.out.println("Hi");
 		count=productService.getProductCount();
+		System.out.println("Hi");
 		Task<Void> showTable = new Task<Void>() {
 		    @Override public Void call() {
 		    	//count=productService.getProductCount();
@@ -103,8 +101,10 @@ public class ManageProductController implements Initializable{
 				updateTable(pages, newIndex.intValue(),Constants.rowsPerPage);
 	        
 			}
-		);
-		//getRefreshedTable();	
+		);	
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	/**
@@ -121,6 +121,7 @@ public class ManageProductController implements Initializable{
 		count=productService.getProductCount();
 		pages=getPages(count);
 		pagination.setPageCount(pages);
+		System.out.println("refreshPagination completed");
 	}
 	
 	public void updateTable(int pages, int index,int rowsPerPage) {
@@ -140,49 +141,11 @@ public class ManageProductController implements Initializable{
 		ProductTable.setItems(data);	
 	}
 		
-	/*private List<Product> retrieveData(){
-		
-		try 
-		{
-			if(productList.isEmpty())
-			{
-				productList=productService.fetchProducts();
-			}
-			System.out.println(productList.get(0).getDescription());
-		return productList;
-				
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
-		return new ArrayList<Product>();
-	}
-		
-	private void populate(final List < Product > products) 
-	{
-		try {
-		System.out.println("inside populate");
-		if(data.isEmpty())
-		{
-	        for(Product prods:products)
-	        {
-	        	data.add(prods);
-	        	int pid=prods.getProductId();
-	        	int index=data.indexOf(prods);
-	        	prods.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid,index));
-	        	prods.getSave().setOnAction(e->editButtonClickedThroughHyperlink(pid,index));
-	        }
-	      }
-		}catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-		}
-	
-	}
-	
-	*/
-	
+	/**
+	 * This function invoked when user press edit hyperlink from UI
+	 * @param productId
+	 * @param rowIndex
+	 */
 	public void editButtonClickedThroughHyperlink(int productId,int rowIndex) {
 		
 		Product product=data.get(rowIndex);
@@ -196,6 +159,12 @@ public class ManageProductController implements Initializable{
 				Constants.POPUP_WINDOW_HEIGHT);
 		
 	}
+	
+	/**
+	 * This function invoked when user clicks on delete hyperlink
+	 * @param productId
+	 * @param rowIndex
+	 */
 	@SuppressWarnings("restriction")
 	public void deleteButtonClickedThroughHyperlink(int productId,int rowIndex)
 	{
@@ -215,6 +184,9 @@ public class ManageProductController implements Initializable{
 		//getRefreshedTable();
 		
 	}
+	/**
+	 * This funtion invoke onClick of Add Product Buttons
+	 */
 	@FXML public void addNewProduct()
 	{
 		addProductController.setProdModel(null);
@@ -224,7 +196,8 @@ public class ManageProductController implements Initializable{
 		root.setCenter(addProduct);
 		layoutController.loadWindow(root,"Add Product Details",Constants.POPUP_WINDOW_WIDTH,Constants.POPUP_WINDOW_HEIGHT);
 	}
-	@FXML public void deleteButtonClicked()
+	
+	@FXML public void deleteButtonClicked() throws Exception
 	{
 		
 		System.out.println("Inside DeleteButtonClicked");
@@ -245,7 +218,7 @@ public class ManageProductController implements Initializable{
 		
 	}
 	
-	@FXML public void saveProduct()
+	@FXML public void saveProduct() throws Exception
 	{
 		 ObservableList < Product> ObproductList =  ProductTable.getSelectionModel().getSelectedItems();
 		System.out.println(ObproductList.get(0).getDescription());
@@ -346,11 +319,14 @@ public class ManageProductController implements Initializable{
 	
 	public void getRefreshedTable()
 	{
-		productList.clear();
-		data.clear();
-		refreshPagination();
-		pagination.setCurrentPageIndex(pagination.getMaxPageIndicatorCount());
-		//updateTable(pages, pagination.getCurrentPageIndex(),Constants.rowsPerPage);
+		try {
+			productList.clear();
+			data.clear();
+			refreshPagination();
+			updateTable(pages, pagination.getCurrentPageIndex(),Constants.rowsPerPage);
+		}catch(Exception e) {
+			System.out.println("Exception occured at refreshProductTable");
+		}
 		//ProductTable.setItems(data);
 		//populate(retrieveData());
 	}
@@ -399,4 +375,44 @@ public class ManageProductController implements Initializable{
 	 {
 		 
 	 }
+	 /*private List<Product> retrieveData(){
+		
+		try 
+		{
+			if(productList.isEmpty())
+			{
+				productList=productService.fetchProducts();
+			}
+			System.out.println(productList.get(0).getDescription());
+		return productList;
+				
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return new ArrayList<Product>();
+	}
+		
+	private void populate(final List < Product > products) 
+	{
+		try {
+		System.out.println("inside populate");
+		if(data.isEmpty())
+		{
+	        for(Product prods:products)
+	        {
+	        	data.add(prods);
+	        	int pid=prods.getProductId();
+	        	int index=data.indexOf(prods);
+	        	prods.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(pid,index));
+	        	prods.getSave().setOnAction(e->editButtonClickedThroughHyperlink(pid,index));
+	        }
+	      }
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	*/
 }

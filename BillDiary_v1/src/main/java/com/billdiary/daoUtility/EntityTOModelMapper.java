@@ -20,6 +20,7 @@ import com.billdiary.model.Supplier;
 import com.billdiary.model.Unit;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -86,6 +87,7 @@ public class EntityTOModelMapper {
 	public Product getProductModel(ProductEntity productEntity) {
 	    Product product=new Product();
 	    product.setProductId(new SimpleIntegerProperty(productEntity.getId()));
+	    product.setProductCode(new SimpleLongProperty(productEntity.getProductCode()));
 	    product.setDescription(new SimpleStringProperty(productEntity.getDescription()));
 	    product.setDiscount(new SimpleDoubleProperty(productEntity.getDiscount()));
 	    product.setName(new SimpleStringProperty(productEntity.getName()));
@@ -106,6 +108,7 @@ public class EntityTOModelMapper {
 		{
 			Product prod=new Product();
 			prod.setProductId(new SimpleIntegerProperty(productEntity.getId()));
+			prod.setProductCode(new SimpleLongProperty(productEntity.getProductCode()));
 			prod.setDescription(new SimpleStringProperty(productEntity.getDescription()));
 			prod.setDiscount(new SimpleDoubleProperty(productEntity.getDiscount()));
 			prod.setName(new SimpleStringProperty(productEntity.getName()));

@@ -28,6 +28,9 @@ public class ProductEntity implements Serializable {
     @Column(name = "product_id")
 	int id;
 	
+	@Column(name = "product_code")
+	long productCode;
+	
 	@Column(name = "product_name")
 	String name; 
 	
@@ -67,6 +70,14 @@ public class ProductEntity implements Serializable {
 	@OneToOne
 	UnitEntity unitEntity;
 	
+	
+	
+	public long getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(long productCode) {
+		this.productCode = productCode;
+	}
 	public UnitEntity getUnitEntity() {
 		return unitEntity;
 	}
