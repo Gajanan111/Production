@@ -120,6 +120,7 @@
                   <Button layoutX="854.0" layoutY="102.0" mnemonicParsing="false" onAction="#searchCustomer" prefHeight="25.0" prefWidth="116.0" text="Search" />
                   <Text layoutX="312.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mobile NO" />
                   <TextField fx:id="mobileNo" layoutX="386.0" layoutY="29.0" promptText="XXXXXXXXXX" />
+                  <Pagination fx:id="pagination" layoutX="770.0" layoutY="396.0" prefHeight="52.0" prefWidth="200.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

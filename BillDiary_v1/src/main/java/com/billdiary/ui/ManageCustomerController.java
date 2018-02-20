@@ -18,6 +18,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -25,6 +26,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.converter.DoubleStringConverter;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -48,6 +50,11 @@ public class ManageCustomerController implements Initializable {
 	private TableView<Customer> customerTable;
 	@FXML TableColumn<Customer,Double>Balance;
 	TableFilter<Customer> filter;
+	
+	@FXML Pagination pagination;
+	private static int pages;
+	private static int index=0;
+	private static long count=0;
 
 	private ObservableList<Customer> data = FXCollections.observableArrayList();
 	List<Customer> customerList = new ArrayList<>();
@@ -56,17 +63,68 @@ public class ManageCustomerController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		
-		try {
+	/*	try {
 			customerTable.setItems(data);
 			populate(retrieveData());
 			filter = new TableFilter(customerTable);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
+		}*/
+		count=customerService.getCustomerCount();
+		Task<Void> showTable = new Task<Void>() {
+		    @Override public Void call() {
+		    	//count=productService.getProductCount();
+        		pages=getPages(count);
+        		System.out.println("pages:"+ pages+"count: "+count );
+            	updateTable(pages,index,Constants.rowsPerPage);
+		        return null;
+		    }
+		};
+		new Thread(showTable).start();
+		pagination.setPageCount(getPages(count));
+		pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> 
+			{
+				//System.out.println("pages:"+ pages+"count: "+count );
+				updateTable(pages, newIndex.intValue(),Constants.rowsPerPage);
+	        
+			}
+		);	
 		Balance.setCellFactory(TextFieldTableCell.<Customer,Double>forTableColumn(new DoubleStringConverter()));
 	}
+	/**
+	 * 
+	 * All pagination related funtions
+	 * 
+	 */
+	
+	public int getPages(long count) {
+		return (int)(((count-1)/Constants.rowsPerPage)+1);
+	}
+	public void refreshPagination() {
+		count=customerService.getCustomerCount();
+		pages=getPages(count);
+		pagination.setPageCount(pages);
+		System.out.println("refreshPagination completed");
+	}
+	
+	public void updateTable(int pages, int index,int rowsPerPage) {
+		List<Customer> customers=customerService.getCustomers(pages, index, rowsPerPage);	
+		data.clear();
+		if(data.isEmpty())
+		{
+	        for(Customer cust:customers)
+	        {
+	        	data.add(cust);
+	        	int pid=cust.getCustomerID();
+	        	int rowIndex=data.indexOf(cust);
+	        	cust.getDeleteHyperlink().setOnAction(e->deleteButtonClickedThroughHyperlink(pid,rowIndex));
+	        	cust.getSaveHyperlink().setOnAction(e->editButtonClickedThroughHyperlink(pid,rowIndex));
+	        }
+	     }
+		customerTable.setItems(data);	
+	}
 
-	private List<Customer> retrieveData() {
+	/*private List<Customer> retrieveData() {
 		try {
 			if (customerList.isEmpty()) {
 				customerList = customerService.fetchCustomers();
@@ -89,7 +147,7 @@ public class ManageCustomerController implements Initializable {
 			}
 		}
 
-	}
+	}*/
 
 	public void editButtonClickedThroughHyperlink(int customerId, int index) {
 		Customer cust = data.get(index);
@@ -104,11 +162,17 @@ public class ManageCustomerController implements Initializable {
 				Constants.POPUP_WINDOW_HEIGHT);
 	}
 
-	public void deleteButtonClickedThroughHyperlink(int customerId) {
+	public void deleteButtonClickedThroughHyperlink(int customerId,int rowIndex) {
 		System.out.println(customerId);
 		customerService.deleteCustomer(customerId);
-		System.out.println(customerId + "Customer deleted");
-		getRefreshedTable();
+		refreshPagination();
+		if(rowIndex==0 && !(pagination.getCurrentPageIndex()==Constants.ZERO)) {
+			pagination.setCurrentPageIndex(pagination.getCurrentPageIndex()-1);
+			//updateTable(pages, pagination.getCurrentPageIndex()-1,Constants.rowsPerPage);
+		}else {
+			updateTable(pages, pagination.getCurrentPageIndex(),Constants.rowsPerPage);
+		}
+		
 
 	}
 
@@ -188,8 +252,10 @@ public class ManageCustomerController implements Initializable {
 	public void getRefreshedTable() {
 		customerList.clear();
 		data.clear();
-		customerTable.setItems(data);
-		populate(retrieveData());
+		/*customerTable.setItems(data);
+		populate(retrieveData());*/
+		refreshPagination();
+		updateTable(pages, pagination.getCurrentPageIndex(),Constants.rowsPerPage);
 	}
 
 }

@@ -93,9 +93,49 @@ public class CustomerDAO extends AbstractJpaDAO< CustomerEntity >{
 	
 	@Transactional
 	public CustomerEntity updateCustomer(CustomerEntity custEntity) {
-		// TODO Auto-generated method stub
 		CustomerEntity updatedCustomer=null;
 		updatedCustomer=update(custEntity);
 		return updatedCustomer;
 	}
+	
+	public long getCustomerCount() {
+		System.out.println("*********"+ "getCustomerCount");
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+		countQuery.select(criteriaBuilder.count(countQuery.from(CustomerEntity.class)));
+		Long count = entityManager.createQuery(countQuery).getSingleResult();
+		System.out.println("*********"+ "getCustomerCount: "+count);
+		return count;
+	}
+	public List<CustomerEntity> getCustomers(int pages, int pageNumber,int rowsPerPage) {
+		System.out.println("*********"+ "getCustomers");
+		List<CustomerEntity> customerEntities=null;
+		try {
+			if(pageNumber<0)
+				return null;
+			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+			/*CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+			countQuery.select(criteriaBuilder.count(countQuery.from(ProductEntity.class)));
+			Long count = entityManager.createQuery(countQuery).getSingleResult();*/
+			CriteriaQuery<CustomerEntity> criteriaQuery = criteriaBuilder.createQuery(CustomerEntity.class);
+			Root<CustomerEntity> from = criteriaQuery.from(CustomerEntity.class);
+			CriteriaQuery<CustomerEntity> select = criteriaQuery.select(from);
+			TypedQuery<CustomerEntity> typedQuery = entityManager.createQuery(select);
+			typedQuery.setFirstResult((pageNumber*rowsPerPage));
+		    typedQuery.setMaxResults(rowsPerPage);
+		    customerEntities=typedQuery.getResultList();
+			/*while (pageNumber < count.intValue()) {
+			    typedQuery.setFirstResult(pageNumber - 1);
+			    typedQuery.setMaxResults(rowsPerPage);
+			    //System.out.println("Current page: " + typedQuery.getResultList());
+			    productEntities=typedQuery.getResultList();
+			    pageNumber += rowsPerPage;
+			}*/
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println("*********"+ "getCustomers : end");
+		return customerEntities;
+	}
+	
 }

@@ -10,7 +10,10 @@ import com.billdiary.dao.CustomerDAO;
 import com.billdiary.daoUtility.EntityTOModelMapper;
 import com.billdiary.daoUtility.ModelTOEntityMapper;
 import com.billdiary.entities.CustomerEntity;
+import com.billdiary.entities.ProductEntity;
 import com.billdiary.model.Customer;
+import com.billdiary.model.Product;
+
 import javafx.collections.ObservableList;
 
 @Service
@@ -72,5 +75,19 @@ public class CustomerService {
 		updatedCustEnitity=customerDAO.updateCustomer(custEntity);
 		updatedCustomer=entityTOModelMapper.getCustomerOneModel(updatedCustEnitity);
 		return updatedCustomer;
+	}
+	
+	/**
+	 * All pagination methods
+	 */
+	public long getCustomerCount() {
+		long count=customerDAO.getCustomerCount();
+		return count;
+	}
+	public List<Customer> getCustomers(int pages, int index,int rowsPerPage) {
+		
+		List<CustomerEntity> customerEntities=customerDAO.getCustomers(pages,index,rowsPerPage);
+		List<Customer> customerList=entityTOModelMapper.getCustomerModels(customerEntities);
+		return customerList;
 	}
 }

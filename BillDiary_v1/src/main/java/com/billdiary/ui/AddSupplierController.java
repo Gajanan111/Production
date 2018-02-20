@@ -172,6 +172,7 @@ public class AddSupplierController implements Initializable{
 		sup.setSupplierPhoneNo(new SimpleStringProperty(supplPhoneNo));
 		
 		Address address=new Address();
+		
 		address.setStreet1(supplAddress);
 		address.setCity(city);
 		address.setState(state);

@@ -46,7 +46,7 @@ public class ModelTOEntityMapper {
 	public SupplierEntity getSupplierEntity(Supplier sup) {
 		// TODO Auto-generated method stub
 		SupplierEntity supEntity=new SupplierEntity();
-		
+		supEntity.setSupplierID(0);
 		supEntity.setSupplierName(sup.getSupplierName());
 		supEntity.setSupplierCompany(sup.getSupplierCompany());
 		supEntity.setSupplierAccountNo(sup.getSupplierAccountNo());
@@ -74,7 +74,8 @@ public class ModelTOEntityMapper {
 		supEntity.setSupplierPhoneNo(sup.getSupplierPhoneNo());
 		
 		AddressEntity addressEnitity=new AddressEntity();
-		addressEnitity.setId(sup.getAddress().getId());
+		//addressEnitity.setId(sup.getAddress().getId());
+		addressEnitity.setId(null);
 		addressEnitity.setStreet1(sup.getAddress().getStreet1());
 		addressEnitity.setCity(sup.getAddress().getCity());
 		addressEnitity.setState(sup.getAddress().getState());
