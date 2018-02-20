@@ -43,7 +43,7 @@
                               <PropertyValueFactory property="customerGroup" />
                            </cellValueFactory>
                         </TableColumn>
-                        <TableColumn id="registrationDate" onEditCommit="#setEditedValue" prefWidth="75.0" text="Reg. Date" >
+                        <TableColumn id="registrationDate" onEditCommit="#setEditedValue" prefWidth="75.0" text="Reg. Date">
                          <cellValueFactory>
                               <PropertyValueFactory property="registrationDate" />
                            </cellValueFactory>
@@ -97,12 +97,12 @@
 							<TextFieldTableCell fx:factory="forTableColumn" />
 							</cellFactory>
                         </TableColumn>
-                        <TableColumn id="zipCode" onEditCommit="#setEditedValue" prefWidth="75.0" text="ZipCode">
+                        <TableColumn id="status" onEditCommit="#setEditedValue" prefWidth="75.0" text="Status">
                            <cellFactory>
                               <TextFieldTableCell fx:factory="forTableColumn" />
                            </cellFactory>
                            <cellValueFactory>
-                              <PropertyValueFactory property="zipCode" />
+                              <PropertyValueFactory property="status" />
                            </cellValueFactory>
                         </TableColumn>
                         <TableColumn prefWidth="75.0" text="Action">

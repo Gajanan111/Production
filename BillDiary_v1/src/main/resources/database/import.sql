@@ -21,7 +21,7 @@ create table if not exists product
 									,discount varchar(30)
 									,stock double
 									,unit_id BIGINT
-									,foreign key (unit_id) references unit(unit_id)
+									,foreign key (unit_id) references unit(unit_id) 
 								);
 
 
@@ -81,7 +81,8 @@ create table if not exists customer
 						,zipCode varchar(30)
 						,anniversary_Date date
 						,birth_Date date
-						,balance double	
+						,balance double
+						,status varchar(30)
 					);
 
 --insert into customer(customer_id,customer_name,address,mobile_no,city,country) values(101,'Gajanan','kfc baner','7709635664','pune','India');
@@ -151,7 +152,7 @@ create table if not exists invoice
 						,invoice_Date date
 						,invoice_Due_Date date
 						,last_Amount_Paid_Date date
-						,foreign key(customer_id) references customer(customer_id)
+						,foreign key(customer_id) references customer(customer_id) on delete set NULL
 					);
 					
 

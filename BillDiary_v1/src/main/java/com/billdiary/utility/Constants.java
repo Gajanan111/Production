@@ -15,7 +15,14 @@ public class Constants {
 	public static final int SEARCH_CUSTOMER_HEIGHT=600;
 	public static final int POPUP_UNIT_WINDOW_WIDTH=400;
 	public static final int POPUP_UNIT_WINDOW_HEIGHT=350;
+	
+	
+	/**
+	 * Constants for application use
+	 */
 	public static final int ZERO=0;
+	public static final String ACTIVE="ACTIVE";
+	public static final String INACTIVE="INACTIVE";
 	
 	/**
 	 * Constants for alert, Dialogs, Popup messages

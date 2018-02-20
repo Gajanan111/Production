@@ -29,14 +29,9 @@ public class CustomerService {
 	{
 		List<Customer> customerList=new ArrayList<>();
 		List<CustomerEntity> customerEntityList=new ArrayList<>();
-		try {
 		customerEntityList=customerDAO.fetchCustomers();
-		}catch(Exception e)
-		{
-			System.out.println("service "+e.getMessage());
-		}
+		//customerEntityList=customerDAO.fetchActiveCustomers();
 		customerList=entityTOModelMapper.getCustomerModels(customerEntityList);
-		
 		return customerList;
 	}
 	

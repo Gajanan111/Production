@@ -11,8 +11,10 @@ import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationMessage;
 import org.controlsfx.validation.ValidationSupport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContextException;
 import org.springframework.stereotype.Controller;
 
+import com.billdiary.exception.ApplicationException;
 import com.billdiary.javafxUtility.ControlFXValidation;
 import com.billdiary.javafxUtility.Popup;
 import com.billdiary.javafxUtility.TabTraversalEventHandler;
@@ -67,6 +69,7 @@ public class AddCustomerController implements Initializable{
 	@FXML DatePicker Anniversary_Date;
 	@FXML DatePicker Birth_Date;
 	@FXML TextField balance;
+	@FXML  ChoiceBox<String> status;
 	
 	public String parentName;
 	
@@ -76,6 +79,7 @@ public class AddCustomerController implements Initializable{
 		support.registerValidator(addCustomerName, true, controlFXValidation.getStringValidator());
 		addAddress.addEventFilter(KeyEvent.KEY_PRESSED, new TabTraversalEventHandler());
 		addAdditionalInfo.addEventFilter(KeyEvent.KEY_PRESSED, new TabTraversalEventHandler());
+		status.getSelectionModel().selectFirst();
 		if(custModel!=null)
 		{	
 			addCustomerName.setText(custModel.getCustomerName());
@@ -91,6 +95,7 @@ public class AddCustomerController implements Initializable{
 			Anniversary_Date.setValue(custModel.getAnniversary_date());
 			Birth_Date.setValue(custModel.getBirth_date());
 		    balance.setText(String.valueOf(custModel.getBalance()));
+		    status.setValue(custModel.getStatus());
 		}
 	}
 
@@ -110,6 +115,7 @@ public class AddCustomerController implements Initializable{
 	    cust.setBirth_date(Birth_Date.getValue());
 	    cust.setCustomerGroup(new SimpleStringProperty(addCustomerGroup.getValue()));
 	    cust.setAddAdditionalInfo(new SimpleStringProperty(addAdditionalInfo.getText()));
+	    cust.setStatus(new SimpleStringProperty(status.getValue()));
 	    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	    String strDate = dateFormat.format(new Date());
 	    cust.setRegistrationDate(new SimpleStringProperty(strDate));
@@ -124,32 +130,48 @@ public class AddCustomerController implements Initializable{
 	    
 	    
 	    
-	    if(validateCustomer(cust))
-	    {
-		    if(custModel==null)
-				customerService.addCustomer(cust);
-			else{ 
-				cust.setCustomerID(new SimpleIntegerProperty(custModel.getCustomerID()));
-			    customerService.updateCustomer(cust);
-			    }
-			 setCustModel(null);
-			((Node)(event.getSource())).getScene().getWindow().hide();
-			if(null!=this.parentName) {
-			if(this.parentName.equals("CustomerController")) {
-				manageCustomerController.getRefreshedTable();
-			}else if(this.parentName.equals("InvoiceController")) {
-				manageInvoiceController.refreshCustomerList();;
+	    try {
+			if(validateCustomer(cust))
+			{
+			    if(custModel==null) {
+			    	
+			    	customerService.addCustomer(cust);
+			    }else{ 
+					cust.setCustomerID(new SimpleIntegerProperty(custModel.getCustomerID()));
+				    customerService.updateCustomer(cust);
+				    }
+				 setCustModel(null);
+				((Node)(event.getSource())).getScene().getWindow().hide();
+				if(null!=this.parentName) {
+				if(this.parentName.equals("CustomerController")) {
+					manageCustomerController.getRefreshedTable();
+				}else if(this.parentName.equals("InvoiceController")) {
+					manageInvoiceController.refreshCustomerList();;
+				}
+			  }
 			}
-		  }
-	    }
+		} catch (Exception e) {
+			System.out.println("Cause: "+ e);
+		}
 	}
 	
 	private boolean validateDoubleField(String text) {
 		return true;
 	}
-	private boolean validateCustomer(Customer cust) {
+	private boolean validateCustomer(Customer cust) throws ApplicationException {
 		boolean valid=true;
-		Collection<ValidationMessage> mes=support.getValidationResult().getErrors();
+		
+		if(null==cust.getMobile_no() ||cust.getMobile_no().isEmpty()) {
+			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_COMMON_VALIDATION,AlertType.ERROR);
+			valid=false;
+			//throw new ApplicationException("Invalid mobile number");
+		}
+		if(null==cust.getCustomerName() || cust.getCustomerName().isEmpty()) {
+			valid=false;
+			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_COMMON_VALIDATION,AlertType.ERROR);
+			//throw new ApplicationException("Invalid customer number");
+		}	
+	/*Collection<ValidationMessage> mes=support.getValidationResult().getErrors();
 	    System.out.println(mes);
 	    for(ValidationMessage m:mes) {
 		    	if(m.getSeverity()==Severity.ERROR)
@@ -157,7 +179,7 @@ public class AddCustomerController implements Initializable{
 		    		valid=false;
 		    		Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_CUSTOMER_FEILD_VALIDATION,AlertType.ERROR);
 		    	}
-	    	}
+	    	}*/
 		return valid;	
 	}
 	public void clearFields() {

@@ -125,6 +125,7 @@ public class ModelTOEntityMapper {
 			customerEntity.setZipCode(cust.getZipCode());
 			customerEntity.setAnniversary_Date(cust.getAnniversary_date());
 			customerEntity.setBirth_Date(cust.getBirth_date());
+			customerEntity.setState(cust.getStatus());
 			customerEntityList.add(customerEntity);
 		}
 		return customerEntityList;
@@ -150,6 +151,7 @@ public class ModelTOEntityMapper {
 		customerEntity.setAnniversary_Date(cust.getAnniversary_date());
 		customerEntity.setBirth_Date(cust.getBirth_date());
 		customerEntity.setBalance(cust.getBalance());
+		customerEntity.setStatus(cust.getStatus());
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		Date regDate=null;
 		try {

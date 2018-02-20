@@ -30,7 +30,7 @@
                 </FXCollections>
             </items>
             </ChoiceBox>
-            <Button layoutX="568.0" layoutY="388.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="25.0" prefWidth="127.0" text="Save" />
+            <Button layoutX="573.0" layoutY="400.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="25.0" prefWidth="127.0" text="Save" />
             <Text layoutX="424.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="State" />
             <ChoiceBox fx:id="addState" layoutX="556.0" layoutY="194.0" prefWidth="150.0" value="">
                <items>
@@ -60,8 +60,17 @@
           <Text layoutX="56.0" layoutY="405" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Date" />
            <DatePicker fx:id="Birth_Date" layoutX="179" layoutY="400" />
             <TextField fx:id="addCity" layoutX="556.0" layoutY="157.0" prefHeight="25.0" prefWidth="189.0" />
-            <Text layoutX="427.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance " />
-            <TextField fx:id="balance" layoutX="556.0" layoutY="330.0" prefHeight="25.0" prefWidth="189.0" />
+            <Text layoutX="426.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Balance " />
+            <TextField fx:id="balance" layoutX="556.0" layoutY="316.0" prefHeight="25.0" prefWidth="189.0" />
+            <Text layoutX="430.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" />
+            <ChoiceBox fx:id="status" layoutX="556.0" layoutY="356.0" prefWidth="150.0" >
+             <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="ACTIVE" />
+                     <String fx:value="INACTIVE" /> 
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
          </children>
       </Pane>
    </children>

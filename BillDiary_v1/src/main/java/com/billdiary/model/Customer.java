@@ -60,14 +60,20 @@ public class Customer {
 	private LocalDate anniversary_date;
     private LocalDate birth_date;
     private SimpleDoubleProperty balance;
-    
-
-	
-
+    private SimpleStringProperty status;
 	private Hyperlink deleteHyperlink;
 	private Hyperlink saveHyperlink;
 	private List<Hyperlink> hyperlinks =new ArrayList<>();
-    
+	
+	
+	public String getStatus() {
+		return status.get();
+	}
+
+	public void setStatus(SimpleStringProperty status) {
+		this.status = status;
+	}
+	
     public LocalDate getAnniversary_date() {
 		return anniversary_date;
 	}

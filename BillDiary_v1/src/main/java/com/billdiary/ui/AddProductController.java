@@ -202,7 +202,7 @@ public class AddProductController  implements Initializable {
 		prod.setProductCategory(new SimpleStringProperty(productCategory.getText()));
 		prod.setProductHSNCode(new SimpleStringProperty(add_PrdHSNCodes.getText()));	
 		Unit pUnit=unitList.stream()
-		.filter(unit -> (unit.getUnitName()).equals(unit.getUnitName())).findAny()
+		.filter(unit -> (unit.getUnitName()).equals(units.getValue())).findAny()
 		.orElse(null);
 		prod.setUnit(pUnit);
 		if(getProdModel()!=null)

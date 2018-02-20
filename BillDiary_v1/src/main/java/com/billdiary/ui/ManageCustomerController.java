@@ -170,6 +170,7 @@ public class ManageCustomerController implements Initializable {
 
 	@FXML
 	public void showAddCustomer() {
+		try {
 		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
 		StackPane addShop = (StackPane) loader.load(URLS.ADD_CUSTOMER);
 		addCustomerController.setParentName("CustomerController");
@@ -178,6 +179,9 @@ public class ManageCustomerController implements Initializable {
 		root.setCenter(addShop);
 		layoutController.loadWindow(root, "Add Customer Details", Constants.POPUP_WINDOW_WIDTH,
 				Constants.POPUP_WINDOW_HEIGHT);
+		}catch(Exception e) {
+			
+		}
 
 	}
 

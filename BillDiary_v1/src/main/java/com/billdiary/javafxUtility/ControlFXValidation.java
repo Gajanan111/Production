@@ -17,7 +17,7 @@ public class ControlFXValidation {
 	      {
 	        boolean condition =
 		            (value != null)?(!value.matches("^(\\w+)$")):false;             
-	        System.out.println( condition );
+	       // System.out.println( condition );
 	        return ValidationResult.fromMessageIf( control, "not a valid String", Severity.ERROR, condition );
 	      }
 	    };

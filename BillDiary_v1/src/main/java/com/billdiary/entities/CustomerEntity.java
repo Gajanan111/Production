@@ -3,11 +3,16 @@ package com.billdiary.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -69,6 +74,20 @@ public class CustomerEntity implements Serializable {
 	@Column(name="balance")
 	private double balance;
 	
+	@OneToMany(mappedBy = "customerEntity")
+	private List<InvoiceEntity> invoiceEntities;
+	
+	@Column(name="status")
+	private String status;
+	
+	
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public double getBalance() {
 		return balance;
 	}
@@ -89,10 +108,16 @@ public class CustomerEntity implements Serializable {
 	}
 	/*@OneToOne(cascade = CascadeType.ALL) @JoinColumn( name = "address_id" )
     private AddressEntity addressEntity;*/
+	//@OneToMany(mappedBy = "customerEntity", cascade=CascadeType.ALL, orphanRemoval=false)
 	
-/*	@OneToMany(mappedBy = "customerEntity", cascade=CascadeType.ALL, orphanRemoval=true)
-	private Set<InvoiceEntity> invoiceEntities;*/
 	
+	
+	public List<InvoiceEntity> getInvoiceEntities() {
+		return invoiceEntities;
+	}
+	public void setInvoiceEntities(List<InvoiceEntity> invoiceEntities) {
+		this.invoiceEntities = invoiceEntities;
+	}
 	public Date getRegDate() {
 		return regDate;
 	}
