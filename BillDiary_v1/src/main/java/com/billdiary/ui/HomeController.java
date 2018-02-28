@@ -119,6 +119,24 @@ public class HomeController {
 		}
 		
 	}
+	@FXML public void showPurchaseOrder()
+	{
+	//	LOGGER.debug("Entering Class HomeController : method :showInvoice");
+		try{
+			centerBorderPane.setCenter(null);
+			SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
+			StackPane purchaseOrder=(StackPane)loader.load(URLS.PURCHASE_ORDER);
+			mainViewTitle.setText("Purchase Order");
+			centerBorderPane.setCenter(purchaseOrder);
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			//LOGGER.debug("Entering Class HomeController : method :showInvoice "+e.getMessage());
+		}
+		
+	}
 	
 	@FXML Text trylanguage;
 	

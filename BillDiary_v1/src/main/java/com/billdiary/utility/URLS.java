@@ -33,6 +33,8 @@ public class URLS {
 	public static final String MANAGE_SUPPLIER="/fxml/ManageSupplier.fxml";
 	/* ManageInvoice page  */
 	public static final String MANAGE_INVOICE="/fxml/ManageInvoice.fxml";
+	/* Purchase Order page  */
+	public static final String PURCHASE_ORDER="/fxml/PurchaseOrder.fxml";
 	
 	/* template.xsl : file is used for PDF Generation (i.e Invoice Generation) */
 	public static final String PDF_TEMPLATE="C://bill//template.xsl";
