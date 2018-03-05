@@ -9,16 +9,16 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.control.cell.TextFieldTableCell?>
 
-<StackPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.billdiary.ui.PurchaseOrderController">
    <children>
       <ScrollPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0">
          <content>
             <Pane maxHeight="600.0" maxWidth="995.0" minHeight="600.0" minWidth="990.0" prefHeight="600.0" prefWidth="995.0">
                <children>
-                  <TextField layoutX="130.0" layoutY="45.0" />
-                  <TextField layoutX="130.0" layoutY="86.0" />
-                  <TextArea layoutX="386.0" layoutY="45.0" prefHeight="35.0" prefWidth="170.0" />
-                  <TextField layoutX="386.0" layoutY="89.0" />
+                  <TextField fx:id="supplierIdName" layoutX="130.0" layoutY="45.0" />
+                  <TextField fx:id="mobileNo" layoutX="130.0" layoutY="86.0" />
+                  <TextArea fx:id="address" layoutX="386.0" layoutY="45.0" prefHeight="35.0" prefWidth="170.0" />
+                  <TextField fx:id="city" layoutX="386.0" layoutY="89.0" />
                   <TextField layoutX="130.0" layoutY="162.0" />
                   <TextField layoutX="386.0" layoutY="162.0" />
                   <TextField layoutX="665.0" layoutY="164.0" />
@@ -45,7 +45,7 @@
                   <Text layoutX="319.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantity" />
                   <Text layoutX="592.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" />
                   <Text layoutX="576.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Date" />
-                  <DatePicker layoutX="665.0" layoutY="46.0" prefHeight="25.0" prefWidth="170.4" />
+                  <DatePicker fx:id="orderDate" layoutX="665.0" layoutY="46.0" prefHeight="25.0" prefWidth="170.4" />
                   <Text layoutX="704.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount" />
                   <TextField layoutX="800.0" layoutY="437.0" />
                   <Text layoutX="704.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount" />
@@ -59,7 +59,8 @@
                     </items>
                   </MenuButton>
                   <Text layoutX="35.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GST NO" />
-                  <TextField layoutX="130.0" layoutY="125.0" />
+                  <TextField fx:id="gstNo" layoutX="130.0" layoutY="125.0" />
+                  <Hyperlink layoutX="208.0" layoutY="187.0" onAction="#showAddProduct" text="Add Product" underline="true" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
