@@ -53,6 +53,9 @@ public class Product implements Cloneable{
 	
 	private SimpleDoubleProperty ratePrice;
 	
+	private SimpleDoubleProperty wholeSaleGSTPrice;
+	
+	
 	
 	private Unit unit;
 	
@@ -266,5 +269,11 @@ public class Product implements Cloneable{
 	public void setProductCode(SimpleLongProperty productCode) {
 		this.productCode = productCode;
 	}	
+	public Double getWholeSaleGSTPrice() {
+		return wholeSaleGSTPrice.get();
+	}
+	public void setWholeSaleGSTPrice(SimpleDoubleProperty wholeSaleGSTPrice) {
+		this.wholeSaleGSTPrice = wholeSaleGSTPrice;
+	}
 	
 }

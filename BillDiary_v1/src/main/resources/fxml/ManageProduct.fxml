@@ -27,7 +27,7 @@
 							</cellValueFactory>
 							</TableColumn>
                       <TableColumn id="ProductName" onEditCommit="#setEditedValue" prefWidth="75.0" text="Product Name">
-                      <cellValueFactory>
+                      		<cellValueFactory>
 							<PropertyValueFactory property="name" />
 							</cellValueFactory>
 							<cellFactory>
