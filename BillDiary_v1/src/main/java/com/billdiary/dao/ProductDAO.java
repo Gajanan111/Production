@@ -1,10 +1,12 @@
 package com.billdiary.dao;
 
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -145,6 +147,32 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		}
 		System.out.println("*********"+ "getProducts : end");
 		return productEntities;
+	}
+	public boolean checkProductCode(long code) {
+		boolean flag=false;
+		try {
+			Query query=entityManager.createNativeQuery("select count(*) from product where product_code="+code);
+			BigInteger result=(BigInteger) query.getSingleResult();
+			System.out.println("result"+result);
+			if(result.intValue()>0) {
+				flag=true;
+			}
+		}catch(Exception e) {
+			System.out.println(e+ " "+e.getMessage());
+		}
+		return flag;
+	}
+	public long getProductCode() {
+		long code=0;
+		try {
+			Query query=entityManager.createNativeQuery("select max(product_code) from product");
+			BigInteger result=(BigInteger) query.getSingleResult();
+			System.out.println("result"+result);
+			code=result.longValue()+1;
+		}catch(Exception e) {
+			System.out.println(e+ " "+e.getMessage());
+		}
+		return code;
 	}
 	
 	

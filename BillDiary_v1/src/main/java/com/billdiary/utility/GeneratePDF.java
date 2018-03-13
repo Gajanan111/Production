@@ -89,7 +89,7 @@ public class GeneratePDF {
 			if(null!=products) {
 				int id=1;
 				products.forEach(product->{	
-					writer.println("<products><id>"+product.getProductId()+"</id>");
+					writer.println("<products><id>"+product.getProductCode()+"</id>");
 					writer.println("<name>"+product.getName()+"</name>");
 					writer.println("<MRP>"+String.format("%.2f", product.getMrpPrice())+"</MRP>");
 					writer.println("<rate>"+String.format("%.2f",product.getRatePrice())+"</rate>");

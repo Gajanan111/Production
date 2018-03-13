@@ -36,6 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -52,6 +53,7 @@ public class AddProductController  implements Initializable {
 	private LayoutController layoutController;
 	
 	Product prodModel;
+	@FXML Text productCodeLabel;
 	@FXML TextField add_productName;
 	@FXML TextField productCode;
 	@FXML TextField add_prodDesc;
@@ -74,6 +76,7 @@ public class AddProductController  implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		productCodeLabel.setVisible(false);
 		getProductCategoryList();
 		getUnitList();
 		units.getSelectionModel().selectedIndexProperty().addListener((v,oldValue,newValue)->{
@@ -112,6 +115,9 @@ public class AddProductController  implements Initializable {
 		    	wholeSaleGST.setSelected(false);
 		    	add_wholesalePrice.setText(Double.toString(pro.getWholesalePrice()));
 		    }	   
+		}else {
+			long prdCode=productService.getProductCode();
+			productCode.setText(Long.toString(prdCode));
 		}
 	}
 
@@ -205,38 +211,60 @@ public class AddProductController  implements Initializable {
 		.filter(unit -> (unit.getUnitName()).equals(units.getValue())).findAny()
 		.orElse(null);
 		prod.setUnit(pUnit);
-		if(getProdModel()!=null)
-		{
-			prod.setProductId(new SimpleIntegerProperty(getProdModel().getProductId()));
-			productService.updateProduct(prod);
-		}
-		else
-		productService.addProduct(prod);
-		((Node)(event.getSource())).getScene().getWindow().hide();
-		ApplicationContext applicationContext=SpringFxmlLoader.getApplicationcontext();
-		ManageProductController  manageProductController=( ManageProductController)applicationContext.getBean("ManageProductController");
-		manageProductController.getRefreshedTable();
-		}
-		
+			if(getProdModel()!=null)
+			{
+				prod.setProductId(new SimpleIntegerProperty(getProdModel().getProductId()));
+				productService.updateProduct(prod);
+			}
+			else
+			productService.addProduct(prod);
+			((Node)(event.getSource())).getScene().getWindow().hide();
+			ApplicationContext applicationContext=SpringFxmlLoader.getApplicationcontext();
+			ManageProductController  manageProductController=( ManageProductController)applicationContext.getBean("ManageProductController");
+			manageProductController.getRefreshedTable();
+			}
 	}
-	private boolean validateProduct() {
 
+	private boolean validateProduct() {
+		boolean flag=true;
 		try{
 			long code=Long.parseLong(productCode.getText());
+			if(!productCode.getText().isEmpty()) {
+				if(getProdModel()!=null) {
+					if(!(getProdModel().getProductCode()==code)) {
+						boolean codeExits=productService.checkProductCode(code);
+						if(codeExits) {
+							productCodeLabel.setVisible(true);
+							flag=false;
+						}else {
+							productCodeLabel.setVisible(false);
+							flag=true;
+						}
+					}
+				}else {
+					boolean codeExits=productService.checkProductCode(code);
+					if(codeExits) {
+						productCodeLabel.setVisible(true);
+						flag=false;
+					}else {
+						productCodeLabel.setVisible(false);
+						flag=true;
+					}
+				}
+			}
 		}catch(Exception e) {
 			Popup.showErrorAlert(Constants.ERROR_TITLE,"Please enter a product code as a number",AlertType.ERROR);
-			return false;
+			flag=false;
 		}
-		
 		if(null==add_productName.getText() || null== units.getValue() || null==productCode.getText()) {
 			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_COMMON_VALIDATION,AlertType.ERROR);
-			return false;
+			flag=false;
 		}
 		else if(add_productName.getText().isEmpty() || productCode.getText().isEmpty()) {
 			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.ERROR_COMMON_VALIDATION,AlertType.ERROR);
-			return false;
+			flag=false;
 		}
-		return true;
+		return flag;
 	}
 
 

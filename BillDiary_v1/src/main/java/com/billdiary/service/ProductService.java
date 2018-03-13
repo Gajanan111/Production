@@ -122,5 +122,14 @@ public class ProductService {
 		List<Product> productList=entityTOModelMapper.getProductModels(productEntities);
 		return productList;
 	}
+	public boolean checkProductCode(long code) {
+		boolean flag=false;
+		flag=productDAO.checkProductCode(code);
+		return flag;
+	}
+	public long getProductCode() {
+		long prdCode=productDAO.getProductCode();
+		return prdCode;
+	}
 	
 }

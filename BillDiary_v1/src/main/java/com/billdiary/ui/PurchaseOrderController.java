@@ -7,13 +7,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.textfield.TextFields;
-import org.hibernate.type.descriptor.java.LocalDateJavaDescriptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
 import com.billdiary.model.Address;
-import com.billdiary.model.Customer;
 import com.billdiary.model.Product;
 import com.billdiary.model.Supplier;
 import com.billdiary.service.PriceService;
@@ -28,13 +26,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -79,17 +75,7 @@ public class PurchaseOrderController implements Initializable{
 	public Product selectedProduct;
 	
 	
-	Task<Void> fetchProducts = new Task<Void>() {
-	    @Override public Void call() {
-	    	productList.clear();
-	    	productList=productService.fetchProducts();
-	    	for(Product product:productList) {
-	    		productNameList.add(product.getProductCode()+" : "+product.getName());
-			}
-			TextFields.bindAutoCompletion(productCodeName, productNameList).setVisibleRowCount(5);
-	        return null;
-	    }
-	};
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -107,7 +93,17 @@ public class PurchaseOrderController implements Initializable{
 			        return null;
 			    }
 			};
-			
+			Task<Void> fetchProducts = new Task<Void>() {
+			    @Override public Void call() {
+			    	productList.clear();
+			    	productList=productService.fetchProducts();
+			    	for(Product product:productList) {
+			    		productNameList.add(product.getProductCode()+" : "+product.getName());
+					}
+					TextFields.bindAutoCompletion(productCodeName, productNameList).setVisibleRowCount(5);
+			        return null;
+			    }
+			};
 			
 			
 			

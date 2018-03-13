@@ -115,18 +115,18 @@
                   <TextField fx:id="totalAmount" layoutX="865.0" layoutY="459.0" prefHeight="25.0" prefWidth="108.0" />
                   <Text layoutX="775.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Amount" />
                   <TextField fx:id="discount" layoutX="684.0" layoutY="459.0" prefHeight="25.0" prefWidth="79.0" />
-                  <TextField fx:id="finalAmount" layoutX="865.0" layoutY="517.0" prefHeight="25.0" prefWidth="108.0" />
+                  <TextField fx:id="finalAmount" layoutX="865.0" layoutY="498.0" prefHeight="25.0" prefWidth="108.0" />
                   <Text layoutX="602.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount(%)" />
-                  <Text layoutX="776.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Final Amount" />
+                  <Text layoutX="776.0" layoutY="515.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Final Amount" />
                   <Text layoutX="503.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invoice number" />
                   <Text fx:id="invNO" layoutX="615.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" />
                   <Text layoutX="503.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
-                  <Text layoutX="848.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press CTL+P for save and Print">
+                  <Text layoutX="843.0" layoutY="572.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Press CTL+P for save and Print">
                      <font>
                         <Font size="10.0" />
                      </font></Text>
-                  <Text layoutX="430.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due" />
-                  <TextField fx:id="amountDue" layoutX="512.0" layoutY="556.0" prefHeight="25.0" prefWidth="108.0" />
+                  <Text layoutX="430.0" layoutY="552.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount Due" />
+                  <TextField fx:id="amountDue" layoutX="515.0" layoutY="535.0" prefHeight="25.0" prefWidth="108.0" />
                   <TextField fx:id="bigFinalAmount" alignment="CENTER" layoutX="836.0" layoutY="17.0" prefHeight="61.0" prefWidth="142.0">
                      <font>
                         <Font name="Arial" size="24.0" />
@@ -136,9 +136,9 @@
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </Text>
-                  <Text layoutX="634.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paid Amount" />
-                  <TextField fx:id="paidAmount" layoutX="713.0" layoutY="556.0" prefHeight="25.0" prefWidth="108.0" />
-                  <SplitMenuButton fx:id="saveButton" layoutX="861.0" layoutY="556.0" mnemonicParsing="false" onAction="#generateInvoiceSaveAndPrint" text="Save and Print">
+                  <Text layoutX="634.0" layoutY="552.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paid Amount" />
+                  <TextField fx:id="paidAmount" layoutX="721.0" layoutY="535.0" prefHeight="25.0" prefWidth="108.0" />
+                  <SplitMenuButton fx:id="saveButton" layoutX="861.0" layoutY="535.0" mnemonicParsing="false" onAction="#generateInvoiceSaveAndPrint" text="Save and Print">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#generateInvoiceSave" text="Save" />
                       <MenuItem mnemonicParsing="false" onAction="#generateInvoiceSaveAndPrint" text="Save and Print" />
