@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import org.springframework.stereotype.Component;
 
-
+import com.billdiary.exception.BusinessException;
 import com.billdiary.model.Product;
 
 @Component
@@ -99,40 +99,55 @@ public class Calculate {
 	}
 
 	public static double getWholeSaleWithGST(double price, double percentage) {
-		percentage = percentage + 100;
-		price = price * percentage;
-		price = price / 100;
-		return getFormatedDoubleValue(price);
+		try {
+			percentage = percentage + 100;
+			price = price * percentage;
+			price = price / 100;
+			price=getFormatedDoubleValue(price);
+		}catch(Exception e) {
+			
+		}
+		return price;
 	}
 
 	public static double getRetailWithGST(double price, double percentage) {
-		percentage = percentage + 100;
-		price = price * percentage;
-		price = price / 100;
-		return getFormatedDoubleValue(price);
+		try {
+			percentage = percentage + 100;
+			price = price * percentage;
+			price = price / 100;
+			price=getFormatedDoubleValue(price);
+		}catch(Exception e) {
+			
+		}
+		return price;
 	}
 	
-	public static double getFormatedDoubleValue(double value) {
+	public static double getFormatedDoubleValue(double value){
 		String formate = df.format(value);
 		try {
-			return Double.valueOf(df.parse(formate).doubleValue());
+			value=Double.valueOf(df.parse(formate).doubleValue());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//throw new BusinessException("ERR001","Double value Cannot be formatted");
 		}
 		return value;
 	}
 	
 	public static double getNonEmptyDoubleValue(String value) {
 		double doubleValue=0.00;
-		if(value.isEmpty()) {
-			doubleValue=0.00;
-		}else if(value.matches("^\\d*\\.?\\d*$")){
-			doubleValue=Double.parseDouble(value);
-		}else {
-			doubleValue=0.00;
+		try {
+		
+			if(value.isEmpty()) {
+				doubleValue=0.00;
+			}else if(value.matches("^\\d*\\.?\\d*$")){
+				doubleValue=Double.parseDouble(value);
+			}else {
+				doubleValue=0.00;
+			}
+			doubleValue=getFormatedDoubleValue(doubleValue);
+		}catch(Exception e) {
+			
 		}
-		return getFormatedDoubleValue(doubleValue);	
+		return doubleValue;	
 	}
 	public static int getNonEmptyIntegerValue(String value) {
 		int intValue=0;

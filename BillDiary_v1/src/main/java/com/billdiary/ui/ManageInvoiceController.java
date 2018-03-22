@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
+import com.billdiary.exception.BusinessException;
 import com.billdiary.javafxUtility.Popup;
 import com.billdiary.javafxUtility.TabTraversalEventHandler;
 import com.billdiary.model.Customer;
@@ -176,7 +177,8 @@ public class ManageInvoiceController implements Initializable {
 					Product prd = prodList.stream().filter(x -> (x.getProductCode() + ": " + x.getName()).equals(product))
 							.findAny().orElse(null);
 					if (null != prd) {
-						invProductPrice.setText(Double.toString(prd.getRetailPrice()));
+						double unitPrice= priceService.getProductRatePrice(prd.getRetailPrice(),prd.getRetailGSTpercentage(),prd.getQuantity());
+						invProductPrice.setText(Double.toString(Calculate.getFormatedDoubleValue(unitPrice)));
 						selectedProduct = prd;
 					}
 
