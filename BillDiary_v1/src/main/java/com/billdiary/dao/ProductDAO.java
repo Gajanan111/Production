@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,9 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 
 	@PersistenceContext
 	EntityManager entityManager;
+	
+	@Autowired 
+	GenericDAO genericDAO;
 	
 	public ProductDAO()
 	{
@@ -95,14 +99,23 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 	}
 	
 	@Transactional
-	public boolean updateProductStock(int id, double stock) {
-		boolean updateStock=false;
+	public ProductEntity updateProductStock(int id, double quantity) {
+		
 		
 		ProductEntity productEntity=entityManager.find(ProductEntity.class, id);
-		productEntity.setStock(stock);
+		productEntity.setStock(productEntity.getStock()-quantity);
 		entityManager.merge(productEntity);
-		updateStock=true;
-		return updateStock;
+		return productEntity;
+	}
+	
+	@Transactional
+	public ProductEntity purchaseProductStock(int id, double quantity) {
+		
+		
+		ProductEntity productEntity=entityManager.find(ProductEntity.class, id);
+		productEntity.setStock(productEntity.getStock()+quantity);
+		entityManager.merge(productEntity);
+		return productEntity;
 	}
 	
 	/**
@@ -118,6 +131,8 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		System.out.println("*********"+ "getProductCount: "+count);
 		return count;
 	}
+	
+	
 	public List<ProductEntity> getProducts(int pages, int pageNumber,int rowsPerPage) {
 		System.out.println("*********"+ "getProducts");
 		List<ProductEntity> productEntities=null;
@@ -148,6 +163,8 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		System.out.println("*********"+ "getProducts : end");
 		return productEntities;
 	}
+	
+	
 	public boolean checkProductCode(long code) {
 		boolean flag=false;
 		try {
@@ -162,6 +179,7 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		}
 		return flag;
 	}
+	
 	public long getProductCode() {
 		long code=0;
 		try {
@@ -175,7 +193,11 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 		return code;
 	}
 	
-	
+	public List<ProductEntity> bulkUpdateProduct(List<ProductEntity> entities){
+		List<ProductEntity> updatedEntities=(List<ProductEntity>) genericDAO.bulkUpdate(entities);
+		return updatedEntities;
+		
+	}
 	
 	
 	

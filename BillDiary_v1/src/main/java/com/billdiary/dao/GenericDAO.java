@@ -147,5 +147,8 @@ public interface GenericDAO {
 	 */
 	<T extends Object> List<T> callStoredProcForProdUpdate(final String queryName,
 			final Map<String, String> paramMap);
+	
+	
+	public <T extends Serializable> Collection<T> bulkUpdate(final Collection<T> entities);
 
 }

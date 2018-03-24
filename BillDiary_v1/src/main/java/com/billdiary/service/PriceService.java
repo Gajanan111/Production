@@ -10,5 +10,5 @@ public interface PriceService {
 	public double getRetailGSTPrice(double price,double gstPercentage,double discount);
 	public double getWholeSaleGSTPrice(double price,double gstPercentage,double discount);
 	public double getProductTotalPrice(double retailPrice,double gstPercentage,double quantity);
-	public double getProductRatePrice(double retailPrice,double gstPercentage,double quantity);
+	public double getProductRatePrice(double retailPrice,double gstPercentage);
 }

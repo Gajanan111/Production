@@ -41,6 +41,7 @@ public class Constants {
 	public static final String ERROR_CUSTOMER_VALIDATION="Please insert necessary fields(*)";
 	public static final String ERROR_COMMON_VALIDATION="Please insert necessary fields(*)";
 	public static final String ERROR_CUSTOMER_FEILD_VALIDATION="Please insert proper data";
+	public static final String ERROR_COMMON_WRONG="Something went wrong!";
 	
 	/**
 	 * Add Unit Message

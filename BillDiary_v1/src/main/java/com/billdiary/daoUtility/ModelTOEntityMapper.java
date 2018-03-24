@@ -183,6 +183,26 @@ public class ModelTOEntityMapper {
 		}
 		return productEntityList;
 	}
+	
+	public List<ProductEntity> getProdEntities(List<Product> productList) {
+		List<ProductEntity> productEntityList = new ArrayList<>();
+		for(Product prod:productList)
+		{
+			ProductEntity productEntity =new ProductEntity();
+			productEntity.setDescription(prod.getDescription());
+			productEntity.setProductCode(prod.getProductCode());
+			productEntity.setProductHSNCode(prod.getProductHSNCode());
+			productEntity.setDiscount(prod.getDiscount());
+			productEntity.setId(prod.getProductId());
+			productEntity.setName(prod.getName());
+			productEntity.setRetail_price(prod.getRetailPrice());
+			productEntity.setWholesale_price(prod.getWholesalePrice());
+			productEntity.setStock(prod.getStock());
+			productEntity.setProductCategory(prod.getProductCategory());
+			productEntityList.add(productEntity);
+		}
+		return productEntityList;
+	}
 	public ProductEntity getProductEntity(Product prod) {
 		ProductEntity productEntity =new ProductEntity();
 		productEntity.setId(0);

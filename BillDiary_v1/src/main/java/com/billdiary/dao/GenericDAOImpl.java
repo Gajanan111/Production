@@ -1,13 +1,20 @@
 package com.billdiary.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
 //import org.apache.log4j.Logger;
 
 //public class GenericDAOImpl extends JpaDaoSupport implements GenericDAO{
+@Repository
 public class GenericDAOImpl  implements GenericDAO {
 	
 	
@@ -31,6 +38,9 @@ public class GenericDAOImpl  implements GenericDAO {
 	 * Constant for batchSize.
 	 */
 	private static final Integer batchSize = 10;
+	
+	@PersistenceContext
+	EntityManager entityManager;
 	
 	@SuppressWarnings({ UNCHECKED, RAW_TYPES })
 	@Override
@@ -111,8 +121,45 @@ public class GenericDAOImpl  implements GenericDAO {
 				LOGGER.debug("Exiting bulkInsert Method");
 				return savedEntities;
 			}
-		});*/return null;
+		});*/
+		final List<T> savedEntities = new ArrayList<T>(entities.size());
+		int i = 0;
+		for(T entity : entities){
+			entityManager.persist(entity);
+			savedEntities.add(entity);
+			i++;
+			if(i % batchSize == 0){
+				entityManager.flush();
+				entityManager.clear();
+			}
+		}
+		entityManager.flush();
+		entityManager.clear();
+		
+		return savedEntities;
 	}
+	
+	
+	@SuppressWarnings({ UNCHECKED, RAW_TYPES })
+	@Override
+	public <T extends Serializable> Collection<T> bulkUpdate(final Collection<T> entities) {
+		final List<T> savedEntities = new ArrayList<T>(entities.size());
+		int i = 0;
+		for(T entity : entities){
+			entityManager.merge(entity);
+			savedEntities.add(entity);
+			i++;
+			if(i % batchSize == 0){
+				entityManager.flush();
+				entityManager.clear();
+			}
+		}
+		entityManager.flush();
+		entityManager.clear();
+		
+		return savedEntities;
+	}
+	
 
 	@Override
 	public Integer deleteEntititesByNamedQuery(final String namedQuery, final Map<Integer, Object> paramMap) {

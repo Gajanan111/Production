@@ -177,7 +177,7 @@ public class ManageInvoiceController implements Initializable {
 					Product prd = prodList.stream().filter(x -> (x.getProductCode() + ": " + x.getName()).equals(product))
 							.findAny().orElse(null);
 					if (null != prd) {
-						double unitPrice= priceService.getProductRatePrice(prd.getRetailPrice(),prd.getRetailGSTpercentage(),prd.getQuantity());
+						double unitPrice= priceService.getProductRatePrice(prd.getRetailPrice(),prd.getRetailGSTpercentage());
 						invProductPrice.setText(Double.toString(Calculate.getFormatedDoubleValue(unitPrice)));
 						selectedProduct = prd;
 					}
@@ -368,7 +368,7 @@ public class ManageInvoiceController implements Initializable {
 			pr.setSerialNumber(new SimpleIntegerProperty(productTable.getItems().size() + 1));
 			pr.setQuantity(new SimpleDoubleProperty(Double.parseDouble(invProductQuantity.getText())));
 			
-			double ratePrice=priceService.getProductRatePrice(pr.getRetailPrice(),pr.getRetailGSTpercentage(),pr.getQuantity());
+			double ratePrice=priceService.getProductRatePrice(pr.getRetailPrice(),pr.getRetailGSTpercentage());
 			pr.setRatePrice(new SimpleDoubleProperty(ratePrice));
 			double totalPrice=priceService.getProductTotalPrice(pr.getRetailPrice(),pr.getRetailGSTpercentage(),pr.getQuantity());
 			pr.setTotalPrice(new SimpleDoubleProperty(totalPrice));
@@ -410,10 +410,10 @@ public class ManageInvoiceController implements Initializable {
 			subtractedAmont=totalGSTAddedAmount-taxableAmount;
 			totalCGSTAmount=totalSGSTAmount=(subtractedAmont/2);
 		    }
-		taxableAmt.setText(Double.toString(taxableAmount));
-		totalCGST.setText(Double.toString(totalCGSTAmount));
-		totalSGST.setText(Double.toString(totalSGSTAmount));
-		totalAmt.setText(Double.toString(totalGSTAddedAmount));
+		taxableAmt.setText(Double.toString(Calculate.getFormatedDoubleValue(taxableAmount)));
+		totalCGST.setText(Double.toString(Calculate.getFormatedDoubleValue(totalCGSTAmount)));
+		totalSGST.setText(Double.toString(Calculate.getFormatedDoubleValue(totalSGSTAmount)));
+		totalAmt.setText(Double.toString(Calculate.getFormatedDoubleValue(totalGSTAddedAmount)));
 		
 	}
 
@@ -492,10 +492,11 @@ public class ManageInvoiceController implements Initializable {
 	
 	private void updateProductStock() {
 		for(Product product:data) {
-			double stock=product.getStock()-product.getQuantity();
-			if(stock>=0) {
-				product.setStock(new SimpleDoubleProperty(stock));
-				boolean stockUpdated=productService.updateProductStock(product.getProductId(),product.getStock());
+			//double stock=product.getStock()-product.getQuantity();
+			if(product.getQuantity()>=0) {
+				//product.setStock(new SimpleDoubleProperty(stock));
+				Product prd=productService.updateProductStock(product.getProductId(),product.getQuantity());
+				
 			}
 		}
 	}	

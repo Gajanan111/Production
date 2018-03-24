@@ -104,9 +104,10 @@ public class ProductService {
 		deleted=unitDAO.deleteUnit(unitId);
 		return deleted;
 	}
-	public boolean updateProductStock(int id,double stock) {
-		boolean updateStock=productDAO.updateProductStock(id,stock);
-		return updateStock;
+	public Product updateProductStock(int id,double quantity) {
+		ProductEntity productEntity=productDAO.updateProductStock(id,quantity);
+		Product product=entityTOModelMapper.getProductModel(productEntity);
+		return product;
 	}
 	
 	/**
@@ -132,4 +133,23 @@ public class ProductService {
 		return prdCode;
 	}
 	
+	public List<Product> bulkUpdateProducts(List<Product> products ) {
+		List<ProductEntity> productEntities=modelTOEntityMapper.getProdEntities(products);
+		productEntities=productDAO.bulkUpdateProduct(productEntities);
+		List<Product> updatedProducts=entityTOModelMapper.getProductModels(productEntities);
+		return updatedProducts;
+		
+	}
+	
+	/**
+	 * Updating the stock of product after purchasing the product
+	 * @param id
+	 * @param quantity
+	 * @return Product
+	 */
+	public Product purchaseProductStock(int id,double quantity) {
+		ProductEntity productEntity=productDAO.purchaseProductStock(id,quantity);
+		Product product=entityTOModelMapper.getProductModel(productEntity);
+		return product;
+	}
 }
