@@ -295,8 +295,8 @@ public class PurchaseOrderController implements Initializable{
 	 */
 	private void clearAllFields() {
 		
-		totalAmount.clear();;
-		supplierIdName.clear();;
+		totalAmount.clear();
+		supplierIdName.clear();
 		address.clear();
         mobileNo.clear();
 		city.clear();
