@@ -60,7 +60,7 @@ public class AddSupplierController implements Initializable{
 	@FXML
 	TextField supplierAccountNO;
 	@FXML
-	TextField supplierTaxRegNO;
+	TextField supplierGstNO;
 	@FXML
 	TextField supplierBillingRate;
 	@FXML
@@ -127,7 +127,7 @@ public class AddSupplierController implements Initializable{
 		
 		
 		String supplAccountNo=supplierAccountNO.getText();
-		String supplTaxRegNo=supplierTaxRegNO.getText();
+		String supplTaxRegNo=supplierGstNO.getText();
 		String  supplBillingRate;
 		if(supplierBillingRate.getText().isEmpty()) {
 			supplBillingRate="0";
@@ -166,7 +166,7 @@ public class AddSupplierController implements Initializable{
 		sup.setSupplierFaxNo(new SimpleStringProperty(supplFaxNo));
 		sup.setSupplierWebsite(new SimpleStringProperty(supplWebsite));
 		sup.setSupplierUnpaidBalance(new SimpleDoubleProperty(supplUnpaidBalance));
-		sup.setSupplierTaxRegNo(new SimpleStringProperty(supplTaxRegNo));
+		sup.setSupplierGstNo(new SimpleStringProperty(supplTaxRegNo));
 		sup.setSupplierOther(new SimpleStringProperty(supplOther));
 		sup.setSupplierMobileNo(new SimpleStringProperty(supplMobileNo));
 		sup.setSupplierPhoneNo(new SimpleStringProperty(supplPhoneNo));
@@ -233,7 +233,7 @@ public class AddSupplierController implements Initializable{
 			supplierwebsite.setText(supModel.getSupplierWebsite());
 			supplierUnpaidBalance.setText(String.valueOf(supModel.getSupplierUnpaidBalance()));
 		    supplierAccountNO.setText(supModel.getSupplierAccountNo());
-			supplierTaxRegNO.setText(supModel.getSupplierTaxRegNo());
+			supplierGstNO.setText(supModel.getSupplierGstNo());
 			supplierBillingRate.setText(String.valueOf(supModel.getSupplierBillingRate()));
 			supplierEmailID.setText(supModel.getSupplierEmailID());
 			supplierOtherInfo.setText(supModel.getSupplierOther());
@@ -280,7 +280,7 @@ public class AddSupplierController implements Initializable{
 		supplierwebsite.setText("");
 		supplierUnpaidBalance.setText("");
 	    supplierAccountNO.setText("");
-		supplierTaxRegNO.setText("");
+		supplierGstNO.setText("");
 		supplierBillingRate.setText("");
 		supplierEmailID.setText("");
 		supplierOtherInfo.setText("");

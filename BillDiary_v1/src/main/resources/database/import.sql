@@ -123,7 +123,7 @@ create table if not exists supplier
 						,supplier_unpaid_balance double
 						,supplier_asofdate date 
 						,supplier_account_no varchar(30) 
-						,supplier_tax_reg_no varchar(30)
+						,supplier_gst_no varchar(30)
 						,supplier_billing_rate double
 						,supplier_other varchar(30)
 						,address_id BIGINT 

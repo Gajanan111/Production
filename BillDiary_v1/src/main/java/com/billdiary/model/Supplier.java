@@ -1,7 +1,7 @@
 package com.billdiary.model;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 
 import com.billdiary.utility.IconGallery;
 
@@ -28,7 +28,7 @@ public class Supplier {
 	private SimpleDoubleProperty supplierUnpaidBalance;
 	private DatePicker supplierAsOfDate;
 	private SimpleStringProperty supplierAccountNo;
-	private SimpleStringProperty supplierTaxRegNo;
+	private SimpleStringProperty supplierGstNo;
 	private SimpleDoubleProperty  supplierBillingRate;
 	private SimpleStringProperty supplierOther;
 	private ReadOnlyStringProperty asOfDateStr;
@@ -165,11 +165,12 @@ public class Supplier {
 	public void setSupplierAccountNo(SimpleStringProperty supplierAccountNo) {
 		this.supplierAccountNo = supplierAccountNo;
 	}
-	public String getSupplierTaxRegNo() {
-		return supplierTaxRegNo.get();
+	
+	public String getSupplierGstNo() {
+		return supplierGstNo.get();
 	}
-	public void setSupplierTaxRegNo(SimpleStringProperty supplierTaxRegNo) {
-		this.supplierTaxRegNo = supplierTaxRegNo;
+	public void setSupplierGstNo(SimpleStringProperty supplierGstNo) {
+		this.supplierGstNo = supplierGstNo;
 	}
 	public double getSupplierBillingRate() {
 		return supplierBillingRate.get();

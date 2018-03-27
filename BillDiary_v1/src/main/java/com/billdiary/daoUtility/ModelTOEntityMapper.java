@@ -68,7 +68,7 @@ public class ModelTOEntityMapper {
 		supEntity.setSupplierFaxNo(sup.getSupplierFaxNo());
 		supEntity.setSupplierWebsite(sup.getSupplierWebsite());
 		supEntity.setSupplierUnpaidBalance(sup.getSupplierUnpaidBalance());
-		supEntity.setSupplierTaxRegNo(sup.getSupplierTaxRegNo());
+		supEntity.setSupplierGstNo(sup.getSupplierGstNo());
 		supEntity.setSupplierOther(sup.getSupplierOther());
 		supEntity.setSupplierMobileNo(sup.getSupplierMobileNo());
 		supEntity.setSupplierPhoneNo(sup.getSupplierPhoneNo());

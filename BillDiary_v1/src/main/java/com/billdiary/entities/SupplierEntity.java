@@ -60,8 +60,8 @@ public class SupplierEntity implements Serializable{
 	@Column(name = "supplier_account_no")
 	private String supplierAccountNo; 
 	
-	@Column(name = "supplier_tax_reg_no")
-	private String supplierTaxRegNo;
+	@Column(name = "supplier_gst_no")
+	private String supplierGstNo;
 	
 	@Column(name = "supplier_billing_rate")
 	private double supplierBillingRate; 
@@ -167,13 +167,14 @@ public class SupplierEntity implements Serializable{
 	public void setSupplierAccountNo(String supplierAccountNo) {
 		this.supplierAccountNo = supplierAccountNo;
 	}
+	
 
-	public String getSupplierTaxRegNo() {
-		return supplierTaxRegNo;
+	public String getSupplierGstNo() {
+		return supplierGstNo;
 	}
 
-	public void setSupplierTaxRegNo(String supplierTaxRegNo) {
-		this.supplierTaxRegNo = supplierTaxRegNo;
+	public void setSupplierGstNo(String supplierGstNo) {
+		this.supplierGstNo = supplierGstNo;
 	}
 
 	public double getSupplierBillingRate() {

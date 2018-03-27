@@ -44,7 +44,7 @@ public class EntityTOModelMapper {
 			sup.setSupplierFaxNo(new SimpleStringProperty(supEntity.getSupplierFaxNo()));
 			sup.setSupplierWebsite(new SimpleStringProperty(supEntity.getSupplierWebsite()));
 			sup.setSupplierUnpaidBalance(new SimpleDoubleProperty(supEntity.getSupplierUnpaidBalance()));
-			sup.setSupplierTaxRegNo(new SimpleStringProperty(supEntity.getSupplierTaxRegNo()));
+			sup.setSupplierGstNo(new SimpleStringProperty(supEntity.getSupplierGstNo()));
 			sup.setSupplierOther(new SimpleStringProperty(supEntity.getSupplierOther()));
 			sup.setSupplierMobileNo(new SimpleStringProperty(supEntity.getSupplierMobileNo()));
 			sup.setSupplierPhoneNo(new SimpleStringProperty(supEntity.getSupplierPhoneNo()));
@@ -77,7 +77,7 @@ public class EntityTOModelMapper {
 		sup.setSupplierFaxNo(new SimpleStringProperty(supEntity.getSupplierFaxNo()));
 		sup.setSupplierWebsite(new SimpleStringProperty(supEntity.getSupplierWebsite()));
 		sup.setSupplierUnpaidBalance(new SimpleDoubleProperty(supEntity.getSupplierUnpaidBalance()));
-		sup.setSupplierTaxRegNo(new SimpleStringProperty(supEntity.getSupplierTaxRegNo()));
+		sup.setSupplierGstNo(new SimpleStringProperty(supEntity.getSupplierGstNo()));
 		sup.setSupplierOther(new SimpleStringProperty(supEntity.getSupplierOther()));
 		sup.setSupplierMobileNo(new SimpleStringProperty(supEntity.getSupplierMobileNo()));
 		sup.setSupplierPhoneNo(new SimpleStringProperty(supEntity.getSupplierPhoneNo()));

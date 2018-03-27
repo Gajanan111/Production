@@ -176,7 +176,7 @@ public class PurchaseOrderController implements Initializable{
 				address.setText(addr.getStreet1());
 				mobileNo.setText(selectedSupplier.getSupplierMobileNo());
 				city.setText(addr.getCity());
-				gstNo.setText(selectedSupplier.getSupplierTaxRegNo());
+				gstNo.setText(selectedSupplier.getSupplierGstNo());
 			}
 		}
 		

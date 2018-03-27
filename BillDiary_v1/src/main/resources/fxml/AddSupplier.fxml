@@ -65,7 +65,7 @@
             <Text layoutX="423.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unpaid Balance" />
             <Text layoutX="423.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="As Of Date" />
             <Text layoutX="423.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account NO" />
-            <Text layoutX="423.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tax Reg. NO" />
+            <Text layoutX="423.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GST NO" />
             <Text layoutX="56.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing Rate" />
          </children>
       </Pane>
