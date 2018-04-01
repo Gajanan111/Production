@@ -90,4 +90,12 @@ public class CustomerService {
 		List<Customer> customerList=entityTOModelMapper.getCustomerModels(customerEntities);
 		return customerList;
 	}
+
+
+	public void updateCustomerBalance(Integer customerID, Double amount) {
+		
+		// TODO Auto-generated method stub
+		CustomerEntity custEntity=customerDAO.updateCustomerBalance(customerID,amount);
+		
+	}
 }

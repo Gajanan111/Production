@@ -51,6 +51,11 @@ public class Constants {
 	public static final String ERROR_DELETE_UNIT="Something Went wrong while deleting Unit";
 	public static final String DELETE_UNIT="Unit Deleted!";
 	
+	/**
+	 * ManageInvoiceController messages
+	 */
+	public static final String INVALID_QUANTITY="Please select a valid quantity";
+	public static final String INVALID_PRODUCT="Please select a Product";
 	
 	
 	/**

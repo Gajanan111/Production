@@ -148,7 +148,7 @@ public class ManageInvoiceController implements Initializable {
 		//invDate.setText(localDate.toString() + " (YYYY-DD-MM)");
 		invIssueDate.setValue(localDate);
 		invDueDate.setValue(localDate);
-		int invoiceNO = calculateInvoiceNO();
+		//int invoiceNO = calculateInvoiceNO();
 		invNO.setText(invoiceService.generateInvoiceNO());
 		
 		
@@ -354,17 +354,18 @@ public class ManageInvoiceController implements Initializable {
 		}
 	}
 	private void addProduct() {
-		if (null != selectedProduct) {
+		if(null==selectedProduct) {
+			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.INVALID_PRODUCT,AlertType.ERROR);
+		}else if(invProductQuantity.getText()=="" || invProductQuantity.getText().isEmpty() || invProductQuantity.getText().equals("0")) {
+			Popup.showErrorAlert(Constants.ERROR_TITLE,Constants.INVALID_QUANTITY,AlertType.ERROR);
+		}else {
 			Product pr=new Product();
 			pr=(Product)selectedProduct.clone();
 			/*pr.setProductId(new SimpleIntegerProperty(selectedProduct.getProductId()));
 			pr.setName(new SimpleStringProperty(selectedProduct.getName()));
 			pr.setDescription(new SimpleStringProperty(selectedProduct.getDescription()));
 			pr.setRetailPrice(new SimpleDoubleProperty(selectedProduct.getRetailPrice()));
-	        pr.setDiscount(new SimpleDoubleProperty(selectedProduct.getDiscount()));*/
-	        
-	        
-			if(invProductQuantity.getText()!="") {
+	        pr.setDiscount(new SimpleDoubleProperty(selectedProduct.getDiscount()));*/			
 			pr.setSerialNumber(new SimpleIntegerProperty(productTable.getItems().size() + 1));
 			pr.setQuantity(new SimpleDoubleProperty(Double.parseDouble(invProductQuantity.getText())));
 			
@@ -378,7 +379,7 @@ public class ManageInvoiceController implements Initializable {
 			data.add(pr);
 			int index=data.size()-1;
 			pr.getDelete().setOnAction(e->deleteButtonClickedThroughHyperlink(index));
-			}
+			
 			productTable.setItems(data);
 			calculateTotalAmount();
 			invProductName.clear();
@@ -386,7 +387,6 @@ public class ManageInvoiceController implements Initializable {
 			invProductQuantity.clear();
 			selectedProduct=null;
 			calculateGST();
-			
 		}
 	}
 	
@@ -484,12 +484,21 @@ public class ManageInvoiceController implements Initializable {
 		invoiceSaved=invoiceService.save(inv);
 		if(invoiceSaved) {
 			updateProductStock();
+			updateCustomerBalance(cust,Double.parseDouble(amountDue.getText()));
 			LOGGER.info("Product Stock updated");	
 		}
 		return invoiceSaved;
 	}
 	
 	
+	private void updateCustomerBalance(Customer cust,Double amount) {
+		
+		// TODO Auto-generated method stub
+		customerService.updateCustomerBalance(cust.getCustomerID(),amount);
+		
+		
+	}
+
 	private void updateProductStock() {
 		for(Product product:data) {
 			//double stock=product.getStock()-product.getQuantity();
@@ -573,6 +582,7 @@ public class ManageInvoiceController implements Initializable {
 		return invoiceTemplate;	
 	}
 	private void clearAllFields() {
+		invNO.setText(invoiceService.generateInvoiceNO());
 		paidAmount.clear();
 		totalAmount.clear();
 		bigFinalAmount.clear();

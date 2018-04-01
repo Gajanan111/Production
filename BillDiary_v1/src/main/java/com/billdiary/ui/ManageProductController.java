@@ -42,6 +42,7 @@ import javafx.util.converter.LongStringConverter;
 public class ManageProductController implements Initializable{
 	@Autowired
 	public LayoutController layoutController;
+	
 	@Autowired
 	AddProductController addProductController;
 	//final static Logger LOGGER = Logger.getLogger(ManageProductController.class);

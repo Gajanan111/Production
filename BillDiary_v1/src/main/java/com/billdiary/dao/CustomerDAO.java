@@ -138,4 +138,13 @@ public class CustomerDAO extends AbstractJpaDAO< CustomerEntity >{
 		return customerEntities;
 	}
 	
+	@Transactional
+	public CustomerEntity updateCustomerBalance(Integer customerID, Double amount) {
+		// TODO Auto-generated method stub
+		CustomerEntity custEntity=entityManager.find(CustomerEntity.class, customerID);
+		custEntity.setBalance(custEntity.getBalance()+amount);
+		custEntity=entityManager.merge(custEntity);
+		return custEntity;
+	}
+	
 }

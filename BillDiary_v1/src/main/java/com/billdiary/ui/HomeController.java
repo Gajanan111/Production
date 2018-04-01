@@ -20,6 +20,7 @@ import javafx.scene.layout.StackPane;
 
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+
 @Controller("HomeController")
 public class HomeController {
 	

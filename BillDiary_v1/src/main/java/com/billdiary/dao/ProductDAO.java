@@ -33,11 +33,17 @@ public class ProductDAO extends AbstractJpaDAO< ProductEntity >{
 	{
 		setClazz(ProductEntity.class );
 	}
+	
+	
 	public List<ProductEntity> fetchProducts()
 	{
 		List<ProductEntity> p=findAll();
 		return p;
 	}
+	
+	
+	
+	
 	@Transactional
 	public boolean deleteProduct(int productId)
 	{
