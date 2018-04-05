@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,23 +132,25 @@ public class ShopController  {
 		{
 			
 				File first = new File(selectedFile.getAbsolutePath());
-				File dir =new File("C:\\bill\\Logos");
-				if(!dir.exists())
+				//File dir =new File("C:\\bill\\Logos");
+				//URL dirURL = getClass().getResource("/logo");
+				File logoDir = new File("/logo");
+				if(!logoDir.exists())
 				{
-					dir.mkdir();
+					logoDir.mkdir();
 				}
-				File second = new File("C:\\bill\\Logos\\userName.png");
-				if(!second.exists())
+				//File second = new File("C:\\bill\\Logos\\userName.png");
+				URL url = getClass().getResource("/logo/ShopLogo.png");
+				File logoFile = new File(url.getPath());
+				if(!logoFile.exists())
 				{
-					second.createNewFile();	
+					logoFile.createNewFile();	
 				}
 				
 				/*FileUtils.copyFileToDirectory(first,second);*/
-				copyFile(first,second);
+				copyFile(first,logoFile);
 				System.out.println(true);
-				Logo.setText(second.getName());
-				
-			
+				Logo.setText(logoFile.getName());
 		}
 		else
 		{
