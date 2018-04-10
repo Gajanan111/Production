@@ -1,9 +1,12 @@
 package com.billdiary.ui;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -40,6 +43,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
@@ -93,6 +97,7 @@ public class ManageInvoiceController implements Initializable {
 	@FXML DatePicker invIssueDate;
 	@FXML DatePicker invDueDate;
 	@FXML TextField invCustName;
+	@FXML CheckBox checkdefaultCustomer;
 	@FXML TextField invProductName;
 	@FXML TextField invProductQuantity;
 	@FXML TextField invProductPrice;
@@ -105,22 +110,14 @@ public class ManageInvoiceController implements Initializable {
 	@FXML
 	TableView<Product> productTable;
 	private ObservableList<Product> data = FXCollections.observableArrayList();
-	@FXML
-	TableColumn<Product, Double> productQuantity;
-	@FXML
-	TableColumn<Product, Double> ratePrice;
-	@FXML
-	TableColumn<Product, Double> productDiscount;
-	@FXML
-	TableColumn<Product, Integer> productID;
-	@FXML
-	TableColumn<Product, Integer> serialNumber;
-	@FXML
-	TableColumn<Product, Double> totalPrice;
-	@FXML
-	TableColumn<Product, Double> gstRate;
-	@FXML
-	TableColumn<Product, Double> mrpPrice;;
+	@FXML TableColumn<Product, Double> productQuantity;
+	@FXML TableColumn<Product, Double> ratePrice;
+	@FXML TableColumn<Product, Double> productDiscount;
+	@FXML TableColumn<Product, Integer> productID;
+	@FXML TableColumn<Product, Integer> serialNumber;
+	@FXML TableColumn<Product, Double> totalPrice;
+	@FXML TableColumn<Product, Double> gstRate;
+	@FXML TableColumn<Product, Double> mrpPrice;;
 	
 
 	Customer selectedCustomer = null;
@@ -279,31 +276,9 @@ public class ManageInvoiceController implements Initializable {
 		TextFields.bindAutoCompletion(invProductName, productNameList).setVisibleRowCount(5);
 	}
 	
-	@FXML
-	public void handleAddNewCustomer(KeyEvent event) {
-		if ((KeyCode) event.getCode() == KeyCode.ENTER) {
-			try {
-				showAddNewCustomerPage();
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
 	
-	public void showAddNewCustomerPage() {
-		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
-		// ResourceBundle bundle = ResourceBundle.getBundle("resources.UIResources");
-		StackPane addCustomer = (StackPane) loader.load(URLS.ADD_CUSTOMER);
-		ApplicationContext applicationContext = SpringFxmlLoader.getApplicationcontext();
-		AddCustomerController addCustomerController = (AddCustomerController) applicationContext
-				.getBean("AddCustomerController");
-		addCustomerController.setParentName("InvoiceController");
-		BorderPane root = new BorderPane();
-		root.setCenter(addCustomer);
-		layoutController.loadWindow(root, "Add Customer Details", Constants.POPUP_WINDOW_WIDTH,
-				Constants.POPUP_WINDOW_HEIGHT);
-
-	}
+	
+	
 
 	@FXML
 	public void handleKeyAction(KeyEvent event) {
@@ -431,15 +406,7 @@ public class ManageInvoiceController implements Initializable {
 		calculateGST();
 	}
 	
-	@FXML
-	public void addNewCustomer() {
-		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
-		StackPane addCustomer = (StackPane) loader.load(URLS.ADD_CUSTOMER);
-		BorderPane root = new BorderPane();
-		root.setCenter(addCustomer);
-		layoutController.loadWindow(root, "Add New Customer", Constants.SEARCH_CUSTOMER_WIDTH,
-				Constants.SEARCH_CUSTOMER_HEIGHT);
-	}
+	
 	
 	@FXML
 	public void addProdcutToTable() {
@@ -458,9 +425,7 @@ public class ManageInvoiceController implements Initializable {
 	}
 	
 	public Customer getCustomer(String custID) {
-		Customer cust=	custList.stream()
-		.filter(x -> (String.valueOf(x.getCustomerID())).equals(custID)).findAny()
-		.orElse(null);
+		Customer cust=customerService.getCustomerById(custID);
 		return cust;
 	}
 	
@@ -523,19 +488,62 @@ public class ManageInvoiceController implements Initializable {
 		}
 		
 	}
+	
+	@FXML public void  selectDefaultCustomer() {
+		if(checkdefaultCustomer.isSelected()) {
+			Customer cust=customerService.getDefaultCustomer();
+			if(cust!=null)
+				selectedCustomer=cust;
+			invCustName.setText(selectedCustomer.getCustomerID()+" "+selectedCustomer.getCustomerName()+" "+selectedCustomer.getMobile_no());
+			invAddress.setText(selectedCustomer.getAddress());
+			invMobileNo.setText(selectedCustomer.getMobile_no());
+			invCustName.setEditable(false);
+			invAddress.setEditable(false);
+			invMobileNo.setEditable(false);
+		}else {
+			invCustName.clear();
+			invAddress.clear();
+			invMobileNo.clear();
+			invCustName.setEditable(true);
+			invAddress.setEditable(true);
+			invMobileNo.setEditable(true);
+			selectedCustomer=null;
+		}
+	}
+	
+	
 	@FXML
 	public void generateInvoiceSaveAndPrint(ActionEvent event) {
 		System.out.println("generateInvoiceSaveAndPrint");
-		
-		if(saveInvoice()) {
-			System.out.println("Invoice saved");
-			createPDF();
-			clearAllFields();
-			LOGGER.info("Invoice saved & PDF Generated");
-						
-		}else {
-			System.out.println("invoice not saved");
-			Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_UNSUCCESSFULL_STATUS,AlertType.INFORMATION);
+		if(null==selectedCustomer) {
+			if(null==invCustName.getText() || invCustName.getText().isEmpty() || null==invMobileNo || invMobileNo.getText().isEmpty()) {
+				Popup.showAlert(Constants.INVOICE_ERROR,Constants.INVOICE_CUSTOMER_EMPTY,AlertType.ERROR);
+			}else {
+				Customer customer=new Customer();
+				customer.setCustomerName(new SimpleStringProperty(invCustName.getText()));
+				customer.setAddress(new SimpleStringProperty(invAddress.getText()==null?"":invAddress.getText()));
+				customer.setMobile_no(new SimpleStringProperty(invMobileNo.getText()));
+				customer.setStatus(new SimpleStringProperty(Constants.ACTIVE));
+				DateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMAT);
+				String strDate = dateFormat.format(new Date());
+				customer.setRegistrationDate(new SimpleStringProperty(strDate));
+				customer=customerService.addNewCustomerByInvoive(customer);
+				selectedCustomer=customer;
+				invCustName.setText(selectedCustomer.getCustomerID()+" "+selectedCustomer.getCustomerName()+" "+selectedCustomer.getMobile_no());
+			}
+			
+		}
+		if(null!=selectedCustomer) {
+			if(saveInvoice()) {
+				System.out.println("Invoice saved");
+				createPDF();
+				clearAllFields();
+				LOGGER.info("Invoice saved & PDF Generated");
+							
+			}else {
+				System.out.println("invoice not saved");
+				Popup.showAlert(Constants.INVOICE_TITLE,Constants.INVOICE_UNSUCCESSFULL_STATUS,AlertType.INFORMATION);
+			}
 		}
 		
 	}
@@ -589,9 +597,10 @@ public class ManageInvoiceController implements Initializable {
 		amountDue.clear();
 		discount.clear();
 		finalAmount.clear();
-		invAddress.clear();
-		invMobileNo.clear();
-		invCustName.clear();
+		selectDefaultCustomer();
+		//invAddress.clear();
+		//invMobileNo.clear();
+		//invCustName.clear();
 		invProductName.clear();
 		invProductQuantity.clear();
 		invProductPrice.clear();
@@ -602,5 +611,39 @@ public class ManageInvoiceController implements Initializable {
 		data.clear();
 	}
 	
+	/*@FXML
+	public void addNewCustomer() {
+		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
+		StackPane addCustomer = (StackPane) loader.load(URLS.ADD_CUSTOMER);
+		BorderPane root = new BorderPane();
+		root.setCenter(addCustomer);
+		layoutController.loadWindow(root, "Add New Customer", Constants.SEARCH_CUSTOMER_WIDTH,
+				Constants.SEARCH_CUSTOMER_HEIGHT);
+	}*/
 	
+	/*@FXML
+	public void handleAddNewCustomer(KeyEvent event) {
+		if ((KeyCode) event.getCode() == KeyCode.ENTER) {
+			try {
+				showAddNewCustomerPage();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}*/
+	
+	/*public void showAddNewCustomerPage() {
+		SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
+		// ResourceBundle bundle = ResourceBundle.getBundle("resources.UIResources");
+		StackPane addCustomer = (StackPane) loader.load(URLS.ADD_CUSTOMER);
+		ApplicationContext applicationContext = SpringFxmlLoader.getApplicationcontext();
+		AddCustomerController addCustomerController = (AddCustomerController) applicationContext
+				.getBean("AddCustomerController");
+		addCustomerController.setParentName("InvoiceController");
+		BorderPane root = new BorderPane();
+		root.setCenter(addCustomer);
+		layoutController.loadWindow(root, "Add Customer Details", Constants.POPUP_WINDOW_WIDTH,
+				Constants.POPUP_WINDOW_HEIGHT);
+
+	}*/
 }

@@ -98,4 +98,26 @@ public class CustomerService {
 		CustomerEntity custEntity=customerDAO.updateCustomerBalance(customerID,amount);
 		
 	}
+
+
+	public Customer getDefaultCustomer() {
+		CustomerEntity custEntity=customerDAO.getDefaultCustomer();
+		Customer cust=entityTOModelMapper.getCustomerOneModel(custEntity);
+		return cust;
+	}
+
+
+	public Customer addNewCustomerByInvoive(Customer customer) {
+		CustomerEntity custEntity=modelTOEntityMapper.getCustomerEntity(customer);
+		custEntity=customerDAO.addNewCustomerByInvoive(custEntity);
+		Customer cust=entityTOModelMapper.getCustomerOneModel(custEntity);
+		return cust;
+	}
+
+
+	public Customer getCustomerById(String custID) {
+		CustomerEntity custEntity=customerDAO.getCustomerById(Integer.parseInt(custID));
+		Customer cust=entityTOModelMapper.getCustomerOneModel(custEntity);
+		return cust;
+	}
 }

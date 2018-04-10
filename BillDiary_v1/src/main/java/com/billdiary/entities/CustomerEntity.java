@@ -12,12 +12,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "customer")
+@NamedQueries({
+		@NamedQuery(
+	             name = "CustomerEntity.getDefaultCustomer",
+	             query = "SELECT cust FROM CustomerEntity cust WHERE cust.customerName =:customerName and cust.address=:address and cust.mobile_no=:mobile_no"
+	             ),
+		@NamedQuery(
+	             name = "CustomerEntity.findDefaultCustomer",
+	             query = "SELECT count(*) FROM CustomerEntity cust WHERE cust.customerName =:customerName and cust.address=:address and cust.mobile_no=:mobile_no"
+	             ),
+})
 public class CustomerEntity implements Serializable {
 	
 	/**

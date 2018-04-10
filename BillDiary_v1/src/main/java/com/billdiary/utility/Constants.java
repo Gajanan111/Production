@@ -31,7 +31,12 @@ public class Constants {
 	public static final String INVOICE_SUCCESSFULL_STATUS="Invoice SuccessFull!";
 	public static final String INVOICE_UNSUCCESSFULL_STATUS="Invoice Unsucessfull!";
 	public static final String INVOICE_SUCCESSFULL_PDF_STATUS="Invoice SuccessFull and PDF generated at";
-	
+	public static final String INVOICE_ERROR="Invoice ERROR";
+	public static final String INVOICE_CUSTOMER_EMPTY="Customer Name and mobile no can not be empty";
+	public static final String DEFAULT_CUSTOMER_NAME="XYZ";
+	public static final String DEFAULT_CUSTOMER_ADDRESS="ABCD";
+	public static final String DEFAULT_CUSTOMER_MOBILE_NO="1234567890";
+	public static final String DATE_FORMAT="MM/dd/yyyy";
 	
 	/**
 	 * Validation Messages

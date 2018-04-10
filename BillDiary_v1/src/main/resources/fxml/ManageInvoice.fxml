@@ -17,7 +17,6 @@
             <Pane maxHeight="600.0" maxWidth="995.0" minHeight="600.0" minWidth="990.0" prefHeight="600.0" prefWidth="995.0">
                <children>
                   <TextField fx:id="invCustName" layoutX="140.0" layoutY="29.0" onKeyPressed="#handleKeyActionEnter" prefHeight="25.0" prefWidth="141.0" promptText="Type Customer Name" />
-                  <Button layoutX="291.0" layoutY="29.0" mnemonicParsing="false" onAction="#showAddNewCustomerPage" onKeyPressed="#handleAddNewCustomer" prefHeight="25.0" prefWidth="122.0" text="Add New Customer" />
                   <TextArea fx:id="invAddress" layoutX="139.0" layoutY="66.0" prefHeight="40.0" prefWidth="141.0" />
                   <TextField fx:id="invMobileNo" layoutX="140.0" layoutY="115.0" prefHeight="25.0" prefWidth="141.0" promptText="XXXXXXXXXX" />
                   <DatePicker fx:id="invIssueDate" layoutX="594.0" layoutY="74.0" prefHeight="25.0" prefWidth="148.0" />
@@ -156,6 +155,7 @@
                   <Text layoutX="178.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" />
                   <Text layoutX="268.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="=" />
                   <Text layoutX="22.0" layoutY="496.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Taxable Amt" />
+                  <CheckBox fx:id="checkdefaultCustomer" layoutX="291.0" layoutY="33.0" mnemonicParsing="false" onAction="#selectDefaultCustomer" text="Default Customer" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

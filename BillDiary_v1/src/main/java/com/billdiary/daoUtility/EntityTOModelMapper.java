@@ -206,6 +206,13 @@ public class EntityTOModelMapper {
 		cust.setBirth_date(customerEntity.getBirth_Date());
 		cust.setBalance(new SimpleDoubleProperty(customerEntity.getBalance()));
 		cust.setStatus(new SimpleStringProperty(customerEntity.getStatus()));
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		if(null!=customerEntity.getRegDate()) {
+			String strDate = dateFormat.format(customerEntity.getRegDate());
+			cust.setRegistrationDate(new SimpleStringProperty(strDate));
+		}else {
+			cust.setRegistrationDate(new SimpleStringProperty(""));
+		}
 		}catch(Exception e)
 		{
 			System.out.println("Mapper"+ e.getMessage());

@@ -67,7 +67,7 @@ public class Customer {
 	
 	
 	public String getStatus() {
-		return status.get();
+		return (null==status?"":status.get());
 	}
 
 	public void setStatus(SimpleStringProperty status) {
@@ -173,11 +173,11 @@ public class Customer {
 	}
 
 	public String getCity() {
-		return city.get();
+		return (null==city?"":city.get());
 	}
 
 	public String getCountry() {
-		return country.get();
+		return (null==country?"":country.get());
 	}
 	
 	public String getCustomerName() {
@@ -189,7 +189,7 @@ public class Customer {
 	}
 
 	public String getEmailID() {
-		return emailID.get();
+		return (null==emailID?"":emailID.get());
 	}
 
 	public void setEmailID(SimpleStringProperty emailID) {
@@ -222,12 +222,8 @@ public class Customer {
 	}
 
 	public String getCustomerGroup() {
-		if(null==customerGroup)
-		{
-			return "";
-		}
-		else
-		return customerGroup.get();
+		
+		return (null==customerGroup?"":customerGroup.get());
 	}
 
 	public void setCustomerGroup(SimpleStringProperty customerGroup) {
@@ -235,12 +231,8 @@ public class Customer {
 	}
 
 	public String getState() {
-		if(null==state)
-		{
-			return "";
-		}
-		else
-		return state.get();
+		
+		return (null==state?"":state.get());
 	}
 
 	public void setState(SimpleStringProperty state) {
@@ -248,12 +240,8 @@ public class Customer {
 	}
 
 	public String getZipCode() {
-		if(null==zipCode)
-		{
-			return "";
-		}
-		else
-		return zipCode.get();
+		
+		return (null==zipCode?"":zipCode.get());
 		
 	}
 
@@ -261,12 +249,8 @@ public class Customer {
 		this.zipCode = zipCode;
 	}
 	public String getAddAdditionalInfo() {
-		if(null==addAdditionalInfo)
-		{
-			return "";
-		}
-		else
-		return addAdditionalInfo.get();
+		
+		return (null==addAdditionalInfo?"":addAdditionalInfo.get());
 		
 	}
 
@@ -274,14 +258,14 @@ public class Customer {
 		this.addAdditionalInfo = addAdditionalInfo;
 	}
 	public String getRegistrationDate() {
-		return registrationDate.get();
+		return (null==registrationDate?"":registrationDate.get());
 	}
 
 	public void setRegistrationDate(SimpleStringProperty registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 	public Double getBalance() {
-		return balance.get();
+		return (null==balance?0.00:balance.get());
 	}
 
 	public void setBalance(SimpleDoubleProperty balance) {
