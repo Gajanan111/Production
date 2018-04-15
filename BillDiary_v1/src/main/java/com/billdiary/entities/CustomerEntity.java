@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +25,7 @@ import javax.persistence.Table;
 	             ),
 		@NamedQuery(
 	             name = "CustomerEntity.findDefaultCustomer",
-	             query = "SELECT count(*) FROM CustomerEntity cust WHERE cust.customerName =:customerName and cust.address=:address and cust.mobile_no=:mobile_no"
+	             query = "SELECT count(cust.customerID) FROM CustomerEntity cust WHERE cust.customerName =:customerName and cust.address=:address and cust.mobile_no=:mobile_no"
 	             ),
 })
 public class CustomerEntity implements Serializable {

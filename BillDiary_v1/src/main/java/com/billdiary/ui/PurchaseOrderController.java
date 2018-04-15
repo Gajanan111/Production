@@ -1,5 +1,10 @@
 package com.billdiary.ui;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +13,9 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.controlsfx.control.textfield.TextFields;
+import org.krysalis.barcode4j.impl.upcean.EAN13Bean;
+import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
+import org.krysalis.barcode4j.tools.UnitConv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -91,6 +99,30 @@ public class PurchaseOrderController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		
+		EAN13Bean barcodeBean=new EAN13Bean();
+		final int dpi = 160;
+		barcodeBean.setModuleWidth(UnitConv.in2mm(2.8f / dpi));
+		barcodeBean.doQuietZone(false);
+		String barCodePath = "D:/";
+		File outputFile = new File(barCodePath + "barcode" + ".JPG");
+
+	    FileOutputStream out;
+		try {
+			out = new FileOutputStream(outputFile);
+			 BitmapCanvasProvider canvas = new BitmapCanvasProvider(out, "image/x-png", dpi, BufferedImage.TYPE_BYTE_BINARY, false, 0);
+		      //Generate the barcode
+		    barcodeBean.generateBarcode(canvas, "123456789123");  
+		      //Signal end of generation
+		    canvas.finish();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	    
+	   
+		
 		supplierList.clear();
 		supplierNameList.clear();
 		productList.clear();

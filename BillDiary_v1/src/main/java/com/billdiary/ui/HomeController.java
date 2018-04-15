@@ -107,11 +107,18 @@ public class HomeController {
 	{
 	//	LOGGER.debug("Entering Class HomeController : method :showInvoice");
 		try{
-		centerBorderPane.setCenter(null);
-		SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
-		StackPane manageInvoice=(StackPane)loader.load(URLS.MANAGE_INVOICE);
-		mainViewTitle.setText("Invoice");
-		centerBorderPane.setCenter(manageInvoice);
+			/*centerBorderPane.setCenter(null);
+			SpringFxmlLoader loader=SpringFxmlLoader.getInstance();
+			StackPane manageInvoice=(StackPane)loader.load(URLS.MANAGE_INVOICE);
+			mainViewTitle.setText("Invoice");
+			centerBorderPane.setCenter(manageInvoice);
+			*/
+			SpringFxmlLoader loader = SpringFxmlLoader.getInstance();
+			StackPane manageInvoice = (StackPane) loader.load(URLS.MANAGE_INVOICE);
+			BorderPane root = new BorderPane();
+			root.setCenter(manageInvoice);
+			layoutController.loadWindow(root, "Invoice", Constants.INVOICE_WINDOW_WIDTH,
+					Constants.INVOICE_WINDOW_HEIGHT);
 		}
 		catch(Exception e)
 		{

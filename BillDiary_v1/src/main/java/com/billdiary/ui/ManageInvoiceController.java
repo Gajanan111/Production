@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.controlsfx.control.textfield.TextFields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.billdiary.config.SpringFxmlLoader;
@@ -63,6 +64,7 @@ import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 @Controller("ManageInvoiceController")
+@Scope("prototype")
 public class ManageInvoiceController implements Initializable {
 
 	final static Logger LOGGER = Logger.getLogger(ManageInvoiceController.class);

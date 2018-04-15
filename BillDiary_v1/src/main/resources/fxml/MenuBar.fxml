@@ -27,7 +27,8 @@
             <Menu mnemonicParsing="false" text="Shop Inventory">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#addProductDetails" text="Add Products" />
-                  <MenuItem mnemonicParsing="false" text="Stock Availability" />
+                <MenuItem mnemonicParsing="false" text="Stock Availability" />
+                <MenuItem mnemonicParsing="false" text="Generate Barcode" onAction="#showBarcodeHandler" />
               </items>
             </Menu>
                 <Menu mnemonicParsing="false" onAction="#initialize" text="Tools">
